@@ -50,4 +50,7 @@
   <url><loc>https://easyit-leipzig.de/lernzeitplaner.php</loc><priority>0.8</priority></url>
   <url><loc>https://easyit-leipzig.de/offline.php</loc><priority>0.1</priority></url>
   <url><loc>https://easyit-leipzig.de/blog.php</loc><priority>0.8</priority></url>
+  <url><loc>https://easyit-leipzig.de/nh_hor/tutor-bewertungen.php?tutor=olaf-thiele</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://easyit-leipzig.de/nh_hor/tutor-bewertungen.php?tutor=sprachentutorin</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://easyit-leipzig.de/nh_hor/tutor-bewertungen.php?tutor=ethiktutor</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
 </urlset>

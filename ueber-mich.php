@@ -41,8 +41,22 @@ function loadTutors(): array
         $competencies[(int)$item['tutor_id']][$item['category']][] = $item;
     }
 
+    $reviewStatement = db()->prepare(
+        "SELECT tutor_id, COUNT(*) AS review_count, ROUND(AVG(stars), 1) AS average_rating
+         FROM tutor_reviews
+         WHERE tutor_id IN ($placeholders) AND is_published = 1
+         GROUP BY tutor_id"
+    );
+    $reviewStatement->execute($ids);
+    $ratings = [];
+    foreach ($reviewStatement->fetchAll() as $rating) {
+        $ratings[(int)$rating['tutor_id']] = $rating;
+    }
+
     foreach ($tutors as &$tutor) {
         $tutor['competencies'] = $competencies[(int)$tutor['id']] ?? [];
+        $tutor['review_count'] = (int)($ratings[(int)$tutor['id']]['review_count'] ?? 0);
+        $tutor['average_rating'] = (float)($ratings[(int)$tutor['id']]['average_rating'] ?? 0);
     }
     unset($tutor);
 
@@ -65,7 +79,7 @@ $categoryLabels = [
 <div class="page-shell">
 <?php require __DIR__ . '/includes/sidebar.php'; ?>
 <main class="main-content" id="hauptinhalt"><div class="content-wrap">
-<nav class="breadcrumbs" aria-label="Brotkrumen"><a href="/">Startseite</a><span>›</span><span aria-current="page">Unser Tutorenteam</span></nav>
+<nav class="breadcrumbs" aria-label="Brotkrumen"><a href="index.php">Startseite</a><span>›</span><span aria-current="page">Unser Tutorenteam</span></nav>
 <section class="content-hero">
     <span class="eyebrow">Fachlich fundiert und pädagogisch durchdacht</span>
     <h1>Unser Tutorenteam</h1>
@@ -83,8 +97,18 @@ $categoryLabels = [
 <section class="section tutor-list" aria-label="Tutorinnen und Tutoren">
 <?php foreach ($tutors as $index => $tutor): ?>
     <article class="tutor-profile<?= $index % 2 === 1 ? ' tutor-profile--reverse' : '' ?>">
+        <div class="tutor-profile__rating" aria-label="Bewertung: <?= number_format((float)$tutor['average_rating'], 1, ',', '.') ?> von 5 Sternen">
+            <span class="star-rating" aria-hidden="true">★★★★★</span>
+            <strong><?= number_format((float)$tutor['average_rating'], 1, ',', '.') ?> / 5</strong>
+            <span><?= (int)$tutor['review_count'] ?> <?= (int)$tutor['review_count'] === 1 ? 'Bewertung' : 'Bewertungen' ?></span>
+        </div>
         <div class="tutor-profile__portrait">
             <img src="<?= e((string)$tutor['image_path']) ?>" alt="<?= e((string)$tutor['image_alt']) ?>" loading="<?= $index === 0 ? 'eager' : 'lazy' ?>" decoding="async">
+            <a class="tutor-profile__reviews-link"
+               href="tutor-bewertungen.php?tutor=<?= rawurlencode((string)$tutor['slug']) ?>"
+               aria-label="Bewertungen für <?= e((string)$tutor['display_name']) ?> lesen">
+                Bewertungen zu diesem Tutor lesen
+            </a>
             <a class="button button--primary tutor-profile__trial-button"
                href="kontakt.php?anliegen=probestunde&amp;tutor=<?= rawurlencode((string)$tutor['slug']) ?>"
                aria-label="Probestunde bei <?= e((string)$tutor['display_name']) ?> vereinbaren">

@@ -13,7 +13,7 @@ if (!isset($areaKey, $areas[$areaKey])) {
 $area = $areas[$areaKey];
 $pageTitle = $area['title'];
 $pageDescription = $area['description'];
-$pageCanonical = $site['base_url'] . '/' . $area['file'];
+$pageCanonical = $site['base_url'] . '/index.php' . $area['file'];
 
 $pageSchemas = [
     [
@@ -37,7 +37,7 @@ $pageSchemas = [
         '@context' => 'https://schema.org',
         '@type' => 'BreadcrumbList',
         'itemListElement' => [
-            ['@type' => 'ListItem', 'position' => 1, 'name' => 'Startseite', 'item' => $site['base_url'] . '/'],
+            ['@type' => 'ListItem', 'position' => 1, 'name' => 'Startseite', 'item' => $site['base_url'] . '/index.php'],
             ['@type' => 'ListItem', 'position' => 2, 'name' => 'Nachhilfe in Leipzig', 'item' => $site['base_url'] . '/nh_hor/nachhilfe-leipzig.php'],
             ['@type' => 'ListItem', 'position' => 3, 'name' => $area['name'], 'item' => $pageCanonical],
         ],
@@ -53,7 +53,7 @@ $pageSchemas = [
 <main class="main-content" id="hauptinhalt">
 <div class="content-wrap">
 <nav class="breadcrumbs" aria-label="Brotkrumen">
-  <a href="/">Startseite</a><span>›</span>
+  <a href="index.php">Startseite</a><span>›</span>
   <?php if ($areaKey !== 'leipzig'): ?><a href="/nh_hor/nachhilfe-leipzig.php">Leipzig</a><span>›</span><?php endif; ?>
   <span aria-current="page"><?= e($area['name']) ?></span>
 </nav>

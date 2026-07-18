@@ -18,7 +18,7 @@ $reviews = cms_items('review', 'published', 50);
 <?php require __DIR__ . '/includes/sidebar.php'; ?>
 <main class="main-content" id="hauptinhalt">
 <div class="content-wrap">
-<nav class="breadcrumbs" aria-label="Brotkrumen"><a href="/">Startseite</a><span>›</span><span aria-current="page">Bewertungen</span></nav>
+<nav class="breadcrumbs" aria-label="Brotkrumen"><a href="index.php">Startseite</a><span>›</span><span aria-current="page">Bewertungen</span></nav>
 <section class="hero">
   <div><span class="eyebrow">Rückmeldungen</span><h1>Erfahrungen mit easyIT</h1><p>Veröffentlicht werden ausschließlich freigegebene und redaktionell geprüfte Rückmeldungen.</p></div>
   <aside class="hero-panel"><h2>Keine erfundenen Bewertungen</h2><p>Solange keine freigegebenen Originalstimmen im CMS vorliegen, bleibt dieser Bereich bewusst transparent.</p></aside>

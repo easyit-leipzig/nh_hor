@@ -4,7 +4,7 @@ require __DIR__ . '/includes/functions.php';
 $site = require __DIR__ . '/config/site.php';
 $pageTitle = 'Nachhilfe Leipzig für Mathe, Physik, Chemie & Informatik | easyIT';
 $pageDescription = 'Persönliche Nachhilfe in Leipzig für Mathematik, Physik, Chemie und Informatik. Individuelle Förderung, Prüfungsvorbereitung und verständliche Erklärungen.';
-$pageCanonical = $site['base_url'] . '/';
+$pageCanonical = $site['base_url'] . '/index.php';
 ?><!doctype html>
 <html lang="de" data-theme="leipzig-blau">
 <head><?php require __DIR__ . '/includes/meta.php'; ?></head>

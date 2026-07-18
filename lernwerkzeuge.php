@@ -16,7 +16,7 @@ $pageSchemas = [[
 ?><!doctype html><html lang="de" data-theme="leipzig-blau"><head><?php require __DIR__.'/includes/meta.php'; ?></head><body>
 <?php require __DIR__.'/includes/header.php'; ?><div class="page-shell"><?php require __DIR__.'/includes/sidebar.php'; ?>
 <main class="main-content" id="hauptinhalt"><div class="content-wrap">
-<nav class="breadcrumbs" aria-label="Brotkrumen"><a href="/">Startseite</a><span>›</span><span aria-current="page">Lernwerkzeuge</span></nav>
+<nav class="breadcrumbs" aria-label="Brotkrumen"><a href="index.php">Startseite</a><span>›</span><span aria-current="page">Lernwerkzeuge</span></nav>
 <section class="hero tool-hero"><div><span class="eyebrow">Kostenlos und ohne Registrierung</span><h1>Lernwerkzeuge für Schule und Studium</h1><p>Die Rechner helfen beim Kontrollieren, Planen und Nachvollziehen. Alle Berechnungen laufen ausschließlich im Browser.</p></div><aside class="hero-panel privacy-panel"><span class="tool-icon" aria-hidden="true">✓</span><h2>Datensparsam</h2><p>Keine Konten, keine Übertragung von Eingaben und keine versteckte Speicherung.</p></aside></section>
 <section class="section"><header class="section-heading"><div><span class="eyebrow">Werkzeuge</span><h2>Direkt losrechnen</h2></div></header><div class="tool-grid">
 <?php foreach($tools as $tool): ?><a class="tool-card" href="/<?= e($tool['file']) ?>"><span class="tool-card__icon" aria-hidden="true"><?= e($tool['icon']) ?></span><strong><?= e($tool['name']) ?></strong><span><?= e($tool['summary']) ?></span></a><?php endforeach; ?>

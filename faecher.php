@@ -8,7 +8,7 @@ $pageCanonical=$site['base_url'].'/nh_hor/faecher.php';
 ?><!doctype html><html lang="de"><head><?php require __DIR__.'/includes/meta.php'; ?></head><body>
 <?php require __DIR__.'/includes/header.php'; ?><div class="page-shell"><?php require __DIR__.'/includes/sidebar.php'; ?>
 <main class="main-content" id="hauptinhalt"><div class="content-wrap">
-<nav class="breadcrumbs" aria-label="Brotkrumen"><a href="/">Startseite</a><span>›</span><span aria-current="page">Fächer</span></nav>
+<nav class="breadcrumbs" aria-label="Brotkrumen"><a href="index.php">Startseite</a><span>›</span><span aria-current="page">Fächer</span></nav>
 <section class="section"><span class="eyebrow">Nachhilfe in Leipzig</span><h1>Fächer bei easyIT</h1>
 <p>Fachliche Sicherheit entsteht, wenn Grundlagen, aktuelle Aufgaben und Lernstrategie zusammenpassen. Wähle das Fach, für das du Unterstützung suchst.</p>
 <div class="subject-grid"><article class="card subject-card subject-card--visual">

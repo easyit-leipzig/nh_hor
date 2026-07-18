@@ -11,7 +11,7 @@ $pageCanonical = $site['base_url'] . '/nh_hor/sitemap.php';
 ?><!doctype html><html lang="de" data-theme="leipzig-blau"><head><?php require __DIR__.'/includes/meta.php'; ?></head><body>
 <?php require __DIR__.'/includes/header.php'; ?><div class="page-shell"><?php require __DIR__.'/includes/sidebar.php'; ?>
 <main class="main-content" id="hauptinhalt"><div class="content-wrap">
-<nav class="breadcrumbs" aria-label="Brotkrumen"><a href="/">Startseite</a><span>›</span><span aria-current="page">Sitemap</span></nav>
+<nav class="breadcrumbs" aria-label="Brotkrumen"><a href="index.php">Startseite</a><span>›</span><span aria-current="page">Sitemap</span></nav>
 <section class="section"><span class="eyebrow">Seitenübersicht</span><h1>Sitemap</h1>
 <div class="card-grid card-grid--3">
 <article class="card"><h2>Fächer</h2><ul><?php foreach($subjects as $subject): ?><li><a href="/<?= e($subject['file']) ?>"><?= e($subject['name']) ?></a></li><?php endforeach; ?></ul></article>
