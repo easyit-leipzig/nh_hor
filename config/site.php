@@ -4,6 +4,7 @@ declare(strict_types=1);
 return [
     'site_name' => 'easyIT Nachhilfe Leipzig',
     'base_url' => 'https://easyit-leipzig.de',
+    'base_path' => '/nh_hor',
     'phone' => '+49 000 0000000',
     'email' => 'info@easyit-leipzig.de',
     'address' => 'Leipzig',

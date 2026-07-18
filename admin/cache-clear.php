@@ -8,5 +8,5 @@ admin_require_login();
 $count = cache_clear_all();
 admin_log('cache_clear', 'system', null, ['files' => $count]);
 
-header('Location: /admin/index.php?cache=' . $count, true, 303);
+header('Location: /nh_hor/admin/index.php?cache=' . $count, true, 303);
 exit;

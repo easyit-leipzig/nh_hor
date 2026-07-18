@@ -2,8 +2,8 @@ Options -Indexes
 DirectoryIndex index.php
 AddDefaultCharset UTF-8
 
-ErrorDocument 404 /nh_seo/errors/404.php
-ErrorDocument 500 /nh_seo/errors/500.php
+ErrorDocument 404 /nh_hor/errors/404.php
+ErrorDocument 500 /nh_hor/errors/500.php
 
 <IfModule mod_rewrite.c>
   RewriteEngine On

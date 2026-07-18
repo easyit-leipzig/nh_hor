@@ -4,7 +4,7 @@ require __DIR__ . '/includes/admin-functions.php';
 
 ensure_session_started();
 if (admin_user()) {
-    header('Location: /admin/index.php', true, 303);
+    header('Location: /nh_hor/admin/index.php', true, 303);
     exit;
 }
 
@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         sanitize_line((string)($_POST['username'] ?? '')),
         (string)($_POST['password'] ?? '')
     )) {
-        header('Location: /admin/index.php', true, 303);
+        header('Location: /nh_hor/admin/index.php', true, 303);
         exit;
     } else {
         $error = 'Anmeldung fehlgeschlagen.';

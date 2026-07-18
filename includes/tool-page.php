@@ -12,7 +12,7 @@ if (!isset($toolKey, $tools[$toolKey])) {
 $tool = $tools[$toolKey];
 $pageTitle = $tool['title'];
 $pageDescription = $tool['description'];
-$pageCanonical = $site['base_url'] . '/index.php' . $tool['file'];
+$pageCanonical = $site['base_url'] . $site['base_path'] . '/' . $tool['file'];
 
 $pageSchemas = [
     [
@@ -29,7 +29,7 @@ $pageSchemas = [
         '@context' => 'https://schema.org',
         '@type' => 'BreadcrumbList',
         'itemListElement' => [
-            ['@type' => 'ListItem', 'position' => 1, 'name' => 'Startseite', 'item' => $site['base_url'] . '/index.php'],
+            ['@type' => 'ListItem', 'position' => 1, 'name' => 'Startseite', 'item' => $site['base_url'] . $site['base_path'] . '/index.php'],
             ['@type' => 'ListItem', 'position' => 2, 'name' => 'Lernwerkzeuge', 'item' => $site['base_url'] . '/nh_hor/lernwerkzeuge.php'],
             ['@type' => 'ListItem', 'position' => 3, 'name' => $tool['name'], 'item' => $pageCanonical],
         ],
@@ -73,7 +73,7 @@ $pageSchemas = [
   </header>
   <div class="tool-grid">
     <?php foreach ($tools as $key => $other): if ($key === $toolKey) continue; ?>
-      <a class="tool-card" href="/<?= e($other['file']) ?>">
+      <a class="tool-card" href="/nh_hor/<?= e($other['file']) ?>">
         <span class="tool-card__icon" aria-hidden="true"><?= e($other['icon']) ?></span>
         <strong><?= e($other['name']) ?></strong>
         <span><?= e($other['summary']) ?></span>

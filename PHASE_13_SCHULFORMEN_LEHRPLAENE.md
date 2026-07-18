@@ -40,4 +40,4 @@ Für Hochschulstudiengänge existiert kein einheitlicher schulischer Lehrplan. M
 
 ## Installation
 
-Das Paket nach `C:\xampp\htdocs\nh_seo\` entpacken und vorhandene Dateien überschreiben. Danach mit `Strg + F5` neu laden.
+Das Paket nach `C:\xampp\htdocs\nh_hor\` entpacken und vorhandene Dateien überschreiben. Danach mit `Strg + F5` neu laden.

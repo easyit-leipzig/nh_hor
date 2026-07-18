@@ -13,7 +13,7 @@ if (!isset($areaKey, $areas[$areaKey])) {
 $area = $areas[$areaKey];
 $pageTitle = $area['title'];
 $pageDescription = $area['description'];
-$pageCanonical = $site['base_url'] . '/index.php' . $area['file'];
+$pageCanonical = $site['base_url'] . $site['base_path'] . '/' . $area['file'];
 
 $pageSchemas = [
     [
@@ -37,7 +37,7 @@ $pageSchemas = [
         '@context' => 'https://schema.org',
         '@type' => 'BreadcrumbList',
         'itemListElement' => [
-            ['@type' => 'ListItem', 'position' => 1, 'name' => 'Startseite', 'item' => $site['base_url'] . '/index.php'],
+            ['@type' => 'ListItem', 'position' => 1, 'name' => 'Startseite', 'item' => $site['base_url'] . $site['base_path'] . '/index.php'],
             ['@type' => 'ListItem', 'position' => 2, 'name' => 'Nachhilfe in Leipzig', 'item' => $site['base_url'] . '/nh_hor/nachhilfe-leipzig.php'],
             ['@type' => 'ListItem', 'position' => 3, 'name' => $area['name'], 'item' => $pageCanonical],
         ],
@@ -93,7 +93,7 @@ $pageSchemas = [
   </header>
   <div class="mini-link-grid">
     <?php foreach ($subjects as $subject): ?>
-      <a href="/<?= e($subject['file']) ?>"><span aria-hidden="true"><?= e($subject['icon']) ?></span><strong><?= e($subject['name']) ?></strong></a>
+      <a href="/nh_hor/<?= e($subject['file']) ?>"><span aria-hidden="true"><?= e($subject['icon']) ?></span><strong><?= e($subject['name']) ?></strong></a>
     <?php endforeach; ?>
   </div>
 </section>
@@ -124,7 +124,7 @@ $pageSchemas = [
   </header>
   <div class="local-link-grid">
     <?php foreach ($areas as $key => $other): if ($key === 'leipzig') continue; ?>
-      <a href="/<?= e($other['file']) ?>"><?= e($other['name']) ?><span>→</span></a>
+      <a href="/nh_hor/<?= e($other['file']) ?>"><?= e($other['name']) ?><span>→</span></a>
     <?php endforeach; ?>
   </div>
 </section>
@@ -136,7 +136,7 @@ $pageSchemas = [
   </header>
   <div class="local-link-grid local-link-grid--compact">
     <?php $shown = 0; foreach ($areas as $key => $other): if ($key === 'leipzig' || $key === $areaKey) continue; ?>
-      <a href="/<?= e($other['file']) ?>"><?= e($other['name']) ?><span>→</span></a>
+      <a href="/nh_hor/<?= e($other['file']) ?>"><?= e($other['name']) ?><span>→</span></a>
     <?php if (++$shown >= 6) break; endforeach; ?>
   </div>
 </section>
