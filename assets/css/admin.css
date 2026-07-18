@@ -1,0 +1,27 @@
+:root{--blue:#0057a4;--dark:#073764;--gold:#f2b600;--bg:#eef4f8;--line:#cad8e4;--text:#17324d}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--text)}
+.admin-header{display:flex;justify-content:space-between;align-items:center;gap:2rem;padding:1rem 2rem;background:var(--dark);color:#fff}
+.admin-brand{font-size:1.35rem;font-weight:900;color:#fff;text-decoration:none}
+.admin-header nav{display:flex;flex-wrap:wrap;gap:1rem}.admin-header nav a{color:#fff;text-decoration:none}
+.admin-main{max-width:1300px;margin:auto;padding:2rem}
+.admin-footer{padding:1rem 2rem;text-align:center;color:#607387}
+.admin-card{padding:1.3rem;border:1px solid var(--line);border-radius:16px;background:#fff}
+.admin-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+.admin-table{width:100%;border-collapse:collapse;background:#fff}.admin-table th,.admin-table td{padding:.8rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.admin-form{display:grid;gap:1rem}.admin-form label{display:grid;gap:.4rem;font-weight:800}.admin-form input,.admin-form textarea,.admin-form select{padding:.75rem;border:1px solid var(--line);border-radius:10px;background:#fff}
+.admin-actions{display:flex;flex-wrap:wrap;gap:.7rem}.admin-btn{display:inline-flex;padding:.7rem 1rem;border:0;border-radius:10px;background:var(--blue);color:#fff;text-decoration:none;font-weight:800;cursor:pointer}.admin-btn--gold{background:var(--gold);color:#102235}.admin-btn--danger{background:#a61b35}
+.admin-alert{padding:1rem;border-radius:10px;background:#fff4d7;border:1px solid #e0b753}.admin-login{max-width:480px;margin:8vh auto;padding:2rem;background:#fff;border-radius:18px;box-shadow:0 18px 50px rgba(0,0,0,.16)}
+@media(max-width:900px){.admin-grid{grid-template-columns:repeat(2,1fr)}.admin-header{align-items:flex-start;flex-direction:column}}
+@media(max-width:560px){.admin-grid{grid-template-columns:1fr}.admin-main{padding:1rem}.admin-table{display:block;overflow:auto}}
+
+
+.admin-fieldset {
+  display: grid;
+  gap: 1rem;
+  margin: .5rem 0;
+  padding: 1rem;
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: .75rem;
+}
+.admin-fieldset legend { padding: 0 .4rem; font-weight: 700; }

@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="CHEMIE">
+<title>CHEMIE</title>
+<defs>
+
+<filter id="shadow" x="-30%" y="-30%" width="160%" height="180%">
+  <feDropShadow dx="0" dy="14" stdDeviation="13" flood-color="#001a3a" flood-opacity=".28"/>
+</filter>
+<filter id="soft" x="-30%" y="-30%" width="160%" height="180%">
+  <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#001a3a" flood-opacity=".22"/>
+</filter>
+<linearGradient id="whiteGloss" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0" stop-color="#fff" stop-opacity=".85"/>
+  <stop offset=".55" stop-color="#fff" stop-opacity=".15"/>
+  <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+</linearGradient>
+
+<radialGradient id="face" cx="34%" cy="24%" r="80%">
+  <stop offset="0" stop-color="#21d1cf"/>
+  <stop offset=".65" stop-color="#009da1"/>
+  <stop offset="1" stop-color="#03234a"/>
+</radialGradient>
+<linearGradient id="rim" x1="0" y1="0" x2="1" y2="1">
+  <stop offset="0" stop-color="#21d1cf"/>
+  <stop offset=".48" stop-color="#009da1"/>
+  <stop offset="1" stop-color="#021d3f"/>
+</linearGradient>
+
+</defs>
+
+<g filter="url(#shadow)">
+  <circle cx="256" cy="228" r="192" fill="url(#rim)"/>
+  <circle cx="256" cy="228" r="173" fill="url(#face)" stroke="#061e43" stroke-width="8"/>
+  <circle cx="256" cy="228" r="158" fill="none" stroke="#fff" stroke-opacity=".38" stroke-width="6"/>
+  <ellipse cx="210" cy="116" rx="112" ry="58" fill="url(#whiteGloss)" transform="rotate(-18 210 116)"/>
+
+<g transform="translate(58 306)" fill="#032451" opacity=".95">
+  <path d="M0 95V55h14V32l9-16 8 16v63h12V69h16V45h17v50h13V61h20v34h13V72h20v23h16V48h10V25h8V8h8v17h8v70h18V59h17V38h13v57h17V71h14v24h18V43h11v52h18V64h22v31h19V75h19v20h22V56h11V28h8V8h7v20h8v67h16V65h16v30h18V44h10v51h19V72h18v23h17V58h12v37z"/>
+  <rect y="92" width="396" height="8"/>
+</g>
+
+  <g transform="translate(0 -18)" fill="none" stroke="#fff" stroke-width="18" stroke-linecap="round" stroke-linejoin="round" filter="url(#soft)">
+    <path d="M218 119h76M232 119v75l-63 116c-13 24 4 48 31 48h112c27 0 44-24 31-48l-63-116v-75"/><path d="M194 303c41 18 83-18 132 0"/><circle cx="230" cy="277" r="9" fill="#fff" stroke="none"/><circle cx="284" cy="324" r="12" fill="#fff" stroke="none"/><circle cx="306" cy="262" r="7" fill="#fff" stroke="none"/><circle cx="306" cy="76" r="17"/><circle cx="356" cy="143" r="21"/>
+  </g>
+</g>
+<text x="256" y="472" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="42" font-weight="800" fill="#052B57">CHEMIE</text>
+
+</svg>

@@ -1,21 +1,61 @@
-# easyIT-Startseite mit DB-Menü und Kopfzeilenaktionen
+# easyIT Nachhilfe Leipzig – Phase 10
 
-Diese Fassung lässt das dreistufige horizontale Menü aus `menu_items` laden.
+Phase 10 ist die Integrationsphase zwischen CMS und öffentlicher Website.
 
-`Kontakt` und `Anmelden` werden bewusst **nicht** im Hauptmenü ausgegeben. Sie stehen rechts oben in der Kopfzeile und besitzen:
+## Neu enthalten
 
-- eigene SVG-Symbole,
-- Hover-Effekt,
-- sichtbaren Tastaturfokus,
-- responsive Darstellung.
+- CMS-Inhalte werden im Frontend ausgegeben
+- dynamische FAQ-Seite
+- dynamische Bewertungsseite
+- dynamische Jobs-Seite
+- Lernblog mit Übersichts- und Artikelseite
+- statische Fallback-Inhalte bei nicht verfügbarer Datenbank
+- JSON-Dateicache für veröffentlichte Inhalte
+- Cache-Leerung im Adminbereich
+- Admin-Vorschau
+- Datenbankmigrationen
+- CLI-Migrationsrunner
+- Schema-Erweiterung um Canonical-URL und Open-Graph-Bild
+- Revisions- und Audit-System bleiben erhalten
+- aktualisierte Sidebar, Sitemap und robots.txt
 
-## Dateien
+## Installation
 
-- `index.php`
-- `css/main.css`
-- `js/menu.js`
-- `assets/icons/contact.svg`
-- `assets/icons/login.svg`
-- `config/database.php`
+1. Phase-9-Schema importieren:
 
-Die Zieladressen können in `index.php` bei `.header-actions` angepasst werden.
+```bash
+mysql -u USER -p < database/schema.sql
+```
+
+2. Datenbankzugang in `config/database.php` eintragen.
+
+3. Migrationen ausführen:
+
+```bash
+php database/migrate.php
+```
+
+4. Administrator anlegen:
+
+```bash
+php database/create-admin.php admin admin@example.de "SEHR_SICHERES_PASSWORT"
+```
+
+5. Inhalte unter `/admin/` anlegen und veröffentlichen.
+
+## Fallback-Verhalten
+
+Wenn MySQL nicht verfügbar ist:
+
+- FAQ nutzt vorbereitete Standardfragen
+- Jobs nutzt vorbereitete Stellengruppen
+- Bewertungen zeigen transparent an, dass noch keine Originalstimmen veröffentlicht sind
+- Blog zeigt einen redaktionellen Vorbereitungshinweis
+
+## Cache
+
+Veröffentlichte Inhalte werden für fünf Minuten als JSON zwischengespeichert. Nach Änderungen löscht das CMS automatisch den Cache des betroffenen Inhaltstyps.
+
+
+## Lokale Installation
+Diese korrigierte Fassung ist für `https://localhost/nh_hor/` vorbereitet. Browser-URLs verwenden `/nh_hor/`; PHP-Dateisystempfade mit `__DIR__`, `require` und `include` bleiben unverändert.

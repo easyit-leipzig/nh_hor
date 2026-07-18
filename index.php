@@ -1,270 +1,91 @@
 <?php
 declare(strict_types=1);
-
-/**
- * easyIT-Startseite
- * Nur diese Seite wurde vom statischen HTML-Stand auf das DB-Menü umgestellt.
- * Erwartete Tabelle: menu_items
- */
-
-function e(string $value): string
-{
-    return htmlspecialchars($value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
-}
-
-function db(): PDO
-{
-    static $pdo = null;
-
-    if ($pdo instanceof PDO) {
-        return $pdo;
-    }
-
-    $config = require __DIR__ . '/config/database.php';
-    $pdo = new PDO(
-        $config['dsn'],
-        $config['user'],
-        $config['password'],
-        $config['options']
-    );
-
-    return $pdo;
-}
-
-/** @return array<int,array<string,mixed>> */
-function loadMenuTree(): array
-{
-    $sql = <<<'SQL'
-        SELECT
-            id,
-            parent_id,
-            title,
-            url,
-            target,
-            css_class,
-            sort_order
-        FROM menu_items
-        WHERE is_active = 1
-        ORDER BY
-            COALESCE(parent_id, 0),
-            sort_order,
-            id
-    SQL;
-
-    $rows = db()->query($sql)->fetchAll(PDO::FETCH_ASSOC);
-    $itemsByParent = [];
-
-    foreach ($rows as $row) {
-        $row['id'] = (int) $row['id'];
-        $row['parent_id'] = $row['parent_id'] === null ? null : (int) $row['parent_id'];
-        $row['children'] = [];
-        $parentKey = $row['parent_id'] ?? 0;
-        $itemsByParent[$parentKey][] = $row;
-    }
-
-    $build = static function (int $parentId, int $level = 1) use (&$build, &$itemsByParent): array {
-        if ($level > 3) {
-            return [];
-        }
-
-        $items = $itemsByParent[$parentId] ?? [];
-
-        // Kontakt und Anmelden bleiben bewusst als Kopfzeilen-Aktionen
-        // außerhalb des horizontalen Hauptmenüs.
-        if ($level === 1) {
-            $items = array_values(array_filter(
-                $items,
-                static function (array $item): bool {
-                    $title = mb_strtolower(trim((string) ($item['title'] ?? '')), 'UTF-8');
-                    return !in_array($title, ['kontakt', 'anmelden', 'login'], true);
-                }
-            ));
-        }
-
-        foreach ($items as &$item) {
-            $item['children'] = $build((int) $item['id'], $level + 1);
-        }
-        unset($item);
-
-        return $items;
-    };
-
-    return $build(0);
-}
-
-function menuItemIsActive(array $item): bool
-{
-    $currentPage = basename((string) ($_SERVER['SCRIPT_NAME'] ?? 'index.php'));
-    $path = parse_url((string) ($item['url'] ?? ''), PHP_URL_PATH);
-
-    if (is_string($path) && $path !== '' && basename($path) === $currentPage) {
-        return true;
-    }
-
-    foreach ($item['children'] ?? [] as $child) {
-        if (menuItemIsActive($child)) {
-            return true;
-        }
-    }
-
-    return false;
-}
-
-function renderMenu(array $items, int $level = 1): string
-{
-    $listClass = $level === 1
-        ? 'menu level-1'
-        : 'submenu level-' . $level;
-
-    $html = '<ul class="' . e($listClass) . '">';
-
-    foreach ($items as $item) {
-        $children = $item['children'] ?? [];
-        $hasChildren = $children !== [];
-        $isActive = menuItemIsActive($item);
-        $classes = [];
-
-        if ($hasChildren) {
-            $classes[] = 'has-submenu';
-        }
-        if ($isActive) {
-            $classes[] = 'is-active';
-        }
-        if (!empty($item['css_class'])) {
-            $safeClass = preg_replace('/[^a-zA-Z0-9_-]/', '', (string) $item['css_class']);
-            if ($safeClass !== '') {
-                $classes[] = $safeClass;
-            }
-        }
-
-        $classAttribute = $classes ? ' class="' . e(implode(' ', $classes)) . '"' : '';
-        $url = trim((string) ($item['url'] ?? '#')) ?: '#';
-        $title = (string) ($item['title'] ?? 'Menüpunkt');
-        $target = ($item['target'] ?? '_self') === '_blank'
-            ? ' target="_blank" rel="noopener noreferrer"'
-            : '';
-
-        $html .= '<li' . $classAttribute . '>';
-
-        if ($hasChildren) {
-            /*
-             * Ein einziges Bedienelement pro Menüpunkt:
-             * Titel und Dreieck werden gemeinsam im selben Link ausgegeben.
-             */
-            $html .= '<a class="submenu-toggle" href="' . e($url) . '"' . $target
-                . ' aria-expanded="false" aria-haspopup="true">'
-                . e($title) . '</a>';
-        } else {
-            $ariaCurrent = $isActive ? ' aria-current="page"' : '';
-            $html .= '<a href="' . e($url) . '"' . $target . $ariaCurrent . '>' . e($title) . '</a>';
-        }
-
-        if ($hasChildren) {
-            $html .= renderMenu($children, $level + 1);
-        }
-
-        $html .= '</li>';
-    }
-
-    return $html . '</ul>';
-}
-
-$menuError = null;
-$menuItems = [];
-
-try {
-    $menuItems = loadMenuTree();
-    if ($menuItems === []) {
-        $menuError = 'In der Tabelle menu_items sind keine aktiven Hauptmenüpunkte vorhanden.';
-    }
-} catch (Throwable $exception) {
-    $menuError = 'Das Menü konnte nicht aus der Datenbank geladen werden.';
-}
-?>
-<!doctype html>
-<html lang="de">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="easyIT Nachhilfe Leipzig – Mathematik, Physik, Chemie und Informatik.">
-  <title>easyIT Nachhilfe Leipzig</title>
-  <link rel="stylesheet" href="css/main.css">
-  <script src="js/menu.js" defer></script>
-</head>
+require __DIR__ . '/includes/functions.php';
+$site = require __DIR__ . '/config/site.php';
+$pageTitle = 'Nachhilfe Leipzig für Mathe, Physik, Chemie & Informatik | easyIT';
+$pageDescription = 'Persönliche Nachhilfe in Leipzig für Mathematik, Physik, Chemie und Informatik. Individuelle Förderung, Prüfungsvorbereitung und verständliche Erklärungen.';
+$pageCanonical = $site['base_url'] . '/';
+?><!doctype html>
+<html lang="de" data-theme="leipzig-blau">
+<head><?php require __DIR__ . '/includes/meta.php'; ?></head>
 <body>
-  <header class="site-header">
-    <div class="header-top">
-      <a class="brand" href="index.php" aria-label="easyIT Startseite">
-        <span class="brand-logo" aria-hidden="true">e<span>IT</span></span>
-        <span class="brand-text">
-          <strong>easyIT Nachhilfe</strong>
-          <small>Verstehen. Anwenden. Weiterkommen.</small>
-        </span>
-      </a>
+<?php require __DIR__ . '/includes/header.php'; ?>
+<div class="page-shell">
+<?php require __DIR__ . '/includes/sidebar.php'; ?>
+<main class="main-content" id="hauptinhalt">
+<div class="content-wrap">
+<nav class="breadcrumbs" aria-label="Brotkrumen"><span aria-current="page">Startseite</span></nav>
 
-      <div class="header-title">
-        <h1>Nachhilfe in Leipzig</h1>
-        <p>Mathematik · Physik · Chemie · Informatik</p>
-      </div>
-
-      <div class="header-actions" aria-label="Schnellzugriff">
-        <a class="header-action" href="/nh_seo/kontakt.php">
-          <img src="assets/icons/contact.svg" alt="" width="30" height="30" aria-hidden="true">
-          <span>Kontakt</span>
-        </a>
-        <a class="header-action" href="/nh_seo/login.php">
-          <img src="assets/icons/login.svg" alt="" width="30" height="30" aria-hidden="true">
-          <span>Anmelden</span>
-        </a>
-      </div>
-
+<section class="hero">
+  <div>
+    <span class="eyebrow">Individuelle Nachhilfe in Leipzig</span>
+    <h1>Verstehen statt auswendig lernen.</h1>
+    <p>easyIT unterstützt Schülerinnen, Schüler und Studierende in Mathematik, Physik, Chemie und Informatik – persönlich, strukturiert und mit Blick auf echte Fortschritte.</p>
+    <div class="hero-actions">
+      <a class="button button--gold" href="/nh_hor/kontakt.php">Probestunde anfragen</a>
+      <a class="button button--blue" href="#faecher">Fächer entdecken</a>
     </div>
+    <div class="stats" aria-label="Leistungsübersicht">
+      <div class="stat"><strong>9</strong><span>Fachangebote</span></div>
+      <div class="stat"><strong>1:1</strong><span>persönliche Begleitung</span></div>
+      <div class="stat"><strong>Leipzig</strong><span>lokal & nah</span></div>
+    </div>
+  </div>
+  <aside class="hero-panel hero-panel--visual">
+    <img class="hero-learning-image" src="/nh_hor/assets/img/stud-lern.svg" width="800" height="600" alt="Schülerin lernt gemeinsam mit einem erfahrenen Tutor" loading="eager" fetchpriority="high">
+    <h2>Wobei brauchst du Unterstützung?</h2>
+    <ul>
+      <li>Grundlagen sicher aufbauen</li>
+      <li>Wissenslücken gezielt schließen</li>
+      <li>Klausuren und Prüfungen vorbereiten</li>
+      <li>Abitur oder Studium strukturieren</li>
+    </ul>
+    <a href="/nh_hor/methodik.php">Meine Methodik kennenlernen →</a>
+  </aside>
+</section>
 
-    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-navigation">
-      <span></span><span></span><span></span>
-      <span class="sr-only">Menü öffnen</span>
-    </button>
-
-    <nav id="main-navigation" class="main-nav" aria-label="Hauptnavigation">
-      <?php if ($menuError !== null): ?>
-        <p class="menu-error"><?= e($menuError) ?></p>
-      <?php else: ?>
-        <?= renderMenu($menuItems) ?>
-      <?php endif; ?>
-    </nav>
+<section class="section" id="faecher">
+  <header class="section-heading">
+    <div><span class="eyebrow">Fächer</span><h2>Nachhilfe, die Zusammenhänge sichtbar macht</h2></div>
+    <p>Eigene Fachseiten bündeln Themen, Lernwege, Prüfungsunterstützung und häufige Fragen.</p>
   </header>
+  <div class="card-grid">
+    <article class="card subject-card subject-card--visual"><img class="subject-card__image" src="/nh_hor/assets/img/subjects/mathe.svg" width="800" height="560" alt="Mathematik anschaulich lernen" loading="lazy"><h3>Mathematik</h3><p>Von Grundrechenarten bis Analysis, Algebra und Abitur.</p><a href="/nh_hor/mathe-nachhilfe-leipzig.php">Mathe-Nachhilfe Leipzig →</a></article>
+    <article class="card subject-card subject-card--visual"><img class="subject-card__image" src="/nh_hor/assets/img/subjects/physik.svg" width="800" height="560" alt="Physik anschaulich lernen" loading="lazy"><h3>Physik</h3><p>Mechanik, Elektrizitätslehre, Optik und moderne Physik.</p><a href="/nh_hor/physik-nachhilfe-leipzig.php">Physik-Nachhilfe Leipzig →</a></article>
+    <article class="card subject-card subject-card--visual"><img class="subject-card__image" src="/nh_hor/assets/img/subjects/chemie.svg" width="800" height="560" alt="Chemie anschaulich lernen" loading="lazy"><h3>Chemie</h3><p>Stoffe, Reaktionen, Gleichgewichte und organische Chemie.</p><a href="/nh_hor/chemie-nachhilfe-leipzig.php">Chemie-Nachhilfe Leipzig →</a></article>
+    <article class="card subject-card subject-card--visual"><img class="subject-card__image" src="/nh_hor/assets/img/subjects/informatik.svg" width="800" height="560" alt="Informatik anschaulich lernen" loading="lazy"><h3>Informatik</h3><p>Algorithmen, Programmierung, Datenbanken und Netzwerke.</p><a href="/nh_hor/informatik-nachhilfe-leipzig.php">Informatik-Nachhilfe Leipzig →</a></article>
+    <article class="card subject-card subject-card--visual"><img class="subject-card__image" src="/nh_hor/assets/img/subjects/deutsch.svg" width="800" height="560" alt="Deutsch anschaulich lernen" loading="lazy"><h3>Deutsch</h3><p>Grammatik, Textverständnis, Schreiben und Prüfung.</p><a href="/nh_hor/deutsch-nachhilfe-leipzig.php">Deutsch-Nachhilfe Leipzig →</a></article>
+    <article class="card subject-card subject-card--visual"><img class="subject-card__image" src="/nh_hor/assets/img/subjects/englisch.svg" width="800" height="560" alt="Englisch anschaulich lernen" loading="lazy"><h3>Englisch</h3><p>Grammar, vocabulary, writing, speaking und Prüfung.</p><a href="/nh_hor/englisch-nachhilfe-leipzig.php">Englisch-Nachhilfe Leipzig →</a></article>
+    <article class="card subject-card subject-card--visual"><img class="subject-card__image" src="/nh_hor/assets/img/subjects/franzoesisch.svg" width="800" height="560" alt="Sprachen anschaulich lernen" loading="lazy"><h3>Weitere Sprachen</h3><p>Französisch, Spanisch und Latein mit strukturierter Methodik.</p><a href="/nh_hor/faecher.php">Alle Sprachfächer →</a></article>
+    <article class="card subject-card subject-card--visual"><img class="subject-card__image" src="/nh_hor/assets/img/lern-stud.svg" width="800" height="600" alt="Lernende erklärt einen Lösungsweg" loading="lazy"><h3>Alle Fächer</h3><p>Die vollständige Übersicht mit neun Fachangeboten.</p><a href="/nh_hor/faecher.php">Fächerübersicht →</a></article>
+  </div>
+</section>
 
-  <main>
-    <section class="hero">
-      <div>
-        <span class="eyebrow">Individuelle Nachhilfe in Leipzig</span>
-        <h2>Verstehen beginnt mit dem richtigen Lösungsweg.</h2>
-        <p>Persönliche Unterstützung in Mathematik, Physik, Chemie und Informatik – vom sicheren Fundament bis zur anspruchsvollen Prüfung.</p>
-        <div class="hero-actions">
-          <a class="primary-button" href="/nh_seo/kontakt.php">Kennenlerngespräch</a>
-          <a class="secondary-button" href="/nh_seo/faecher.php">Fächer entdecken</a>
-        </div>
-      </div>
-      <div class="hero-card" aria-label="Unterrichtsschwerpunkte">
-        <strong>Unterricht mit System</strong>
-        <ul>
-          <li>Lösungswege nachvollziehbar entwickeln</li>
-          <li>Schriftlich und strukturiert arbeiten</li>
-          <li>Wissen sicher anwenden</li>
-        </ul>
-      </div>
-    </section>
 
-    <section id="faecher" class="content-grid">
-      <article><h3>Mathematik</h3><p>Von Grundlagen bis Abitur und Studium.</p></article>
-      <article><h3>Physik</h3><p>Zusammenhänge erkennen statt Formeln auswendig lernen.</p></article>
-      <article><h3>Chemie</h3><p>Modelle, Reaktionswege und Berechnungen verständlich erklärt.</p></article>
-      <article><h3>Informatik</h3><p>Algorithmen, Programmierung und technische Grundlagen.</p></article>
-    </section>
-  </main>
+<section class="section" id="orientierung">
+  <header class="section-heading"><div><span class="eyebrow">easyIT kennenlernen</span><h2>Mehr als eine Fachseite</h2></div><p>Methodik, Ablauf und Haltung transparent erklärt.</p></header>
+  <div class="card-grid">
+    <article class="card"><h3>Warum easyIT?</h3><p>Was persönliche, verständnisorientierte Nachhilfe auszeichnet.</p><a href="/nh_hor/warum-easyit.php">Mehr erfahren →</a></article>
+    <article class="card"><h3>Über mich</h3><p>Fachübergreifender Tutor für Mathematik, Physik, Chemie und Informatik.</p><a href="/nh_hor/ueber-mich.php">Tutor kennenlernen →</a></article>
+    <article class="card"><h3>Preise & Ablauf</h3><p>Wie Anfrage, Abstimmung und Unterricht organisiert werden.</p><a href="/nh_hor/preise.php">Ablauf ansehen →</a></article>
+    <article class="card"><h3>Erfahrungen</h3><p>Welche Aspekte Lernende in Rückmeldungen hervorheben.</p><a href="/nh_hor/bewertungen.php">Bewertungen lesen →</a></article>
+  </div>
+</section>
 
-  <footer>
-    <p>© 2026 easyIT Nachhilfe Leipzig</p>
-  </footer>
+<section class="section faq">
+  <header class="section-heading"><div><span class="eyebrow">Häufige Fragen</span><h2>Was Eltern und Lernende wissen möchten</h2></div></header>
+  <details><summary>Für welche Klassenstufen ist die Nachhilfe geeignet?</summary><p>Die Förderung kann an Schulform, Klassenstufe, Ausbildung oder Studium angepasst werden.</p></details>
+  <details><summary>Wie läuft eine erste Stunde ab?</summary><p>Zunächst werden Ziele, aktueller Stand und konkrete Schwierigkeiten gemeinsam geklärt.</p></details>
+  <details><summary>Ist Prüfungsvorbereitung möglich?</summary><p>Ja. Inhalte, Zeitplan, Übungsphasen und typische Aufgaben können gezielt vorbereitet werden.</p></details>
+</section>
+
+<section class="section cta">
+  <div><span class="eyebrow">Nächster Schritt</span><h2>Unverbindlich kennenlernen</h2><p>Beschreibe kurz Fach, Klassenstufe und aktuelle Herausforderung.</p></div>
+  <a class="button button--gold" href="/nh_hor/kontakt.php">Kontakt aufnehmen</a>
+</section>
+</div>
+<?php require __DIR__ . '/includes/footer.php'; ?>
+</main>
+</div>
 </body>
 </html>
