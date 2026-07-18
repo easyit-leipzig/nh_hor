@@ -362,6 +362,7 @@ body:not(:has(.breadcrumbs > span[aria-current="page"]:only-child)) .price-card 
 .tutor-profile--reverse .tutor-profile__content{order:1}
 .tutor-profile__portrait{position:sticky;top:1.25rem}
 .tutor-profile__portrait img{display:block;width:100%;height:auto;aspect-ratio:8/9;object-fit:cover;border-radius:20px;background:var(--blue-dark);box-shadow:0 14px 32px rgba(0,44,88,.18)}
+.tutor-profile__trial-button{display:flex;width:100%;justify-content:center;align-items:center;margin-top:1rem;text-align:center;white-space:normal}
 .tutor-profile__content h2{margin:.2rem 0 .35rem}
 .tutor-profile__title{margin:0 0 .85rem;color:var(--blue);font-weight:800}
 .tutor-profile__intro{margin-bottom:1.2rem}

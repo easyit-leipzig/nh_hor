@@ -85,6 +85,11 @@ $categoryLabels = [
     <article class="tutor-profile<?= $index % 2 === 1 ? ' tutor-profile--reverse' : '' ?>">
         <div class="tutor-profile__portrait">
             <img src="<?= e((string)$tutor['image_path']) ?>" alt="<?= e((string)$tutor['image_alt']) ?>" loading="<?= $index === 0 ? 'eager' : 'lazy' ?>" decoding="async">
+            <a class="button button--primary tutor-profile__trial-button"
+               href="kontakt.php?anliegen=probestunde&amp;tutor=<?= rawurlencode((string)$tutor['slug']) ?>"
+               aria-label="Probestunde bei <?= e((string)$tutor['display_name']) ?> vereinbaren">
+                Probestunde vereinbaren
+            </a>
         </div>
         <div class="tutor-profile__content">
             <span class="eyebrow">Tutorprofil</span>
