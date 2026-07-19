@@ -18,6 +18,27 @@ function admin_require_login(): void
     }
 }
 
+
+function admin_has_role(string ...$roles): bool
+{
+    $user = admin_user();
+    if (!$user) {
+        return false;
+    }
+
+    return in_array((string)($user['role'] ?? ''), $roles, true);
+}
+
+function admin_require_role(string ...$roles): void
+{
+    admin_require_login();
+
+    if (!admin_has_role(...$roles)) {
+        http_response_code(403);
+        exit('Keine Berechtigung für diese Aktion.');
+    }
+}
+
 function admin_login(string $username, string $password): bool
 {
     if (!db_available()) {

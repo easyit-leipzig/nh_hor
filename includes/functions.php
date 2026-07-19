@@ -6,29 +6,46 @@ function e(string $value): string
     return htmlspecialchars($value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 }
 
-
-
 /**
- * Builds a canonical URL from the configured public base URL.
- * Query parameters are discarded by default and are only retained when
- * explicitly supplied by the calling page.
+ * Builds a canonical URL exclusively from the configured base URL.
+ *
+ * Security/SEO rules:
+ * - never trusts HTTP_HOST;
+ * - uses only the path component of the request URI;
+ * - strips the local/server base path (for example /nh_hor);
+ * - canonicalizes /index.php to /;
+ * - discards all request query parameters;
+ * - permits only explicitly supported canonical parameters supplied by code.
  *
  * @param array<string,mixed> $site
- * @param array<string,scalar|null> $allowedQuery
+ * @param array<string,scalar|null> $canonicalQuery
  */
-function canonical_url(array $site, ?string $requestUri = null, array $allowedQuery = []): string
+function canonical_url(array $site, ?string $requestUri = null, array $canonicalQuery = []): string
 {
     $baseUrl = rtrim((string)($site['base_url'] ?? ''), '/');
-    $fallbackPath = rtrim((string)($site['base_path'] ?? ''), '/') . '/index.php';
-    $uri = $requestUri ?? (string)($_SERVER['REQUEST_URI'] ?? $fallbackPath);
-    $path = parse_url($uri, PHP_URL_PATH);
-
-    if (!is_string($path) || $path === '' || $path[0] !== '/') {
-        $path = $fallbackPath;
+    if ($baseUrl === '' || filter_var($baseUrl, FILTER_VALIDATE_URL) === false) {
+        throw new InvalidArgumentException('Für Canonical-URLs ist eine gültige base_url erforderlich.');
     }
 
-    // Collapse duplicate slashes and remove dot segments without trusting Host.
+    $uri = $requestUri ?? (string)($_SERVER['REQUEST_URI'] ?? '/');
+    $path = parse_url($uri, PHP_URL_PATH);
+    if (!is_string($path) || $path === '' || $path[0] !== '/') {
+        $path = '/';
+    }
+
+    // A local deployment may run below /nh_hor. This technical path must not
+    // become part of the public canonical URL.
+    $basePath = rtrim((string)($site['base_path'] ?? ''), '/');
+    if ($basePath !== '' && ($path === $basePath || str_starts_with($path, $basePath . '/'))) {
+        $path = substr($path, strlen($basePath));
+        if ($path === '') {
+            $path = '/';
+        }
+    }
+
+    // Normalize duplicate slashes and dot segments.
     $segments = [];
+    $hadTrailingSlash = $path !== '/' && str_ends_with($path, '/');
     foreach (explode('/', preg_replace('#/+#', '/', $path) ?? $path) as $segment) {
         if ($segment === '' || $segment === '.') {
             continue;
@@ -37,19 +54,33 @@ function canonical_url(array $site, ?string $requestUri = null, array $allowedQu
             array_pop($segments);
             continue;
         }
-        $segments[] = rawurlencode(rawurldecode($segment));
+        $decoded = rawurldecode($segment);
+        if (str_contains($decoded, "\0")) {
+            continue;
+        }
+        $segments[] = rawurlencode($decoded);
     }
+
     $normalizedPath = '/' . implode('/', $segments);
-    if (str_ends_with($path, '/') && $normalizedPath !== '/') {
+    if ($normalizedPath === '/index.php') {
+        $normalizedPath = '/';
+    } elseif ($hadTrailingSlash && $normalizedPath !== '/') {
         $normalizedPath .= '/';
     }
 
+    // Only parameters with actual canonical meaning are accepted. They must
+    // be supplied by the page itself, never copied wholesale from $_GET.
+    $supportedCanonicalParameters = ['slug', 'tutor'];
     $query = [];
-    foreach ($allowedQuery as $key => $value) {
-        if (!is_string($key) || $key === '' || $value === null || $value === '') {
+    foreach ($supportedCanonicalParameters as $key) {
+        if (!array_key_exists($key, $canonicalQuery)) {
             continue;
         }
-        $query[$key] = (string)$value;
+        $value = trim((string)$canonicalQuery[$key]);
+        if ($value === '' || preg_match('/^[a-z0-9]+(?:-[a-z0-9]+)*$/', $value) !== 1) {
+            continue;
+        }
+        $query[$key] = $value;
     }
 
     return $baseUrl . $normalizedPath

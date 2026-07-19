@@ -8,6 +8,9 @@ ErrorDocument 500 /errors/500.php
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
+  # Dynamische XML-Sitemap aus indexierbaren Seiten und veröffentlichten Blogartikeln.
+  RewriteRule ^sitemap\.xml$ sitemap-xml.php [END]
+
   # Alte öffentlich erreichbare Projektpfade dauerhaft bereinigen.
   # THE_REQUEST verhindert eine Schleife, wenn /nh_hor nur serverintern verwendet wird.
   RewriteCond %{THE_REQUEST} \s/+nh_hor(?:/([^?\ ]*))? [NC]

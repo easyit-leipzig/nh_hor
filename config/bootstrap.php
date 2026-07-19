@@ -20,7 +20,17 @@ function config_env(string $name, ?string $default = null): ?string
 
 function config_environment(): string
 {
-    return strtolower(config_env('APP_ENV', 'production') ?? 'production');
+    $configured = config_env('APP_ENV');
+    if ($configured !== null) {
+        return strtolower($configured);
+    }
+
+    $host = strtolower((string)($_SERVER['HTTP_HOST'] ?? ''));
+    if ($host === 'localhost' || str_starts_with($host, 'localhost:') || $host === '127.0.0.1' || str_starts_with($host, '127.0.0.1:')) {
+        return 'development';
+    }
+
+    return 'production';
 }
 
 function config_is_production(): bool

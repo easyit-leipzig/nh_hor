@@ -24,16 +24,20 @@ function admin_log(string $action, string $entityType, ?int $entityId = null, ar
 
     $user = admin_user();
     $ip = $_SERVER['REMOTE_ADDR'] ?? '';
-    $stmt = db()->prepare(
-        'INSERT INTO audit_log (user_id, action, entity_type, entity_id, details, ip_hash)
-         VALUES (:user_id, :action, :entity_type, :entity_id, :details, :ip_hash)'
-    );
-    $stmt->execute([
-        'user_id' => $user['id'] ?? null,
-        'action' => $action,
-        'entity_type' => $entityType,
-        'entity_id' => $entityId,
-        'details' => $details ? json_encode($details, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) : null,
-        'ip_hash' => hash('sha256', $ip),
-    ]);
+    try {
+        $stmt = db()->prepare(
+            'INSERT INTO audit_log (user_id, action, entity_type, entity_id, details, ip_hash)
+             VALUES (:user_id, :action, :entity_type, :entity_id, :details, :ip_hash)'
+        );
+        $stmt->execute([
+            'user_id' => $user['id'] ?? null,
+            'action' => $action,
+            'entity_type' => $entityType,
+            'entity_id' => $entityId,
+            'details' => $details ? json_encode($details, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) : null,
+            'ip_hash' => hash('sha256', $ip),
+        ]);
+    } catch (Throwable $e) {
+        error_log('Admin-Audit-Protokollierung fehlgeschlagen: ' . $e->getMessage());
+    }
 }

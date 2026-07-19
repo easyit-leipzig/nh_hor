@@ -6,6 +6,9 @@
 
 RewriteEngine On
 
+# Dynamische XML-Sitemap aus dem Projekt ausliefern.
+RewriteRule ^sitemap\.xml$ nh_hor/sitemap-xml.php [END]
+
 # Zugangsdomains auf die kanonische Domain umleiten; Pfad und Query bleiben erhalten.
 RewriteCond %{HTTP_HOST} ^(?:www\.)?(?:easyit-nachhilfe\.de|thiele-nachhilfe\.de)$ [NC]
 RewriteRule ^ https://easyit-leipzig.de%{REQUEST_URI} [R=301,L,NE]

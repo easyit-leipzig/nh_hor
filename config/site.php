@@ -47,8 +47,11 @@ try {
         'addressCountry' => config_env('SITE_COUNTRY', isset($address['addressCountry']) ? (string)$address['addressCountry'] : 'DE') ?? 'DE',
     ]);
 
-    if (!filter_var($site['base_url'], FILTER_VALIDATE_URL) || !str_starts_with($site['base_url'], 'https://')) {
-        throw new ConfigurationException('SITE_BASE_URL muss eine gültige HTTPS-Adresse sein.');
+    if (!filter_var($site['base_url'], FILTER_VALIDATE_URL)) {
+        throw new ConfigurationException('SITE_BASE_URL muss eine gültige URL sein.');
+    }
+    if (config_is_production() && !str_starts_with($site['base_url'], 'https://')) {
+        throw new ConfigurationException('SITE_BASE_URL muss in Produktion eine HTTPS-Adresse sein.');
     }
     if ($site['email'] !== '' && !filter_var($site['email'], FILTER_VALIDATE_EMAIL)) {
         throw new ConfigurationException('SITE_EMAIL ist keine gültige E-Mail-Adresse.');
@@ -57,6 +60,26 @@ try {
     if (config_is_production()) {
         config_require_nonempty($site, ['phone', 'email', 'owner'], 'Websitekonfiguration');
         config_require_nonempty($site['postal_address'], ['streetAddress', 'postalCode', 'addressLocality', 'addressCountry'], 'Geschäftsadresse');
+    }
+
+    // Root-relative HTML paths (/assets/..., /kontakt.php, ...) must include
+    // the local project prefix when the application runs below /nh_hor.
+    $publicBasePath = rtrim((string)($site['base_path'] ?? ''), '/');
+    if ($publicBasePath !== '' && PHP_SAPI !== 'cli' && !defined('EASYIT_PATH_REWRITE_ACTIVE')) {
+        define('EASYIT_PATH_REWRITE_ACTIVE', true);
+        ob_start(static function (string $html) use ($publicBasePath): string {
+            return preg_replace_callback(
+                '~\b(href|src|action)=([' . "\"'" . '])/((?!/)[^' . "\"'" . ']*)\2~i',
+                static function (array $match) use ($publicBasePath): string {
+                    $path = '/' . $match[3];
+                    if ($path === $publicBasePath || str_starts_with($path, $publicBasePath . '/')) {
+                        return $match[0];
+                    }
+                    return $match[1] . '=' . $match[2] . $publicBasePath . $path . $match[2];
+                },
+                $html
+            ) ?? $html;
+        });
     }
 
     return $site;

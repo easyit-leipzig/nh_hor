@@ -15,7 +15,7 @@ if (!$post) {
 
 $pageTitle = $post['meta_title'] ?: ($post['title'] . ' | easyIT Lernblog');
 $pageDescription = $post['meta_description'] ?: ($post['excerpt'] ?: 'Artikel aus dem easyIT Lernblog.');
-$pageCanonical = $post['canonical_url'] ?: canonical_url($site, $site['base_path'] . '/blog-artikel.php', ['slug' => $slug]);
+$pageCanonical = $post['canonical_url'] ?: canonical_url($site, '/blog-artikel.php', ['slug' => $slug]);
 
 $pageSchemas = [[
     '@context'=>'https://schema.org',

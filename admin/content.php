@@ -26,6 +26,10 @@ require __DIR__ . '/includes/header.php';
 <p class="admin-notice admin-notice--error">Der Eintrag wurde nicht gefunden.</p>
 <?php elseif ($archiveResult === 'invalid'): ?>
 <p class="admin-notice admin-notice--error">Die Archivierungsanfrage war ungültig.</p>
+<?php elseif ($archiveResult === 'already'): ?>
+<p class="admin-notice admin-notice--error">Der Eintrag war bereits archiviert.</p>
+<?php elseif ($archiveResult === 'error'): ?>
+<p class="admin-notice admin-notice--error">Der Eintrag konnte nicht archiviert werden.</p>
 <?php endif; ?>
 <div class="admin-actions">
   <h1 style="margin-right:auto"><?= admin_e(strtoupper($type)) ?></h1>
@@ -42,12 +46,14 @@ require __DIR__ . '/includes/header.php';
   <td class="admin-actions">
     <a class="admin-btn" href="/admin/edit.php?id=<?= (int)$item['id'] ?>">Bearbeiten</a>
     <a class="admin-btn" href="/admin/preview/content.php?id=<?= (int)$item['id'] ?>">Vorschau</a>
+    <?php if (admin_has_role('admin')): ?>
     <form method="post" action="/admin/delete.php" class="admin-inline-form" onsubmit="return confirm('Diesen Eintrag wirklich archivieren?');">
       <input type="hidden" name="csrf_token" value="<?= admin_e(csrf_token()) ?>">
       <input type="hidden" name="id" value="<?= (int)$item['id'] ?>">
       <input type="hidden" name="type" value="<?= admin_e($type) ?>">
       <button class="admin-btn admin-btn--danger" type="submit">Archivieren</button>
     </form>
+    <?php endif; ?>
   </td>
 </tr>
 <?php endforeach; ?>
