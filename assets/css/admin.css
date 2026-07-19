@@ -25,3 +25,28 @@ body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;backgrou
   border-radius: .75rem;
 }
 .admin-fieldset legend { padding: 0 .4rem; font-weight: 700; }
+
+.admin-inline-form {
+  display: inline;
+  margin: 0;
+}
+
+.admin-inline-form .admin-btn {
+  font: inherit;
+  cursor: pointer;
+}
+
+.admin-notice {
+  margin: 0 0 1rem;
+  padding: .8rem 1rem;
+  border: 1px solid currentColor;
+  border-radius: .35rem;
+}
+
+.admin-notice--success {
+  background: #edf8ef;
+}
+
+.admin-notice--error {
+  background: #fff0f0;
+}

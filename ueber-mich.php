@@ -1,10 +1,76 @@
 <?php
 declare(strict_types=1);
 require __DIR__ . '/includes/functions.php';
+require __DIR__ . '/includes/database.php';
 $site = require __DIR__ . '/config/site.php';
-$pageTitle = 'Über mich | Tutor für MINT-Nachhilfe in Leipzig | easyIT';
-$pageDescription = 'Olaf Thiele begleitet Lernende in Mathematik, Physik, Chemie und Informatik mit fachübergreifender Erfahrung und persönlicher Methodik.';
+$pageTitle = 'Unser Tutorenteam | Nachhilfe in Leipzig | easyIT';
+$pageDescription = 'Lernen Sie die Tutorinnen und Tutoren von easyIT Leipzig mit ihren fachlichen, methodischen und didaktischen Kompetenzen kennen.';
 $pageCanonical = $site['base_url'] . '/nh_hor/ueber-mich.php';
+
+/** @return array<int,array<string,mixed>> */
+function loadTutors(): array
+{
+    if (!db_available()) {
+        return [];
+    }
+
+    $tutors = db()->query(
+        "SELECT id, slug, display_name, professional_title, short_intro, biography,
+                teaching_approach, image_path, image_alt
+         FROM tutors
+         WHERE is_active = 1
+         ORDER BY sort_order ASC, display_name ASC"
+    )->fetchAll();
+
+    if (!$tutors) {
+        return [];
+    }
+
+    $ids = array_map(static fn(array $tutor): int => (int)$tutor['id'], $tutors);
+    $placeholders = implode(',', array_fill(0, count($ids), '?'));
+    $statement = db()->prepare(
+        "SELECT tutor_id, category, title, description
+         FROM tutor_competencies
+         WHERE tutor_id IN ($placeholders)
+         ORDER BY tutor_id ASC, sort_order ASC, id ASC"
+    );
+    $statement->execute($ids);
+
+    $competencies = [];
+    foreach ($statement->fetchAll() as $item) {
+        $competencies[(int)$item['tutor_id']][$item['category']][] = $item;
+    }
+
+    $reviewStatement = db()->prepare(
+        "SELECT tutor_id, COUNT(*) AS review_count, ROUND(AVG(stars), 1) AS average_rating
+         FROM tutor_reviews
+         WHERE tutor_id IN ($placeholders) AND is_published = 1
+         GROUP BY tutor_id"
+    );
+    $reviewStatement->execute($ids);
+    $ratings = [];
+    foreach ($reviewStatement->fetchAll() as $rating) {
+        $ratings[(int)$rating['tutor_id']] = $rating;
+    }
+
+    foreach ($tutors as &$tutor) {
+        $tutor['competencies'] = $competencies[(int)$tutor['id']] ?? [];
+        $tutor['review_count'] = (int)($ratings[(int)$tutor['id']]['review_count'] ?? 0);
+        $tutor['average_rating'] = (float)($ratings[(int)$tutor['id']]['average_rating'] ?? 0);
+    }
+    unset($tutor);
+
+    return $tutors;
+}
+
+$tutors = loadTutors();
+$categoryLabels = [
+    'fach' => 'Fachliche Schwerpunkte',
+    'methodik' => 'Methodische Kompetenzen',
+    'didaktik' => 'Didaktische Kompetenzen',
+    'faehigkeit' => 'Besondere Fähigkeiten',
+    'qualifikation' => 'Qualifikationen und Erfahrung',
+];
 ?><!doctype html>
 <html lang="de">
 <head><?php require __DIR__ . '/includes/meta.php'; ?></head>
@@ -13,14 +79,88 @@ $pageCanonical = $site['base_url'] . '/nh_hor/ueber-mich.php';
 <div class="page-shell">
 <?php require __DIR__ . '/includes/sidebar.php'; ?>
 <main class="main-content" id="hauptinhalt"><div class="content-wrap">
-<nav class="breadcrumbs" aria-label="Brotkrumen"><a href="/">Startseite</a><span>›</span><span aria-current="page">Über mich</span></nav>
-<section class="content-hero"><span class="eyebrow">Tutor, Erklärer und Lernbegleiter</span><h1>Über mich</h1><p class="lead">Olaf Thiele begleitet Lernende in Mathematik, Physik, Chemie und Informatik mit fachübergreifender Erfahrung und persönlicher Methodik.</p></section>
+<nav class="breadcrumbs" aria-label="Brotkrumen"><a href="index.php">Startseite</a><span>›</span><span aria-current="page">Unser Tutorenteam</span></nav>
+<section class="content-hero">
+    <span class="eyebrow">Fachlich fundiert und pädagogisch durchdacht</span>
+    <h1>Unser Tutorenteam</h1>
+    <p class="lead">Jeder Tutor bringt eigene Fachkenntnisse, methodische Stärken und didaktische Erfahrungen ein. Die Profile werden direkt aus der Datenbank geladen und lassen sich dadurch zentral pflegen und erweitern.</p>
+</section>
 
-<section class="section split"><div class="prose"><h2>Unterrichten heißt für mich: gemeinsam denken</h2>
-<p>Ich begleite Lernende in Mathematik, Physik, Chemie und Informatik. Dabei sehe ich mich nicht nur als klassischen Nachhilfelehrer, sondern als Tutor: jemand, der Orientierung gibt, Fragen aufnimmt und dabei hilft, einen eigenen Zugang zu schwierigen Inhalten zu entwickeln.</p>
-<p>Mein fachübergreifender Hintergrund ist besonders dann hilfreich, wenn ein Problem nicht sauber in ein einzelnes Schulfach passt. Eine mathematische Formel kann eine physikalische Aussage beschreiben, ein chemischer Prozess braucht Mengenverständnis und eine informatische Lösung verlangt strukturiertes Denken. Solche Verbindungen mache ich im Unterricht sichtbar.</p>
-<h2>Ich muss nicht jede Antwort sofort wissen</h2><p>Glaubwürdiger Unterricht bedeutet auch, Unsicherheit offen zu benennen. Wenn eine Frage nicht sofort sicher beantwortet werden kann, wird sie sauber recherchiert und nachvollziehbar geklärt. Lernende erleben dadurch, dass Wissen nicht nur aus fertigen Antworten besteht, sondern auch aus guten Suchwegen, überprüfbaren Quellen und der Bereitschaft, die eigene Annahme zu korrigieren.</p></div>
-<aside class="hero-panel"><h2>Fachliche Schwerpunkte</h2><ul class="tag-list"><li>Mathematik</li><li>Physik</li><li>Chemie</li><li>Informatik</li><li>Prüfungsvorbereitung</li><li>Studienbegleitung</li></ul><p>Für Sprachen und weitere Fachgebiete wird das Team perspektivisch durch passende Honorarkräfte ergänzt.</p></aside></section>
-<section class="section"><header class="section-heading"><div><span class="eyebrow">Arbeitsweise</span><h2>Was Lernende erwarten können</h2></div></header><div class="card-grid"><article class="card"><h3>Geduld</h3><p>Ein Gedanke darf mehrfach und auf unterschiedlichen Wegen erklärt werden.</p></article><article class="card"><h3>Direktheit</h3><p>Probleme werden benannt, ohne Lernende abzuwerten.</p></article><article class="card"><h3>Verlässlichkeit</h3><p>Absprachen, Aufgaben und Rückfragen werden nachvollziehbar behandelt.</p></article><article class="card"><h3>Neugier</h3><p>Auch unerwartete Fragen dürfen den Unterricht sinnvoll erweitern.</p></article></div></section>
+<?php if ($tutors === []): ?>
+<section class="section">
+    <div class="info-panel">
+        <h2>Die Tutorprofile werden vorbereitet</h2>
+        <p>Momentan konnten keine aktiven Tutorprofile aus der Datenbank geladen werden. Bitte führen Sie die Migration <code>database/migrations/20260718_003_tutoren.sql</code> aus und prüfen Sie anschließend die Datenbankverbindung.</p>
+    </div>
+</section>
+<?php else: ?>
+<section class="section tutor-list" aria-label="Tutorinnen und Tutoren">
+<?php foreach ($tutors as $index => $tutor): ?>
+    <article class="tutor-profile<?= $index % 2 === 1 ? ' tutor-profile--reverse' : '' ?>">
+        <div class="tutor-profile__rating" aria-label="Bewertung: <?= number_format((float)$tutor['average_rating'], 1, ',', '.') ?> von 5 Sternen">
+            <span class="star-rating" aria-hidden="true">★★★★★</span>
+            <strong><?= number_format((float)$tutor['average_rating'], 1, ',', '.') ?> / 5</strong>
+            <span><?= (int)$tutor['review_count'] ?> <?= (int)$tutor['review_count'] === 1 ? 'Bewertung' : 'Bewertungen' ?></span>
+        </div>
+        <div class="tutor-profile__portrait">
+            <img src="<?= e((string)$tutor['image_path']) ?>" alt="<?= e((string)$tutor['image_alt']) ?>" loading="<?= $index === 0 ? 'eager' : 'lazy' ?>" decoding="async">
+            <a class="tutor-profile__reviews-link"
+               href="tutor-bewertungen.php?tutor=<?= rawurlencode((string)$tutor['slug']) ?>"
+               aria-label="Bewertungen für <?= e((string)$tutor['display_name']) ?> lesen">
+                Bewertungen zu diesem Tutor lesen
+            </a>
+            <a class="button button--primary tutor-profile__trial-button"
+               href="kontakt.php?anliegen=probestunde&amp;tutor=<?= rawurlencode((string)$tutor['slug']) ?>"
+               aria-label="Probestunde bei <?= e((string)$tutor['display_name']) ?> vereinbaren">
+                Probestunde vereinbaren
+            </a>
+        </div>
+        <div class="tutor-profile__content">
+            <span class="eyebrow">Tutorprofil</span>
+            <h2><?= e((string)$tutor['display_name']) ?></h2>
+            <p class="tutor-profile__title"><?= e((string)$tutor['professional_title']) ?></p>
+            <p class="lead tutor-profile__intro"><?= e((string)$tutor['short_intro']) ?></p>
+
+            <div class="tutor-profile__text">
+                <div>
+                    <h3>Fachlicher Hintergrund</h3>
+                    <p><?= e((string)$tutor['biography']) ?></p>
+                </div>
+                <div>
+                    <h3>Unterrichtsansatz</h3>
+                    <p><?= e((string)$tutor['teaching_approach']) ?></p>
+                </div>
+            </div>
+
+            <div class="tutor-competency-grid">
+            <?php foreach ($categoryLabels as $category => $label): ?>
+                <?php $items = $tutor['competencies'][$category] ?? []; ?>
+                <?php if ($items !== []): ?>
+                <section class="tutor-competency-card">
+                    <h3><?= e($label) ?></h3>
+                    <ul>
+                    <?php foreach ($items as $item): ?>
+                        <li>
+                            <strong><?= e((string)$item['title']) ?></strong>
+                            <?php if (!empty($item['description'])): ?><span><?= e((string)$item['description']) ?></span><?php endif; ?>
+                        </li>
+                    <?php endforeach; ?>
+                    </ul>
+                </section>
+                <?php endif; ?>
+            <?php endforeach; ?>
+            </div>
+        </div>
+    </article>
+<?php endforeach; ?>
+</section>
+<?php endif; ?>
+
+<section class="section">
+    <div class="cta">
+        <div><span class="eyebrow">Passende Unterstützung finden</span><h2>Welcher Tutor passt zum Lernziel?</h2><p>In einem ersten Gespräch klären wir Fach, Schulform, Lernstand und Zielsetzung. Anschließend wird die fachlich und pädagogisch passende Begleitung ausgewählt.</p></div>
+        <a class="button button--primary" href="kontakt.php">Kontakt aufnehmen</a>
+    </div>
+</section>
 
 </div><?php require __DIR__ . '/includes/footer.php'; ?></main></div></body></html>

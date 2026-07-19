@@ -38,7 +38,7 @@ if (!$tutor) {
 } else {
     $pageTitle = 'Bewertungen für ' . $tutor['display_name'] . ' | easyIT Leipzig';
     $pageDescription = 'Erfahrungen und Bewertungen von Lernenden für ' . $tutor['display_name'] . '.';
-    $pageCanonical = $site['base_url'] . '/nh_hor/tutor-bewertungen.php?tutor=' . rawurlencode((string)$tutor['slug']);
+    $pageCanonical = canonical_url($site, $site['base_path'] . '/tutor-bewertungen.php', ['tutor' => (string)$tutor['slug']]);
 }
 
 $average = $reviews ? array_sum(array_map(static fn(array $review): int => (int)$review['stars'], $reviews)) / count($reviews) : 0;

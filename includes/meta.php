@@ -2,11 +2,15 @@
 declare(strict_types=1);
 
 $site = require __DIR__ . '/../config/site.php';
+require_once __DIR__ . '/functions.php';
 $pageTitle = $pageTitle ?? $site['default_title'];
 $pageDescription = $pageDescription ?? $site['default_description'];
-$pageCanonical = $pageCanonical ?? $site['base_url'] . ($_SERVER['REQUEST_URI'] ?? '/');
+$pageCanonical = $pageCanonical ?? canonical_url($site);
 $pageRobots = $pageRobots ?? 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1';
 $pageSchemas = $pageSchemas ?? [];
+
+require_once __DIR__ . '/structured-data.php';
+$organizationSchema = organization_schema($site);
 ?>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -21,7 +25,7 @@ $pageSchemas = $pageSchemas ?? [];
 <meta property="og:title" content="<?= e($pageTitle) ?>">
 <meta property="og:description" content="<?= e($pageDescription) ?>">
 <meta property="og:url" content="<?= e($pageCanonical) ?>">
-<meta property="og:image" content="<?= e($site['base_url']) ?>/assets/img/og-easyit.svg">
+<meta property="og:image" content="<?= e($site['base_url'] . $site['base_path']) ?>/assets/img/og-easyit.svg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="<?= e($pageTitle) ?>">
 <meta name="twitter:description" content="<?= e($pageDescription) ?>">
@@ -34,26 +38,7 @@ $pageSchemas = $pageSchemas ?? [];
 <link rel="stylesheet" href="/nh_hor/assets/css/content.css">
 <link rel="stylesheet" href="/nh_hor/assets/css/footer.css">
 <script type="application/ld+json">
-<?= json_encode([
-    '@context' => 'https://schema.org',
-    '@type' => ['EducationalOrganization', 'LocalBusiness'],
-    'name' => $site['site_name'],
-    'url' => $site['base_url'],
-    'email' => $site['email'],
-    'telephone' => $site['phone'],
-    'areaServed' => [
-        '@type' => 'City',
-        'name' => 'Leipzig'
-    ],
-    'knowsAbout' => [
-        'Mathematik Nachhilfe',
-        'Physik Nachhilfe',
-        'Chemie Nachhilfe',
-        'Informatik Nachhilfe',
-        'Prüfungsvorbereitung',
-        'Abiturvorbereitung'
-    ]
-], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) ?>
+<?= json_encode($organizationSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) ?>
 </script>
 
 <?php foreach ($pageSchemas as $schema): ?>

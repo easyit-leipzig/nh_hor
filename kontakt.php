@@ -33,7 +33,7 @@ $selectedLocation = $old['location'] ?? $prefillLocation;
 <?php require __DIR__ . '/includes/sidebar.php'; ?>
 <main class="main-content" id="hauptinhalt">
 <div class="content-wrap">
-<nav class="breadcrumbs" aria-label="Brotkrumen"><a href="/">Startseite</a><span>›</span><span aria-current="page">Kontakt</span></nav>
+<nav class="breadcrumbs" aria-label="Brotkrumen"><a href="index.php">Startseite</a><span>›</span><span aria-current="page">Kontakt</span></nav>
 
 <section class="hero">
   <div>
@@ -120,7 +120,9 @@ $selectedLocation = $old['location'] ?? $prefillLocation;
     <div class="contact-card">
       <h3>Direkter Kontakt</h3>
       <p><strong>E-Mail:</strong><br><a href="mailto:<?= e($site['email']) ?>"><?= e($site['email']) ?></a></p>
-      <p><strong>Telefon:</strong><br><a href="tel:<?= e(preg_replace('/\s+/', '', $site['phone'])) ?>"><?= e($site['phone']) ?></a></p>
+      <?php if (trim((string)($site['phone'] ?? '')) !== ''): ?>
+      <p><strong>Telefon:</strong><br><a href="tel:<?= e(preg_replace('/\s+/', '', (string)$site['phone'])) ?>"><?= e((string)$site['phone']) ?></a></p>
+      <?php endif; ?>
     </div>
     <div class="contact-card">
       <h3>Datenschutz</h3>

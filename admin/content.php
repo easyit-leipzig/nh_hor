@@ -9,6 +9,7 @@ if (!in_array($type, $allowed, true)) {
     $type = 'faq';
 }
 
+$archiveResult = (string)($_GET['archive'] ?? '');
 $items = [];
 if (db_available()) {
     $stmt = db()->prepare('SELECT id, title, slug, status, updated_at FROM content_items WHERE content_type = :type ORDER BY updated_at DESC');
@@ -19,6 +20,13 @@ if (db_available()) {
 $adminTitle = 'Inhalte';
 require __DIR__ . '/includes/header.php';
 ?>
+<?php if ($archiveResult === 'success'): ?>
+<p class="admin-notice admin-notice--success">Der Eintrag wurde archiviert.</p>
+<?php elseif ($archiveResult === 'missing'): ?>
+<p class="admin-notice admin-notice--error">Der Eintrag wurde nicht gefunden.</p>
+<?php elseif ($archiveResult === 'invalid'): ?>
+<p class="admin-notice admin-notice--error">Die Archivierungsanfrage war ungültig.</p>
+<?php endif; ?>
 <div class="admin-actions">
   <h1 style="margin-right:auto"><?= admin_e(strtoupper($type)) ?></h1>
   <a class="admin-btn admin-btn--gold" href="/nh_hor/admin/edit.php?type=<?= admin_e($type) ?>">Neuer Eintrag</a>
@@ -34,7 +42,12 @@ require __DIR__ . '/includes/header.php';
   <td class="admin-actions">
     <a class="admin-btn" href="/nh_hor/admin/edit.php?id=<?= (int)$item['id'] ?>">Bearbeiten</a>
     <a class="admin-btn" href="/nh_hor/admin/preview/content.php?id=<?= (int)$item['id'] ?>">Vorschau</a>
-    <a class="admin-btn admin-btn--danger" href="/nh_hor/admin/delete.php?id=<?= (int)$item['id'] ?>">Archivieren</a>
+    <form method="post" action="/nh_hor/admin/delete.php" class="admin-inline-form" onsubmit="return confirm('Diesen Eintrag wirklich archivieren?');">
+      <input type="hidden" name="csrf_token" value="<?= admin_e(csrf_token()) ?>">
+      <input type="hidden" name="id" value="<?= (int)$item['id'] ?>">
+      <input type="hidden" name="type" value="<?= admin_e($type) ?>">
+      <button class="admin-btn admin-btn--danger" type="submit">Archivieren</button>
+    </form>
   </td>
 </tr>
 <?php endforeach; ?>

@@ -13,7 +13,7 @@ $pageCanonical = $site['base_url'] . '/nh_hor/preise.php';
 <div class="page-shell">
 <?php require __DIR__ . '/includes/sidebar.php'; ?>
 <main class="main-content" id="hauptinhalt"><div class="content-wrap">
-<nav class="breadcrumbs" aria-label="Brotkrumen"><a href="/">Startseite</a><span>›</span><span aria-current="page">Preise und Ablauf</span></nav>
+<nav class="breadcrumbs" aria-label="Brotkrumen"><a href="index.php">Startseite</a><span>›</span><span aria-current="page">Preise und Ablauf</span></nav>
 <section class="content-hero"><span class="eyebrow">Transparent, planbar und passend zum tatsächlichen Bedarf</span><h1>Preise und Ablauf</h1><p class="lead">Transparente Informationen zu Kennenlernen, Einzelunterricht, Prüfungsvorbereitung, Absagen und individueller Vereinbarung bei easyIT Leipzig.</p></section>
 
 <section class="section"><div class="info-box"><h2>Preisangaben vor Veröffentlichung ergänzen</h2><p>In Phase 2 ist die Preisstruktur vollständig vorbereitet. Trage die verbindlichen Beträge erst ein, wenn Dauer, Unterrichtsform und steuerliche Angaben endgültig feststehen.</p></div><div class="price-grid" style="margin-top:1.5rem">

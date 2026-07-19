@@ -49,7 +49,7 @@ Für den lokalen Betrieb werden benötigt:
 Empfohlene Projektablage:
 
 ```text
-C:\xampp\htdocs\nh_seo\
+C:\xampp\htdocs\nh_hor\
 ```
 
 Lokaler Aufruf der Webseite:
@@ -69,7 +69,7 @@ https://localhost/nh_hor/admin/
 ## 3. Relevante Projektstruktur
 
 ```text
-nh_seo/
+nh_hor/
 ├── admin/
 │   ├── index.php
 │   ├── login.php
@@ -194,7 +194,7 @@ Das Administratorkonto wird aus Sicherheitsgründen über die Kommandozeile ange
 In der XAMPP-Shell:
 
 ```bat
-cd C:\xampp\htdocs\nh_seo
+cd C:\xampp\htdocs\nh_hor
 php database\create-admin.php BENUTZERNAME EMAIL PASSWORT
 ```
 
@@ -963,7 +963,7 @@ Nach Phasen mit Schemaänderungen müssen Migrationen ausgeführt werden.
 In der XAMPP-Shell:
 
 ```bat
-cd C:\xampp\htdocs\nh_seo
+cd C:\xampp\htdocs\nh_hor
 php database\migrate.php
 ```
 
@@ -1105,7 +1105,7 @@ require __DIR__ . '/nh_hor/includes/functions.php';
 Dies würde zu einem doppelten Pfad wie diesem führen:
 
 ```text
-C:\xampp\htdocs\nh_seo\nh_seo\includes\functions.php
+C:\xampp\htdocs\nh_hor\nh_hor\includes\functions.php
 ```
 
 ---
@@ -1115,7 +1115,7 @@ C:\xampp\htdocs\nh_seo\nh_seo\includes\functions.php
 Einige Weiterleitungen im aktuellen Projektstand verwenden noch Pfade wie:
 
 ```php
-header('Location: /admin/index.php');
+header('Location: /nh_hor/admin/index.php');
 ```
 
 Bei einer Installation im Unterverzeichnis `/nh_hor/` sollte der Pfad lauten:
@@ -1222,7 +1222,7 @@ Im Admin-Header muss stehen:
 <link rel="stylesheet" href="/nh_hor/assets/css/admin.css">
 ```
 
-### 29.8 Fatal Error mit `nh_seo/nh_hor`
+### 29.8 Fatal Error mit `nh_hor/nh_hor`
 
 Ursache: Browserpfad wurde fälschlich in einen PHP-Dateisystempfad eingesetzt.
 
@@ -1420,7 +1420,7 @@ https://localhost/nh_hor/admin/
 ### Migration ausführen
 
 ```bat
-cd C:\xampp\htdocs\nh_seo
+cd C:\xampp\htdocs\nh_hor
 php database\migrate.php
 ```
 

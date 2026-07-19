@@ -1,0 +1,18 @@
+# Diese Regeln gehören als .htaccess in das Wurzelverzeichnis von easyit-leipzig.de,
+# also eine Ebene oberhalb des Verzeichnisses /nh_hor/.
+
+RewriteEngine On
+
+# Hauptdomain der Nachhilfe: Root-Aufruf nach /nh_hor/ weiterleiten.
+RewriteCond %{HTTP_HOST} ^(?:www\.)?easyit-nachhilfe\.de$ [NC]
+RewriteCond %{REQUEST_URI} !^/nh_hor(?:/|$) [NC]
+RewriteRule ^ https://easyit-nachhilfe.de/nh_hor%{REQUEST_URI} [R=301,L,NE]
+
+# Zweitdomain immer auf die kanonische Nachhilfe-Domain weiterleiten.
+RewriteCond %{HTTP_HOST} ^(?:www\.)?thiele-nachhilfe\.de$ [NC]
+RewriteCond %{REQUEST_URI} !^/nh_hor(?:/|$) [NC]
+RewriteRule ^ https://easyit-nachhilfe.de/nh_hor%{REQUEST_URI} [R=301,L,NE]
+
+RewriteCond %{HTTP_HOST} ^(?:www\.)?thiele-nachhilfe\.de$ [NC]
+RewriteCond %{REQUEST_URI} ^/nh_hor(?:/|$) [NC]
+RewriteRule ^ https://easyit-nachhilfe.de%{REQUEST_URI} [R=301,L,NE]
