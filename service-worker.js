@@ -11,7 +11,7 @@ const CORE_ASSETS = [
   '/nh_hor/assets/img/subjects/mathe.svg',
   '/nh_hor/assets/img/lern-stud.svg',
   '/nh_hor/assets/img/stud-lern.svg',
-  '/nh_hor/',
+  '/',
   '/nh_hor/assets/css/main.css',
   '/nh_hor/assets/css/header.css',
   '/nh_hor/assets/css/sidebar.css',

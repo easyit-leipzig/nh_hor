@@ -13,7 +13,7 @@ $pageCanonical = $site['base_url'] . '/nh_hor/warum-easyit.php';
 <div class="page-shell">
 <?php require __DIR__ . '/includes/sidebar.php'; ?>
 <main class="main-content" id="hauptinhalt"><div class="content-wrap">
-<nav class="breadcrumbs" aria-label="Brotkrumen"><a href="index.php">Startseite</a><span>›</span><span aria-current="page">Warum easyIT?</span></nav>
+<nav class="breadcrumbs" aria-label="Brotkrumen"><a href="/">Startseite</a><span>›</span><span aria-current="page">Warum easyIT?</span></nav>
 <section class="content-hero"><span class="eyebrow">Nachhilfe mit Haltung</span><h1>Warum easyIT?</h1><p class="lead">Warum easyIT Nachhilfe Leipzig: persönliche Begleitung, fachübergreifendes Denken, verständliche Erklärungen und gezielte Prüfungsvorbereitung.</p></section>
 
 <section class="section split"><div class="prose">

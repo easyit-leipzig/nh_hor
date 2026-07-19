@@ -19,7 +19,7 @@ $pageRobots = 'noindex,nofollow';
   <span class="eyebrow">Offline</span>
   <h1>Keine Verbindung</h1>
   <p>Die gewünschte Seite ist aktuell nicht im Zwischenspeicher verfügbar. Bitte prüfe die Internetverbindung und lade die Seite erneut.</p>
-  <a class="button button--blue" href="/nh_hor/index.php">Zur Startseite</a>
+  <a class="button button--blue" href="/">Zur Startseite</a>
 </section>
 </div>
 <?php require __DIR__ . '/includes/footer.php'; ?>

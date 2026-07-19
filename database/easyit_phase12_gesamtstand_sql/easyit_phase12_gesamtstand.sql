@@ -152,7 +152,7 @@ INSERT INTO `schema_migrations` (`migration`, `executed_at`) VALUES
 ('20260717_002_review_metadata.sql', CURRENT_TIMESTAMP);
 
 -- Die Website erzeugt den ersten Administrator sicher über:
--- php C:\xampp\htdocs\nh_hor\database\create-admin.php
+-- php C:\xampp\htdocs\nh_seo\database\create-admin.php
 -- Deshalb enthält dieser Dump bewusst kein voreingestelltes Passwort.
 
 SET UNIQUE_CHECKS = 1;

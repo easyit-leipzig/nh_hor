@@ -25,9 +25,6 @@ function horizontal_menu_items(): array
                 ['title'=>'Spanisch','url'=>'/nh_hor/spanisch-nachhilfe-leipzig.php'],
                 ['title'=>'Latein','url'=>'/nh_hor/latein-nachhilfe-leipzig.php'],
             ]],
-            ['title'=>'Gesellschaft','url'=>'#','children'=>[
-                ['title'=>'Ethik','url'=>'/nh_hor/ethik-nachhilfe-leipzig.php'],
-            ]],
         ]],
         ['title'=>'Schulformen','url'=>'/nh_hor/schulformen.php','children'=>[
             ['title'=>'Grundschule','url'=>'/nh_hor/nachhilfe-grundschule-leipzig.php'],

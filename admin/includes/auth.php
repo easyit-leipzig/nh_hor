@@ -13,7 +13,7 @@ function admin_user(): ?array
 function admin_require_login(): void
 {
     if (!admin_user()) {
-        header('Location: /nh_hor/admin/login.php', true, 303);
+        header('Location: /admin/login.php', true, 303);
         exit;
     }
 }

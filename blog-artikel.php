@@ -36,7 +36,7 @@ $pageSchemas = [[
 <?php require __DIR__ . '/includes/sidebar.php'; ?>
 <main class="main-content" id="hauptinhalt">
 <div class="content-wrap">
-<nav class="breadcrumbs" aria-label="Brotkrumen"><a href="index.php">Startseite</a><span>›</span><a href="blog.php">Lernblog</a><span>›</span><span aria-current="page"><?= e((string)$post['title']) ?></span></nav>
+<nav class="breadcrumbs" aria-label="Brotkrumen"><a href="/">Startseite</a><span>›</span><a href="/nh_hor/blog.php">Lernblog</a><span>›</span><span aria-current="page"><?= e((string)$post['title']) ?></span></nav>
 <article class="section article-page">
   <span class="eyebrow">Lernblog</span>
   <h1><?= e((string)$post['title']) ?></h1>

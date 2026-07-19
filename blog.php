@@ -17,7 +17,7 @@ $posts = cms_items('blog', 'published', 100);
 <?php require __DIR__ . '/includes/sidebar.php'; ?>
 <main class="main-content" id="hauptinhalt">
 <div class="content-wrap">
-<nav class="breadcrumbs" aria-label="Brotkrumen"><a href="index.php">Startseite</a><span>›</span><span aria-current="page">Lernblog</span></nav>
+<nav class="breadcrumbs" aria-label="Brotkrumen"><a href="/">Startseite</a><span>›</span><span aria-current="page">Lernblog</span></nav>
 <section class="hero">
   <div><span class="eyebrow">Wissen und Lernmethoden</span><h1>easyIT Lernblog</h1><p>Fachliche Erklärungen und praktische Hinweise für Schule, Studium und Prüfung.</p></div>
   <aside class="hero-panel"><h2>Redaktionell gepflegt</h2><p>Neue Beiträge werden im CMS vorbereitet, geprüft und anschließend veröffentlicht.</p></aside>

@@ -21,7 +21,7 @@ $pageRobots = 'noindex,nofollow';
   <h1>Etwas ist schiefgelaufen.</h1>
   <p>Die Seite konnte nicht vollständig geladen werden. Bitte versuche es später erneut.</p>
   <div class="hero-actions">
-    <a class="button button--gold" href="/nh_hor/index.php">Zur Startseite</a>
+    <a class="button button--gold" href="/">Zur Startseite</a>
     <a class="button button--blue" href="/nh_hor/sitemap.php">Sitemap öffnen</a>
   </div>
 </section>

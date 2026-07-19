@@ -4,7 +4,7 @@ declare(strict_types=1);
 $site = require __DIR__ . '/../config/site.php';
 $pageTitle = $pageTitle ?? $site['default_title'];
 $pageDescription = $pageDescription ?? $site['default_description'];
-$pageCanonical = $pageCanonical ?? $site['base_url'] . ($_SERVER['REQUEST_URI'] ?? $site['base_path'] . '/index.php');
+$pageCanonical = $pageCanonical ?? $site['base_url'] . ($_SERVER['REQUEST_URI'] ?? '/');
 $pageRobots = $pageRobots ?? 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1';
 $pageSchemas = $pageSchemas ?? [];
 ?>
@@ -21,7 +21,7 @@ $pageSchemas = $pageSchemas ?? [];
 <meta property="og:title" content="<?= e($pageTitle) ?>">
 <meta property="og:description" content="<?= e($pageDescription) ?>">
 <meta property="og:url" content="<?= e($pageCanonical) ?>">
-<meta property="og:image" content="<?= e($site['base_url'] . $site['base_path']) ?>/assets/img/og-easyit.svg">
+<meta property="og:image" content="<?= e($site['base_url']) ?>/assets/img/og-easyit.svg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="<?= e($pageTitle) ?>">
 <meta name="twitter:description" content="<?= e($pageDescription) ?>">
@@ -38,7 +38,7 @@ $pageSchemas = $pageSchemas ?? [];
     '@context' => 'https://schema.org',
     '@type' => ['EducationalOrganization', 'LocalBusiness'],
     'name' => $site['site_name'],
-    'url' => $site['base_url'] . $site['base_path'] . '/',
+    'url' => $site['base_url'],
     'email' => $site['email'],
     'telephone' => $site['phone'],
     'areaServed' => [

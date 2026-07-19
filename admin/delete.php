@@ -12,8 +12,8 @@ if ($id > 0 && db_available()) {
     $update = db()->prepare('UPDATE content_items SET status="archived", updated_by=:user WHERE id=:id');
     $update->execute(['user'=>admin_user()['id'],'id'=>$id]);
     admin_log('archive', (string)$type, $id);
-    header('Location: /nh_hor/admin/content.php?type=' . rawurlencode((string)$type), true, 303);
+    header('Location: /admin/content.php?type=' . rawurlencode((string)$type), true, 303);
     exit;
 }
-header('Location: /nh_hor/admin/index.php', true, 303);
+header('Location: /admin/index.php', true, 303);
 exit;

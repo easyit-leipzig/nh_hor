@@ -24,7 +24,7 @@ $items = $jobs ?: $fallback;
 <?php require __DIR__ . '/includes/sidebar.php'; ?>
 <main class="main-content" id="hauptinhalt">
 <div class="content-wrap">
-<nav class="breadcrumbs" aria-label="Brotkrumen"><a href="index.php">Startseite</a><span>›</span><span aria-current="page">Jobs</span></nav>
+<nav class="breadcrumbs" aria-label="Brotkrumen"><a href="/">Startseite</a><span>›</span><span aria-current="page">Jobs</span></nav>
 <section class="hero">
   <div><span class="eyebrow">Mitwirken</span><h1>Jobs und Honorartätigkeiten</h1><p>easyIT sucht fachlich sichere, verlässliche und lernorientierte Unterstützung.</p></div>
   <aside class="hero-panel"><h2>Wichtig</h2><p>Neben Fachwissen zählen Geduld, verständliche Erklärungen und ein respektvoller Umgang.</p></aside>

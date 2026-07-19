@@ -103,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     cms_forget_type_cache($type);
                 }
                 $pdo->commit();
-                header('Location: /nh_hor/admin/content.php?type=' . rawurlencode($type), true, 303);
+                header('Location: /admin/content.php?type=' . rawurlencode($type), true, 303);
                 exit;
             } catch (Throwable $e) {
                 $pdo->rollBack();

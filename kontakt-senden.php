@@ -8,7 +8,7 @@ $site = require __DIR__ . '/config/site.php';
 $formConfig = require __DIR__ . '/config/forms.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: /nh_hor/kontakt.php', true, 303);
+    header('Location: /kontakt.php', true, 303);
     exit;
 }
 
@@ -55,7 +55,7 @@ ensure_session_started();
 if ($errors) {
     $_SESSION['contact_errors'] = $errors;
     $_SESSION['contact_old'] = $data;
-    header('Location: /nh_hor/kontakt.php#kontaktformular', true, 303);
+    header('Location: /kontakt.php#kontaktformular', true, 303);
     exit;
 }
 
@@ -102,7 +102,7 @@ $logEntry = [
     'mail_sent' => $mailSent,
 ];
 @file_put_contents(
-    __DIR__ . '/storage/contact-events.log',
+    __DIR__ . '/nh_hor/storage/contact-events.log',
     json_encode($logEntry, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . PHP_EOL,
     FILE_APPEND | LOCK_EX
 );
@@ -110,5 +110,5 @@ $logEntry = [
 unset($_SESSION['contact_old'], $_SESSION['contact_errors']);
 $_SESSION['contact_success'] = true;
 
-header('Location: /nh_hor/anfrage-erfolgreich.php', true, 303);
+header('Location: /anfrage-erfolgreich.php', true, 303);
 exit;

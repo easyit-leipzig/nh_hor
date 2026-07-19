@@ -12,7 +12,7 @@
   --line:rgba(0,87,164,.18);
   --shadow:0 18px 46px rgba(0,44,88,.16);
   --radius:24px;
-  --header-h:100px;
+  --header-h:118px;
   --sidebar-w:286px;
   --content-max:1500px;
 }
@@ -55,8 +55,8 @@ p{max-width:75ch}
   *,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}
 }
 
-/* Migration nh_hor -> nh_hor: einspaltiger Inhaltsbereich unter horizontaler Navigation */
-:root{--header-h:100px;--sidebar-w:0px}
+/* Migration nh_seo -> nh_hor: einspaltiger Inhaltsbereich unter horizontaler Navigation */
+:root{--header-h:204px;--sidebar-w:0px}
 .page-shell{display:block;max-width:1800px;margin:auto}
 .main-content{width:100%;min-width:0}
-@media(max-width:1050px){:root{--header-h:60px}}
+@media(max-width:1050px){:root{--header-h:100px}}

@@ -13,7 +13,7 @@ if (!isset($schoolTypeKey, $schoolTypes[$schoolTypeKey])) {
 $type = $schoolTypes[$schoolTypeKey];
 $pageTitle = $type['title'];
 $pageDescription = $type['description'];
-$pageCanonical = $site['base_url'] . $site['base_path'] . '/' . $type['file'];
+$pageCanonical = $site['base_url'] . '/nh_hor/' . $type['file'];
 
 $pageSchemas = [[
     '@context' => 'https://schema.org',
@@ -28,7 +28,7 @@ $pageSchemas = [[
     '@context' => 'https://schema.org',
     '@type' => 'BreadcrumbList',
     'itemListElement' => [
-        ['@type' => 'ListItem', 'position' => 1, 'name' => 'Startseite', 'item' => $site['base_url'] . $site['base_path'] . '/index.php'],
+        ['@type' => 'ListItem', 'position' => 1, 'name' => 'Startseite', 'item' => $site['base_url'] . '/nh_hor/'],
         ['@type' => 'ListItem', 'position' => 2, 'name' => 'Schulformen', 'item' => $site['base_url'] . '/nh_hor/schulformen.php'],
         ['@type' => 'ListItem', 'position' => 3, 'name' => $type['name'], 'item' => $pageCanonical],
     ],
@@ -42,7 +42,7 @@ $pageSchemas = [[
 <?php require __DIR__ . '/sidebar.php'; ?>
 <main class="main-content" id="hauptinhalt">
 <div class="content-wrap">
-<nav class="breadcrumbs" aria-label="Brotkrumen"><a href="index.php">Startseite</a><span>›</span><a href="schulformen.php">Schulformen</a><span>›</span><span aria-current="page"><?= e($type['name']) ?></span></nav>
+<nav class="breadcrumbs" aria-label="Brotkrumen"><a href="/nh_hor/">Startseite</a><span>›</span><a href="/nh_hor/schulformen.php">Schulformen</a><span>›</span><span aria-current="page"><?= e($type['name']) ?></span></nav>
 
 <section class="hero">
   <div>

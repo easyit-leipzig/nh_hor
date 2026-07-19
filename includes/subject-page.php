@@ -13,7 +13,7 @@ if (!isset($subjectKey, $subjects[$subjectKey])) {
 $subject = $subjects[$subjectKey];
 $pageTitle = $subject['title'];
 $pageDescription = $subject['description'];
-$pageCanonical = $site['base_url'] . $site['base_path'] . '/' . $subject['file'];
+$pageCanonical = $site['base_url'] . '/' . $subject['file'];
 
 $faqEntities = array_map(static fn(array $item): array => [
     '@type' => 'Question',
@@ -45,7 +45,7 @@ $pageSchemas = [
         '@context' => 'https://schema.org',
         '@type' => 'BreadcrumbList',
         'itemListElement' => [
-            ['@type' => 'ListItem', 'position' => 1, 'name' => 'Startseite', 'item' => $site['base_url'] . $site['base_path'] . '/index.php'],
+            ['@type' => 'ListItem', 'position' => 1, 'name' => 'Startseite', 'item' => $site['base_url'] . '/'],
             ['@type' => 'ListItem', 'position' => 2, 'name' => 'Fächer', 'item' => $site['base_url'] . '/nh_hor/faecher.php'],
             ['@type' => 'ListItem', 'position' => 3, 'name' => $subject['name'], 'item' => $pageCanonical],
         ],
@@ -61,7 +61,7 @@ $pageSchemas = [
 <main class="main-content" id="hauptinhalt">
 <div class="content-wrap">
 <nav class="breadcrumbs" aria-label="Brotkrumen">
-    <a href="index.php">Startseite</a><span>›</span>
+    <a href="/">Startseite</a><span>›</span>
     <a href="/nh_hor/faecher.php">Fächer</a><span>›</span>
     <span aria-current="page"><?= e($subject['name']) ?></span>
 </nav>
@@ -147,7 +147,7 @@ $pageSchemas = [
   <header class="section-heading"><div><span class="eyebrow">Fachübergreifend</span><h2>Weitere Nachhilfeangebote</h2></div></header>
   <div class="mini-link-grid">
   <?php foreach ($subjects as $key => $other): if ($key === $subjectKey) continue; ?>
-    <a href="/nh_hor/<?= e($other['file']) ?>"><span aria-hidden="true"><?= e($other['icon']) ?></span><strong><?= e($other['name']) ?></strong></a>
+    <a href="/<?= e($other['file']) ?>"><span aria-hidden="true"><?= e($other['icon']) ?></span><strong><?= e($other['name']) ?></strong></a>
   <?php endforeach; ?>
   </div>
 </section>
