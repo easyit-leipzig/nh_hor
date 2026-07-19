@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 require __DIR__ . '/includes/functions.php';
+require_once __DIR__ . '/includes/structured-data.php';
 require __DIR__ . '/includes/content-repository.php';
 $site = require __DIR__ . '/config/site.php';
 
@@ -17,16 +18,27 @@ $pageTitle = $post['meta_title'] ?: ($post['title'] . ' | easyIT Lernblog');
 $pageDescription = $post['meta_description'] ?: ($post['excerpt'] ?: 'Artikel aus dem easyIT Lernblog.');
 $pageCanonical = $post['canonical_url'] ?: canonical_url($site, '/blog-artikel.php', ['slug' => $slug]);
 
-$pageSchemas = [[
-    '@context'=>'https://schema.org',
-    '@type'=>'BlogPosting',
-    'headline'=>$post['title'],
-    'description'=>$pageDescription,
-    'datePublished'=>$post['published_at'],
-    'dateModified'=>$post['updated_at'],
-    'mainEntityOfPage'=>$pageCanonical,
-    'publisher'=>['@type'=>'EducationalOrganization','name'=>$site['site_name']]
-]];
+$articleSchema = [
+    '@context' => 'https://schema.org',
+    '@type' => 'BlogPosting',
+    '@id' => $pageCanonical . '#article',
+    'headline' => $post['title'],
+    'description' => $pageDescription,
+    'datePublished' => $post['published_at'],
+    'dateModified' => $post['updated_at'] ?: $post['published_at'],
+    'mainEntityOfPage' => ['@type' => 'WebPage', '@id' => $pageCanonical],
+    'author' => ['@type' => 'Person', 'name' => $site['owner']],
+    'publisher' => organization_reference($site),
+    'image' => [schema_absolute_url($site, (string)$site['image'])],
+];
+$pageSchemas = [
+    $articleSchema,
+    breadcrumb_schema($site, [
+        ['name' => 'Startseite', 'url' => '/'],
+        ['name' => 'Lernblog', 'url' => '/blog.php'],
+        ['name' => (string)$post['title'], 'url' => $pageCanonical],
+    ]),
+];
 ?><!doctype html>
 <html lang="de" data-theme="leipzig-blau">
 <head><?php require __DIR__ . '/includes/meta.php'; ?></head>

@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 require __DIR__ . '/functions.php';
+require_once __DIR__ . '/structured-data.php';
 $site = require __DIR__ . '/../config/site.php';
 $schoolTypes = require __DIR__ . '/../config/school-types.php';
 $subjects = require __DIR__ . '/../config/subjects.php';
@@ -21,14 +22,14 @@ $pageSchemas = [[
     'name' => 'Nachhilfe ' . $type['name'] . ' in Leipzig',
     'serviceType' => 'Nachhilfe für ' . $type['name'],
     'description' => $type['description'],
-    'provider' => ['@type' => 'EducationalOrganization', 'name' => $site['site_name'], 'url' => $site['base_url']],
+    'provider' => organization_reference($site),
     'areaServed' => ['@type' => 'City', 'name' => 'Leipzig'],
     'url' => $pageCanonical,
 ], [
     '@context' => 'https://schema.org',
     '@type' => 'BreadcrumbList',
     'itemListElement' => [
-        ['@type' => 'ListItem', 'position' => 1, 'name' => 'Startseite', 'item' => $site['base_url'] . $site['base_path'] . '/index.php'],
+        ['@type' => 'ListItem', 'position' => 1, 'name' => 'Startseite', 'item' => $site['base_url'] . '/'],
         ['@type' => 'ListItem', 'position' => 2, 'name' => 'Schulformen', 'item' => $site['base_url'] . '/schulformen.php'],
         ['@type' => 'ListItem', 'position' => 3, 'name' => $type['name'], 'item' => $pageCanonical],
     ],

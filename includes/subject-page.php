@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 require __DIR__ . '/functions.php';
+require_once __DIR__ . '/structured-data.php';
 $site = require __DIR__ . '/../config/site.php';
 $subjects = require __DIR__ . '/../config/subjects.php';
 
@@ -28,11 +29,7 @@ $pageSchemas = [
         'name' => $subject['name'] . '-Nachhilfe in Leipzig',
         'serviceType' => $subject['name'] . ' Nachhilfe',
         'description' => $subject['description'],
-        'provider' => [
-            '@type' => 'EducationalOrganization',
-            'name' => $site['site_name'],
-            'url' => $site['base_url'],
-        ],
+        'provider' => organization_reference($site),
         'areaServed' => ['@type' => 'City', 'name' => 'Leipzig'],
         'url' => $pageCanonical,
     ],
@@ -45,7 +42,7 @@ $pageSchemas = [
         '@context' => 'https://schema.org',
         '@type' => 'BreadcrumbList',
         'itemListElement' => [
-            ['@type' => 'ListItem', 'position' => 1, 'name' => 'Startseite', 'item' => $site['base_url'] . $site['base_path'] . '/index.php'],
+            ['@type' => 'ListItem', 'position' => 1, 'name' => 'Startseite', 'item' => $site['base_url'] . '/'],
             ['@type' => 'ListItem', 'position' => 2, 'name' => 'Fächer', 'item' => $site['base_url'] . '/faecher.php'],
             ['@type' => 'ListItem', 'position' => 3, 'name' => $subject['name'], 'item' => $pageCanonical],
         ],

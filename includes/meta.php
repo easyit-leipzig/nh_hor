@@ -11,6 +11,26 @@ $pageSchemas = $pageSchemas ?? [];
 
 require_once __DIR__ . '/structured-data.php';
 $organizationSchema = organization_schema($site);
+$isIndexable = stripos($pageRobots, 'noindex') === false;
+
+if ($isIndexable) {
+    $hasBreadcrumb = false;
+    foreach ($pageSchemas as $schema) {
+        if (is_array($schema) && ($schema['@type'] ?? null) === 'BreadcrumbList') {
+            $hasBreadcrumb = true;
+            break;
+        }
+    }
+
+    $homeCanonical = rtrim((string)$site['base_url'], '/') . '/';
+    if (!$hasBreadcrumb && rtrim($pageCanonical, '/') !== rtrim($homeCanonical, '/')) {
+        $breadcrumbName = trim((string)preg_replace('/\s*\|.*$/u', '', $pageTitle));
+        $pageSchemas[] = breadcrumb_schema($site, [
+            ['name' => 'Startseite', 'url' => '/'],
+            ['name' => $breadcrumbName !== '' ? $breadcrumbName : $site['site_name'], 'url' => $pageCanonical],
+        ]);
+    }
+}
 ?>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -25,7 +45,7 @@ $organizationSchema = organization_schema($site);
 <meta property="og:title" content="<?= e($pageTitle) ?>">
 <meta property="og:description" content="<?= e($pageDescription) ?>">
 <meta property="og:url" content="<?= e($pageCanonical) ?>">
-<meta property="og:image" content="<?= e($site['base_url'] . $site['base_path']) ?>/assets/img/og-easyit.svg">
+<meta property="og:image" content="<?= e(schema_absolute_url($site, (string)$site['image'])) ?>">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="<?= e($pageTitle) ?>">
 <meta name="twitter:description" content="<?= e($pageDescription) ?>">
@@ -37,12 +57,14 @@ $organizationSchema = organization_schema($site);
 <link rel="stylesheet" href="/assets/css/sidebar.css">
 <link rel="stylesheet" href="/assets/css/content.css">
 <link rel="stylesheet" href="/assets/css/footer.css">
-<script type="application/ld+json">
+<?php if ($isIndexable): ?>
+<script type="application/ld+json" nonce="<?= e(security_csp_nonce()) ?>">
 <?= json_encode($organizationSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) ?>
 </script>
 
 <?php foreach ($pageSchemas as $schema): ?>
-<script type="application/ld+json">
+<script type="application/ld+json" nonce="<?= e(security_csp_nonce()) ?>">
 <?= json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) ?>
 </script>
 <?php endforeach; ?>
+<?php endif; ?>

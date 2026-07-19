@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 require __DIR__ . '/functions.php';
+require_once __DIR__ . '/structured-data.php';
 $site = require __DIR__ . '/../config/site.php';
 $areas = require __DIR__ . '/../config/areas.php';
 $subjects = require __DIR__ . '/../config/subjects.php';
@@ -22,11 +23,7 @@ $pageSchemas = [
         'name' => 'Nachhilfe in ' . $area['name'],
         'serviceType' => 'Individuelle Nachhilfe',
         'description' => $area['description'],
-        'provider' => [
-            '@type' => 'EducationalOrganization',
-            'name' => $site['site_name'],
-            'url' => $site['base_url'],
-        ],
+        'provider' => organization_reference($site),
         'areaServed' => [
             '@type' => $area['type'] === 'city' ? 'City' : 'AdministrativeArea',
             'name' => $area['name'],
@@ -37,7 +34,7 @@ $pageSchemas = [
         '@context' => 'https://schema.org',
         '@type' => 'BreadcrumbList',
         'itemListElement' => [
-            ['@type' => 'ListItem', 'position' => 1, 'name' => 'Startseite', 'item' => $site['base_url'] . $site['base_path'] . '/index.php'],
+            ['@type' => 'ListItem', 'position' => 1, 'name' => 'Startseite', 'item' => $site['base_url'] . '/'],
             ['@type' => 'ListItem', 'position' => 2, 'name' => 'Nachhilfe in Leipzig', 'item' => $site['base_url'] . '/nachhilfe-leipzig.php'],
             ['@type' => 'ListItem', 'position' => 3, 'name' => $area['name'], 'item' => $pageCanonical],
         ],

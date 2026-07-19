@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 require __DIR__ . '/includes/functions.php';
+require_once __DIR__ . '/includes/structured-data.php';
 require __DIR__ . '/includes/content-repository.php';
 $site = require __DIR__ . '/config/site.php';
 
@@ -16,15 +17,21 @@ $fallbackFaqs = [
 ];
 $faqs = $dbFaqs ?: $fallbackFaqs;
 
-$pageSchemas = [[
-    '@context'=>'https://schema.org',
-    '@type'=>'FAQPage',
-    'mainEntity'=>array_map(static fn(array $faq): array => [
-        '@type'=>'Question',
-        'name'=>$faq['title'],
-        'acceptedAnswer'=>['@type'=>'Answer','text'=>$faq['body']]
-    ], $faqs)
-]];
+$pageSchemas = [
+    [
+        '@context'=>'https://schema.org',
+        '@type'=>'FAQPage',
+        'mainEntity'=>array_map(static fn(array $faq): array => [
+            '@type'=>'Question',
+            'name'=>$faq['title'],
+            'acceptedAnswer'=>['@type'=>'Answer','text'=>strip_tags((string)$faq['body'])]
+        ], $faqs)
+    ],
+    breadcrumb_schema($site, [
+        ['name' => 'Startseite', 'url' => '/'],
+        ['name' => 'FAQ', 'url' => '/faq.php'],
+    ]),
+];
 ?><!doctype html>
 <html lang="de" data-theme="leipzig-blau">
 <head><?php require __DIR__ . '/includes/meta.php'; ?></head>

@@ -12,11 +12,11 @@ try {
         'email' => 'info@easyit-nachhilfe.de',
         'service_area' => 'Leipzig',
         'postal_address' => [
-            'street_address' => 'An der Kotsche 1',
-            'postal_code' => '04207',
-            'address_locality' => 'Leipzig',
-            'address_region' => 'Sachsen',
-            'address_country' => 'DE',
+            'streetAddress' => 'An der Kotsche 1',
+            'postalCode' => '04207',
+            'addressLocality' => 'Leipzig',
+            'addressRegion' => 'Sachsen',
+            'addressCountry' => 'DE',
         
         ],
         'logo' => 'assets/img/logo.svg',
@@ -61,6 +61,8 @@ try {
         config_require_nonempty($site, ['phone', 'email', 'owner'], 'Websitekonfiguration');
         config_require_nonempty($site['postal_address'], ['streetAddress', 'postalCode', 'addressLocality', 'addressCountry'], 'Geschäftsadresse');
     }
+
+    security_send_headers();
 
     // Root-relative HTML paths (/assets/..., /kontakt.php, ...) must include
     // the local project prefix when the application runs below /nh_hor.

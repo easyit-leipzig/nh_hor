@@ -10,15 +10,36 @@ if (admin_user()) {
 
 $error = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $username = sanitize_line((string)($_POST['username'] ?? ''));
+    $status = login_rate_status($username);
+
     if (!csrf_is_valid((string)($_POST['csrf_token'] ?? ''))) {
+        admin_log('login_denied_csrf', 'admin_session', null, ['username_hash' => hash('sha256', mb_strtolower($username))]);
         $error = 'Die Sitzung ist abgelaufen.';
-    } elseif (admin_login(
-        sanitize_line((string)($_POST['username'] ?? '')),
-        (string)($_POST['password'] ?? '')
-    )) {
+    } elseif (!$status['allowed']) {
+        admin_log('login_rate_limited', 'admin_session', null, [
+            'username_hash' => hash('sha256', mb_strtolower($username)),
+            'retry_after' => $status['retry_after'],
+        ]);
+        http_response_code(429);
+        header('Retry-After: ' . max(60, (int)$status['retry_after']));
+        $error = 'Zu viele Anmeldeversuche. Bitte versuchen Sie es später erneut.';
+    } elseif (admin_login($username, (string)($_POST['password'] ?? ''))) {
+        login_rate_clear($username);
+        admin_log('login_success', 'admin_session', null, ['username' => $username]);
         header('Location: /admin/index.php', true, 303);
         exit;
     } else {
+        $failure = login_rate_record_failure($username);
+        admin_log('login_failed', 'admin_session', null, [
+            'username_hash' => hash('sha256', mb_strtolower($username)),
+            'attempts' => $failure['attempts'],
+            'locked' => !$failure['allowed'],
+        ]);
+        if (!$failure['allowed']) {
+            http_response_code(429);
+            header('Retry-After: ' . max(60, (int)$failure['retry_after']));
+        }
         $error = 'Anmeldung fehlgeschlagen.';
     }
 }

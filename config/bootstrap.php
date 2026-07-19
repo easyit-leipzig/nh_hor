@@ -88,6 +88,54 @@ function config_require_nonempty(array $config, array $keys, string $context): v
     }
 }
 
+
+function security_csp_nonce(): string
+{
+    static $nonce = null;
+    if ($nonce === null) {
+        $nonce = rtrim(strtr(base64_encode(random_bytes(18)), '+/', '-_'), '=');
+    }
+    return $nonce;
+}
+
+function security_send_headers(): void
+{
+    if (PHP_SAPI === 'cli' || headers_sent()) {
+        return;
+    }
+
+    $nonce = security_csp_nonce();
+    $policy = implode('; ', [
+        "default-src 'self'",
+        "base-uri 'self'",
+        "object-src 'none'",
+        "frame-ancestors 'self'",
+        "form-action 'self'",
+        "script-src 'self' 'nonce-{$nonce}'",
+        "style-src 'self' 'unsafe-inline'",
+        "img-src 'self' data:",
+        "font-src 'self' data:",
+        "connect-src 'self'",
+        "manifest-src 'self'",
+        "worker-src 'self'",
+        "media-src 'self'",
+        "frame-src 'none'",
+        'upgrade-insecure-requests',
+    ]);
+
+    $mode = strtolower(config_env('CSP_MODE', 'report-only') ?? 'report-only');
+    if ($mode === 'enforce') {
+        header('Content-Security-Policy: ' . $policy);
+    } elseif ($mode !== 'off') {
+        header('Content-Security-Policy-Report-Only: ' . $policy);
+    }
+
+    header('X-Content-Type-Options: nosniff');
+    header('Referrer-Policy: strict-origin-when-cross-origin');
+    header('Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()');
+    header('X-Frame-Options: SAMEORIGIN');
+}
+
 function config_abort(Throwable $exception): never
 {
     error_log('[easyIT configuration] ' . $exception->getMessage());

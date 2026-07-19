@@ -1,7 +1,9 @@
 <?php
 declare(strict_types=1);
 
+require_once __DIR__ . '/../../config/bootstrap.php';
 require_once __DIR__ . '/../../includes/security.php';
+security_send_headers();
 require_once __DIR__ . '/../../includes/database.php';
 
 function admin_user(): ?array

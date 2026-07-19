@@ -17,6 +17,6 @@
 <script src="/assets/js/search.js" defer></script>
 <script src="/assets/js/consent.js" defer></script>
 <script src="/assets/js/analytics.js" defer></script>
-<script>
+<script nonce="<?= e(security_csp_nonce()) ?>">
 if ("serviceWorker" in navigator) { window.addEventListener("load", () => navigator.serviceWorker.register("/service-worker.js")); }
 </script>

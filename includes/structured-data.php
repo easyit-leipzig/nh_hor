@@ -11,90 +11,129 @@ function schema_nonempty($value): bool
 }
 
 /** @param array<string,mixed> $site */
+function schema_absolute_url(array $site, string $value): string
+{
+    $value = trim($value);
+    if ($value === '') {
+        return '';
+    }
+    if (filter_var($value, FILTER_VALIDATE_URL)) {
+        return $value;
+    }
+    return rtrim((string)$site['base_url'], '/') . '/' . ltrim($value, '/');
+}
+
+/** @param array<string,mixed> $site */
+function organization_id(array $site): string
+{
+    return rtrim((string)$site['base_url'], '/') . '/#organization';
+}
+
+/**
+ * Globale, reale Unternehmensdaten. Es wird bewusst genau eine Organisation
+ * ausgezeichnet; seitenspezifische Schemas referenzieren sie über @id.
+ *
+ * @param array<string,mixed> $site
+ * @return array<string,mixed>
+ */
 function organization_schema(array $site): array
 {
-    $base = rtrim((string)($site['base_url'] ?? ''), '/');
-    $path = '/' . trim((string)($site['base_path'] ?? ''), '/');
-    if ($path === '/') {
-        $path = '';
-    }
-    $home = $base . $path . '/';
+    $home = rtrim((string)$site['base_url'], '/') . '/';
+    $address = is_array($site['postal_address'] ?? null) ? $site['postal_address'] : [];
 
     $schema = [
         '@context' => 'https://schema.org',
         '@type' => 'EducationalOrganization',
-        '@id' => $home . '#organization',
-        'name' => (string)($site['site_name'] ?? ''),
+        '@id' => organization_id($site),
+        'name' => trim((string)($site['site_name'] ?? '')),
+        'legalName' => trim((string)($site['owner'] ?? '')),
         'url' => $home,
-        'description' => (string)($site['default_description'] ?? ''),
+        'description' => trim((string)($site['default_description'] ?? '')),
+        'telephone' => trim((string)($site['phone'] ?? '')),
+        'email' => trim((string)($site['email'] ?? '')),
+        'address' => [
+            '@type' => 'PostalAddress',
+            'streetAddress' => trim((string)($address['streetAddress'] ?? '')),
+            'postalCode' => trim((string)($address['postalCode'] ?? '')),
+            'addressLocality' => trim((string)($address['addressLocality'] ?? '')),
+            'addressRegion' => trim((string)($address['addressRegion'] ?? '')),
+            'addressCountry' => trim((string)($address['addressCountry'] ?? '')),
+        ],
         'areaServed' => [
             '@type' => 'City',
-            'name' => (string)($site['service_area'] ?? 'Leipzig'),
-        ],
-        'knowsAbout' => [
-            'Mathematik Nachhilfe',
-            'Physik Nachhilfe',
-            'Chemie Nachhilfe',
-            'Informatik Nachhilfe',
-            'Prüfungsvorbereitung',
-            'Abiturvorbereitung',
+            'name' => trim((string)($site['service_area'] ?? 'Leipzig')),
         ],
     ];
 
-    foreach (['email', 'telephone'] as $schemaKey) {
-        $configKey = $schemaKey === 'telephone' ? 'phone' : $schemaKey;
-        if (schema_nonempty($site[$configKey] ?? null)) {
-            $schema[$schemaKey] = trim((string)$site[$configKey]);
-        }
-    }
-
-    $logo = trim((string)($site['logo'] ?? ''));
+    $logo = schema_absolute_url($site, (string)($site['logo'] ?? ''));
     if ($logo !== '') {
-        $schema['logo'] = str_starts_with($logo, 'http') ? $logo : $base . $path . '/' . ltrim($logo, '/');
+        $schema['logo'] = [
+            '@type' => 'ImageObject',
+            '@id' => $home . '#logo',
+            'url' => $logo,
+            'contentUrl' => $logo,
+        ];
     }
-    $image = trim((string)($site['image'] ?? ''));
+
+    $image = schema_absolute_url($site, (string)($site['image'] ?? ''));
     if ($image !== '') {
-        $schema['image'] = str_starts_with($image, 'http') ? $image : $base . $path . '/' . ltrim($image, '/');
+        $schema['image'] = [$image];
     }
 
-    $address = is_array($site['postal_address'] ?? null) ? $site['postal_address'] : [];
-    $required = ['streetAddress', 'postalCode', 'addressLocality', 'addressCountry'];
-    $complete = true;
-    foreach ($required as $key) {
-        if (!schema_nonempty($address[$key] ?? null)) {
-            $complete = false;
-            break;
-        }
+    if (schema_nonempty($site['price_range'] ?? null)) {
+        $schema['priceRange'] = trim((string)$site['price_range']);
     }
-    if ($complete) {
-        $schema['@type'] = ['EducationalOrganization', 'LocalBusiness'];
-        $schema['address'] = array_merge(['@type' => 'PostalAddress'], array_intersect_key($address, array_flip([
-            'streetAddress', 'postalCode', 'addressLocality', 'addressRegion', 'addressCountry'
-        ])));
-
-        if (schema_nonempty($site['price_range'] ?? null)) {
-            $schema['priceRange'] = trim((string)$site['price_range']);
-        }
-        if (is_array($site['opening_hours'] ?? null) && $site['opening_hours'] !== []) {
-            $schema['openingHoursSpecification'] = $site['opening_hours'];
-        }
-        if (is_array($site['geo'] ?? null)
-            && isset($site['geo']['latitude'], $site['geo']['longitude'])
-            && is_numeric($site['geo']['latitude']) && is_numeric($site['geo']['longitude'])) {
-            $schema['geo'] = [
-                '@type' => 'GeoCoordinates',
-                'latitude' => (float)$site['geo']['latitude'],
-                'longitude' => (float)$site['geo']['longitude'],
-            ];
-        }
+    if (is_array($site['opening_hours'] ?? null) && $site['opening_hours'] !== []) {
+        $schema['openingHoursSpecification'] = $site['opening_hours'];
+    }
+    if (is_array($site['geo'] ?? null)
+        && isset($site['geo']['latitude'], $site['geo']['longitude'])
+        && is_numeric($site['geo']['latitude'])
+        && is_numeric($site['geo']['longitude'])) {
+        $schema['geo'] = [
+            '@type' => 'GeoCoordinates',
+            'latitude' => (float)$site['geo']['latitude'],
+            'longitude' => (float)$site['geo']['longitude'],
+        ];
     }
 
     if (is_array($site['same_as'] ?? null)) {
-        $sameAs = array_values(array_filter(array_map('trim', $site['same_as']), static fn(string $url): bool => filter_var($url, FILTER_VALIDATE_URL) !== false));
+        $sameAs = array_values(array_filter(
+            array_map('trim', $site['same_as']),
+            static fn(string $url): bool => filter_var($url, FILTER_VALIDATE_URL) !== false
+        ));
         if ($sameAs !== []) {
             $schema['sameAs'] = $sameAs;
         }
     }
 
-    return array_filter($schema, 'schema_nonempty');
+    return $schema;
+}
+
+/** @param array<string,mixed> $site */
+function organization_reference(array $site): array
+{
+    return ['@id' => organization_id($site)];
+}
+
+/**
+ * @param array<string,mixed> $site
+ * @param list<array{name:string,url:string}> $items
+ */
+function breadcrumb_schema(array $site, array $items): array
+{
+    $elements = [];
+    foreach ($items as $index => $item) {
+        $elements[] = [
+            '@type' => 'ListItem',
+            'position' => $index + 1,
+            'name' => $item['name'],
+            'item' => schema_absolute_url($site, $item['url']),
+        ];
+    }
+    return [
+        '@context' => 'https://schema.org',
+        '@type' => 'BreadcrumbList',
+        'itemListElement' => $elements,
+    ];
 }
