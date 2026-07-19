@@ -2,22 +2,30 @@ Options -Indexes
 DirectoryIndex index.php
 AddDefaultCharset UTF-8
 
-ErrorDocument 404 /nh_hor/errors/404.php
-ErrorDocument 500 /nh_hor/errors/500.php
+ErrorDocument 404 /errors/404.php
+ErrorDocument 500 /errors/500.php
 
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
-  # thiele-nachhilfe.de ist eine Weiterleitungsdomain.
-  # Alle Aufrufe innerhalb /nh_hor werden auf die kanonische Domain übertragen.
-  RewriteCond %{HTTP_HOST} ^(?:www\.)?thiele-nachhilfe\.de$ [NC]
-  RewriteRule ^ https://easyit-nachhilfe.de%{REQUEST_URI} [R=301,L,NE]
+  # Alte öffentlich erreichbare Projektpfade dauerhaft bereinigen.
+  # THE_REQUEST verhindert eine Schleife, wenn /nh_hor nur serverintern verwendet wird.
+  RewriteCond %{THE_REQUEST} \s/+nh_hor(?:/([^?\ ]*))? [NC]
+  RewriteRule ^nh_hor(?:/(.*))?$ https://easyit-leipzig.de/$1 [R=301,L,NE]
 
-  # Auf der öffentlichen Hauptdomain HTTPS und die Variante ohne www erzwingen.
-  RewriteCond %{HTTP_HOST} ^www\.easyit-nachhilfe\.de$ [NC,OR]
+  # Alle Zugangsdomains auf die einzige kanonische Domain umleiten.
+  RewriteCond %{HTTP_HOST} ^(?:www\.)?(?:easyit-nachhilfe\.de|thiele-nachhilfe\.de)$ [NC]
+  RewriteRule ^ https://easyit-leipzig.de%{REQUEST_URI} [R=301,L,NE]
+
+  # Hauptdomain: HTTPS und Variante ohne www erzwingen.
+  RewriteCond %{HTTP_HOST} ^www\.easyit-leipzig\.de$ [NC,OR]
   RewriteCond %{HTTPS} !=on
-  RewriteCond %{HTTP_HOST} ^(?:www\.)?easyit-nachhilfe\.de$ [NC]
-  RewriteRule ^ https://easyit-nachhilfe.de%{REQUEST_URI} [R=301,L,NE]
+  RewriteCond %{HTTP_HOST} ^(?:www\.)?easyit-leipzig\.de$ [NC]
+  RewriteRule ^ https://easyit-leipzig.de%{REQUEST_URI} [R=301,L,NE]
+
+  RewriteRule ^storage/ - [F,L]
+  RewriteRule ^database/ - [F,L]
+  RewriteRule ^cache/ - [F,L]
 </IfModule>
 
 <IfModule mod_deflate.c>
@@ -48,9 +56,3 @@ ErrorDocument 500 /nh_hor/errors/500.php
 <FilesMatch "(^\.|composer\.(json|lock)|README\.md|config)">
   Require all denied
 </FilesMatch>
-
-<IfModule mod_rewrite.c>
-  RewriteRule ^storage/ - [F,L]
-  RewriteRule ^database/ - [F,L]
-  RewriteRule ^cache/ - [F,L]
-</IfModule>

@@ -4,7 +4,7 @@ require __DIR__ . '/includes/functions.php';
 $site = require __DIR__ . '/config/site.php';
 $pageTitle = 'Methodik der Nachhilfe in Leipzig | Verstehen lernen | easyIT';
 $pageDescription = 'Die easyIT-Methodik verbindet Diagnose, bildhafte Erklärungen, gezielte Fragen, Übung, Recherchekompetenz und eigenständigen Transfer.';
-$pageCanonical = $site['base_url'] . '/nh_hor/methodik.php';
+$pageCanonical = $site['base_url'] . '/methodik.php';
 ?><!doctype html>
 <html lang="de">
 <head><?php require __DIR__ . '/includes/meta.php'; ?></head>

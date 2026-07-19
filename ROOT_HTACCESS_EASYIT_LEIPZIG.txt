@@ -1,18 +1,30 @@
-# Diese Regeln gehören als .htaccess in das Wurzelverzeichnis von easyit-leipzig.de,
-# also eine Ebene oberhalb des Verzeichnisses /nh_hor/.
+# Serverkonfiguration für den Webspace-Root oberhalb von /nh_hor/.
+# Bevorzugt: Für easyit-leipzig.de, easyit-nachhilfe.de und thiele-nachhilfe.de
+# das Verzeichnis /nh_hor als DocumentRoot festlegen.
+# Falls der Hoster keinen eigenen DocumentRoot erlaubt, kann diese interne
+# Rewrite-Variante im übergeordneten Webspace-Root verwendet werden.
 
 RewriteEngine On
 
-# Hauptdomain der Nachhilfe: Root-Aufruf nach /nh_hor/ weiterleiten.
-RewriteCond %{HTTP_HOST} ^(?:www\.)?easyit-nachhilfe\.de$ [NC]
-RewriteCond %{REQUEST_URI} !^/nh_hor(?:/|$) [NC]
-RewriteRule ^ https://easyit-nachhilfe.de/nh_hor%{REQUEST_URI} [R=301,L,NE]
+# Zugangsdomains auf die kanonische Domain umleiten; Pfad und Query bleiben erhalten.
+RewriteCond %{HTTP_HOST} ^(?:www\.)?(?:easyit-nachhilfe\.de|thiele-nachhilfe\.de)$ [NC]
+RewriteRule ^ https://easyit-leipzig.de%{REQUEST_URI} [R=301,L,NE]
 
-# Zweitdomain immer auf die kanonische Nachhilfe-Domain weiterleiten.
-RewriteCond %{HTTP_HOST} ^(?:www\.)?thiele-nachhilfe\.de$ [NC]
-RewriteCond %{REQUEST_URI} !^/nh_hor(?:/|$) [NC]
-RewriteRule ^ https://easyit-nachhilfe.de/nh_hor%{REQUEST_URI} [R=301,L,NE]
+# Hauptdomain vereinheitlichen.
+RewriteCond %{HTTP_HOST} ^www\.easyit-leipzig\.de$ [NC,OR]
+RewriteCond %{HTTPS} !=on
+RewriteCond %{HTTP_HOST} ^(?:www\.)?easyit-leipzig\.de$ [NC]
+RewriteRule ^ https://easyit-leipzig.de%{REQUEST_URI} [R=301,L,NE]
 
-RewriteCond %{HTTP_HOST} ^(?:www\.)?thiele-nachhilfe\.de$ [NC]
-RewriteCond %{REQUEST_URI} ^/nh_hor(?:/|$) [NC]
-RewriteRule ^ https://easyit-nachhilfe.de%{REQUEST_URI} [R=301,L,NE]
+# Alte sichtbare /nh_hor-URLs entfernen.
+RewriteCond %{THE_REQUEST} \s/+nh_hor(?:/([^?\ ]*))? [NC]
+RewriteRule ^nh_hor(?:/(.*))?$ https://easyit-leipzig.de/$1 [R=301,L,NE]
+
+# Öffentliche Root-URL intern aus /nh_hor ausliefern, ohne den Browserpfad zu ändern.
+RewriteCond %{REQUEST_URI} !^/nh_hor(?:/|$) [NC]
+RewriteCond %{DOCUMENT_ROOT}/nh_hor%{REQUEST_URI} -f [OR]
+RewriteCond %{DOCUMENT_ROOT}/nh_hor%{REQUEST_URI} -d
+RewriteRule ^(.*)$ nh_hor/$1 [END]
+
+# Root-Aufruf intern auf die Projekt-Startseite legen.
+RewriteRule ^$ nh_hor/index.php [END]

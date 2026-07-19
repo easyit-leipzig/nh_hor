@@ -4,7 +4,7 @@ require __DIR__ . '/includes/functions.php';
 $site = require __DIR__ . '/config/site.php';
 $pageTitle = 'Impressum | easyIT Nachhilfe Leipzig';
 $pageDescription = 'Anbieterkennzeichnung von easyIT Nachhilfe Leipzig. Die Pflichtangaben müssen vor Veröffentlichung vollständig ergänzt werden.';
-$pageCanonical = $site['base_url'] . '/nh_hor/impressum.php';
+$pageCanonical = $site['base_url'] . '/impressum.php';
 ?><!doctype html>
 <html lang="de">
 <head><?php require __DIR__ . '/includes/meta.php'; ?></head>

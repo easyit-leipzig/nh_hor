@@ -4,7 +4,7 @@ require __DIR__ . '/includes/functions.php';
 $site = require __DIR__ . '/config/site.php';
 $pageTitle = 'Preise und Ablauf der Nachhilfe in Leipzig | easyIT';
 $pageDescription = 'Transparente Informationen zu Kennenlernen, Einzelunterricht, Prüfungsvorbereitung, Absagen und individueller Vereinbarung bei easyIT Leipzig.';
-$pageCanonical = $site['base_url'] . '/nh_hor/preise.php';
+$pageCanonical = $site['base_url'] . '/preise.php';
 ?><!doctype html>
 <html lang="de">
 <head><?php require __DIR__ . '/includes/meta.php'; ?></head>

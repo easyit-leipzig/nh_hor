@@ -6,7 +6,7 @@ $site = require __DIR__ . '/config/site.php';
 
 $pageTitle = 'FAQ zur Nachhilfe in Leipzig | easyIT';
 $pageDescription = 'Antworten zu Ablauf, Fächern, Klassenstufen, Prüfungsvorbereitung und Kontakt bei easyIT Nachhilfe Leipzig.';
-$pageCanonical = $site['base_url'] . '/nh_hor/faq.php';
+$pageCanonical = $site['base_url'] . '/faq.php';
 
 $dbFaqs = cms_items('faq', 'published', 100);
 $fallbackFaqs = [
@@ -37,7 +37,7 @@ $pageSchemas = [[
 <nav class="breadcrumbs" aria-label="Brotkrumen"><a href="index.php">Startseite</a><span>›</span><span aria-current="page">FAQ</span></nav>
 <section class="hero">
   <div><span class="eyebrow">Häufige Fragen</span><h1>Fragen zur Nachhilfe in Leipzig</h1><p>Hier stehen Antworten zu Ablauf, Unterricht, Lernzielen und Kontakt.</p></div>
-  <aside class="hero-panel"><h2>Weitere Frage?</h2><p>Über das Kontaktformular kann eine konkrete Situation direkt beschrieben werden.</p><a href="/nh_hor/kontakt.php">Kontakt aufnehmen →</a></aside>
+  <aside class="hero-panel"><h2>Weitere Frage?</h2><p>Über das Kontaktformular kann eine konkrete Situation direkt beschrieben werden.</p><a href="/kontakt.php">Kontakt aufnehmen →</a></aside>
 </section>
 <section class="section faq">
 <?php foreach ($faqs as $faq): ?>

@@ -5,7 +5,7 @@ require __DIR__ . '/includes/database.php';
 $site = require __DIR__ . '/config/site.php';
 $pageTitle = 'Unser Tutorenteam | Nachhilfe in Leipzig | easyIT';
 $pageDescription = 'Lernen Sie die Tutorinnen und Tutoren von easyIT Leipzig mit ihren fachlichen, methodischen und didaktischen Kompetenzen kennen.';
-$pageCanonical = $site['base_url'] . '/nh_hor/ueber-mich.php';
+$pageCanonical = $site['base_url'] . '/ueber-mich.php';
 
 /** @return array<int,array<string,mixed>> */
 function loadTutors(): array

@@ -29,7 +29,7 @@ $pageSchemas = [[
     '@type' => 'BreadcrumbList',
     'itemListElement' => [
         ['@type' => 'ListItem', 'position' => 1, 'name' => 'Startseite', 'item' => $site['base_url'] . $site['base_path'] . '/index.php'],
-        ['@type' => 'ListItem', 'position' => 2, 'name' => 'Schulformen', 'item' => $site['base_url'] . '/nh_hor/schulformen.php'],
+        ['@type' => 'ListItem', 'position' => 2, 'name' => 'Schulformen', 'item' => $site['base_url'] . '/schulformen.php'],
         ['@type' => 'ListItem', 'position' => 3, 'name' => $type['name'], 'item' => $pageCanonical],
     ],
 ]];
@@ -50,7 +50,7 @@ $pageSchemas = [[
     <h1>Nachhilfe für <?= e($type['name']) ?></h1>
     <p><?= e($type['lead']) ?></p>
     <div class="hero-actions">
-      <a class="button button--gold" href="/nh_hor/kontakt.php?schulform=<?= rawurlencode($type['name']) ?>">Unterstützung anfragen</a>
+      <a class="button button--gold" href="/kontakt.php?schulform=<?= rawurlencode($type['name']) ?>">Unterstützung anfragen</a>
       <a class="button button--blue" href="#bildungsanforderungen">Anforderungen ansehen</a>
     </div>
   </div>
@@ -101,7 +101,7 @@ $pageSchemas = [[
 <section class="section">
   <header class="section-heading"><div><span class="eyebrow">Passende Fächer</span><h2>Fachliche Unterstützung auswählen</h2></div></header>
   <div class="mini-link-grid">
-    <?php foreach ($subjects as $subject): ?><a href="/nh_hor/<?= e($subject['file']) ?>"><span aria-hidden="true"><?= e($subject['icon']) ?></span><strong><?= e($subject['name']) ?></strong></a><?php endforeach; ?>
+    <?php foreach ($subjects as $subject): ?><a href="/<?= e($subject['file']) ?>"><span aria-hidden="true"><?= e($subject['icon']) ?></span><strong><?= e($subject['name']) ?></strong></a><?php endforeach; ?>
   </div>
 </section>
 
@@ -116,7 +116,7 @@ $pageSchemas = [[
 
 <section class="section cta">
   <div><span class="eyebrow">Nächster Schritt</span><h2>Nachhilfe für <?= e($type['name']) ?> anfragen</h2><p>Mit Fach, Klassen- oder Ausbildungsstufe, aktuellem Thema und Lernziel lässt sich der Bedarf schnell einordnen.</p></div>
-  <a class="button button--gold" href="/nh_hor/kontakt.php?schulform=<?= rawurlencode($type['name']) ?>">Kontakt aufnehmen</a>
+  <a class="button button--gold" href="/kontakt.php?schulform=<?= rawurlencode($type['name']) ?>">Kontakt aufnehmen</a>
 </section>
 </div>
 <?php require __DIR__ . '/footer.php'; ?>

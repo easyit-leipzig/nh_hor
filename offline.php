@@ -4,7 +4,7 @@ require __DIR__ . '/includes/functions.php';
 $site = require __DIR__ . '/config/site.php';
 $pageTitle = 'Offline | easyIT Nachhilfe Leipzig';
 $pageDescription = 'Diese Seite ist derzeit offline nicht verfügbar.';
-$pageCanonical = $site['base_url'] . '/nh_hor/offline.php';
+$pageCanonical = $site['base_url'] . '/offline.php';
 $pageRobots = 'noindex,nofollow';
 ?><!doctype html>
 <html lang="de">
@@ -19,7 +19,7 @@ $pageRobots = 'noindex,nofollow';
   <span class="eyebrow">Offline</span>
   <h1>Keine Verbindung</h1>
   <p>Die gewünschte Seite ist aktuell nicht im Zwischenspeicher verfügbar. Bitte prüfe die Internetverbindung und lade die Seite erneut.</p>
-  <a class="button button--blue" href="/nh_hor/index.php">Zur Startseite</a>
+  <a class="button button--blue" href="/index.php">Zur Startseite</a>
 </section>
 </div>
 <?php require __DIR__ . '/includes/footer.php'; ?>

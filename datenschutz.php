@@ -4,7 +4,7 @@ require __DIR__ . '/includes/functions.php';
 $site = require __DIR__ . '/config/site.php';
 $pageTitle = 'Datenschutz | easyIT Nachhilfe Leipzig';
 $pageDescription = 'Datenschutzhinweise von easyIT Nachhilfe Leipzig. Die Erklärung ist an Hosting, Kontaktformular, Protokolldaten und eingesetzte Dienste anzupassen.';
-$pageCanonical = $site['base_url'] . '/nh_hor/datenschutz.php';
+$pageCanonical = $site['base_url'] . '/datenschutz.php';
 ?><!doctype html>
 <html lang="de">
 <head><?php require __DIR__ . '/includes/meta.php'; ?></head>

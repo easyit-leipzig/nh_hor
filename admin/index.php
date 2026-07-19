@@ -14,14 +14,14 @@ if (db_available()) {
 $adminTitle = 'Dashboard';
 require __DIR__ . '/includes/header.php';
 ?>
-<div class="admin-actions"><h1 style="margin-right:auto">Dashboard</h1><a class="admin-btn" href="/nh_hor/admin/cache-clear.php">Cache leeren</a></div>
+<div class="admin-actions"><h1 style="margin-right:auto">Dashboard</h1><a class="admin-btn" href="/admin/cache-clear.php">Cache leeren</a></div>
 <p>Inhalte zentral bearbeiten, prüfen und veröffentlichen.</p><?php if (isset($_GET["cache"])): ?><div class="admin-alert"><?= (int)$_GET["cache"] ?> Cache-Dateien wurden entfernt.</div><?php endif; ?>
 <div class="admin-grid">
   <?php foreach ($counts as $type => $count): ?>
     <article class="admin-card">
       <h2><?= admin_e(strtoupper($type)) ?></h2>
       <p><strong><?= $count ?></strong> Einträge</p>
-      <a class="admin-btn" href="/nh_hor/admin/content.php?type=<?= admin_e($type) ?>">Verwalten</a>
+      <a class="admin-btn" href="/admin/content.php?type=<?= admin_e($type) ?>">Verwalten</a>
     </article>
   <?php endforeach; ?>
 </div>

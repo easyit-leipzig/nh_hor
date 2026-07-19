@@ -34,7 +34,7 @@ if (!$tutor) {
     http_response_code(404);
     $pageTitle = 'Tutor nicht gefunden | easyIT Nachhilfe Leipzig';
     $pageDescription = 'Das angeforderte Tutorprofil wurde nicht gefunden.';
-    $pageCanonical = $site['base_url'] . '/nh_hor/ueber-mich.php';
+    $pageCanonical = $site['base_url'] . '/ueber-mich.php';
 } else {
     $pageTitle = 'Bewertungen für ' . $tutor['display_name'] . ' | easyIT Leipzig';
     $pageDescription = 'Erfahrungen und Bewertungen von Lernenden für ' . $tutor['display_name'] . '.';

@@ -29,14 +29,14 @@ $organizationSchema = organization_schema($site);
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="<?= e($pageTitle) ?>">
 <meta name="twitter:description" content="<?= e($pageDescription) ?>">
-<link rel="icon" href="/nh_hor/assets/img/favicon.svg" type="image/svg+xml">
-<link rel="manifest" href="/nh_hor/manifest.webmanifest">
-<link rel="preload" href="/nh_hor/assets/css/main.css" as="style">
-<link rel="stylesheet" href="/nh_hor/assets/css/main.css">
-<link rel="stylesheet" href="/nh_hor/assets/css/header.css">
-<link rel="stylesheet" href="/nh_hor/assets/css/sidebar.css">
-<link rel="stylesheet" href="/nh_hor/assets/css/content.css">
-<link rel="stylesheet" href="/nh_hor/assets/css/footer.css">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="preload" href="/assets/css/main.css" as="style">
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/css/header.css">
+<link rel="stylesheet" href="/assets/css/sidebar.css">
+<link rel="stylesheet" href="/assets/css/content.css">
+<link rel="stylesheet" href="/assets/css/footer.css">
 <script type="application/ld+json">
 <?= json_encode($organizationSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) ?>
 </script>

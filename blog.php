@@ -6,7 +6,7 @@ $site = require __DIR__ . '/config/site.php';
 
 $pageTitle = 'Lernblog | easyIT Nachhilfe Leipzig';
 $pageDescription = 'Artikel zu Mathematik, Naturwissenschaften, Informatik, Sprachen, Prüfungen und Lernmethoden.';
-$pageCanonical = $site['base_url'] . '/nh_hor/blog.php';
+$pageCanonical = $site['base_url'] . '/blog.php';
 $posts = cms_items('blog', 'published', 100);
 ?><!doctype html>
 <html lang="de" data-theme="leipzig-blau">
@@ -29,7 +29,7 @@ $posts = cms_items('blog', 'published', 100);
   <article class="card">
     <h2><?= e((string)$post['title']) ?></h2>
     <p><?= e((string)($post['excerpt'] ?: 'Artikel aus dem easyIT Lernblog.')) ?></p>
-    <a href="/nh_hor/blog-artikel.php?slug=<?= rawurlencode((string)$post['slug']) ?>">Artikel lesen →</a>
+    <a href="/blog-artikel.php?slug=<?= rawurlencode((string)$post['slug']) ?>">Artikel lesen →</a>
   </article>
 <?php endforeach; ?>
 </div>

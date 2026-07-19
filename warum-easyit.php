@@ -4,7 +4,7 @@ require __DIR__ . '/includes/functions.php';
 $site = require __DIR__ . '/config/site.php';
 $pageTitle = 'Warum easyIT? | Persönliche Nachhilfe in Leipzig';
 $pageDescription = 'Warum easyIT Nachhilfe Leipzig: persönliche Begleitung, fachübergreifendes Denken, verständliche Erklärungen und gezielte Prüfungsvorbereitung.';
-$pageCanonical = $site['base_url'] . '/nh_hor/warum-easyit.php';
+$pageCanonical = $site['base_url'] . '/warum-easyit.php';
 ?><!doctype html>
 <html lang="de">
 <head><?php require __DIR__ . '/includes/meta.php'; ?></head>
@@ -71,6 +71,6 @@ $pageCanonical = $site['base_url'] . '/nh_hor/warum-easyit.php';
 </details>
 </div>
 </section>
-<section class="section cta"><div><h2>Passt diese Arbeitsweise zu dir?</h2><p>In einem ersten Gespräch klären wir Fach, Ziel und aktuelle Schwierigkeiten.</p></div><a class="button button--gold" href="/nh_hor/kontakt.php">Unverbindlich anfragen</a></section>
+<section class="section cta"><div><h2>Passt diese Arbeitsweise zu dir?</h2><p>In einem ersten Gespräch klären wir Fach, Ziel und aktuelle Schwierigkeiten.</p></div><a class="button button--gold" href="/kontakt.php">Unverbindlich anfragen</a></section>
 
 </div><?php require __DIR__ . '/includes/footer.php'; ?></main></div></body></html>

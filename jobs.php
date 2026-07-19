@@ -6,7 +6,7 @@ $site = require __DIR__ . '/config/site.php';
 
 $pageTitle = 'Jobs als Honorarkraft in Leipzig | easyIT Nachhilfe';
 $pageDescription = 'Aktuelle Tätigkeiten als Honorarkraft für Sprachen, Ethikfächer und weitere Fachbereiche bei easyIT Leipzig.';
-$pageCanonical = $site['base_url'] . '/nh_hor/jobs.php';
+$pageCanonical = $site['base_url'] . '/jobs.php';
 
 $jobs = cms_items('job', 'published', 50);
 $fallback = [
@@ -32,7 +32,7 @@ $items = $jobs ?: $fallback;
 <section class="section">
 <div class="card-grid card-grid--3">
 <?php foreach ($items as $job): ?>
-  <article class="card"><h2><?= e((string)$job['title']) ?></h2><div><?= cms_content_html((string)$job['body']) ?></div><a href="/nh_hor/kontakt.php">Interesse mitteilen →</a></article>
+  <article class="card"><h2><?= e((string)$job['title']) ?></h2><div><?= cms_content_html((string)$job['body']) ?></div><a href="/kontakt.php">Interesse mitteilen →</a></article>
 <?php endforeach; ?>
 </div>
 </section>

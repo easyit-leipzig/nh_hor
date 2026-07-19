@@ -30,7 +30,7 @@ $pageSchemas = [
         '@type' => 'BreadcrumbList',
         'itemListElement' => [
             ['@type' => 'ListItem', 'position' => 1, 'name' => 'Startseite', 'item' => $site['base_url'] . $site['base_path'] . '/index.php'],
-            ['@type' => 'ListItem', 'position' => 2, 'name' => 'Lernwerkzeuge', 'item' => $site['base_url'] . '/nh_hor/lernwerkzeuge.php'],
+            ['@type' => 'ListItem', 'position' => 2, 'name' => 'Lernwerkzeuge', 'item' => $site['base_url'] . '/lernwerkzeuge.php'],
             ['@type' => 'ListItem', 'position' => 3, 'name' => $tool['name'], 'item' => $pageCanonical],
         ],
     ],
@@ -46,7 +46,7 @@ $pageSchemas = [
 <div class="content-wrap">
 <nav class="breadcrumbs" aria-label="Brotkrumen">
   <a href="index.php">Startseite</a><span>›</span>
-  <a href="/nh_hor/lernwerkzeuge.php">Lernwerkzeuge</a><span>›</span>
+  <a href="/lernwerkzeuge.php">Lernwerkzeuge</a><span>›</span>
   <span aria-current="page"><?= e($tool['name']) ?></span>
 </nav>
 
@@ -73,7 +73,7 @@ $pageSchemas = [
   </header>
   <div class="tool-grid">
     <?php foreach ($tools as $key => $other): if ($key === $toolKey) continue; ?>
-      <a class="tool-card" href="/nh_hor/<?= e($other['file']) ?>">
+      <a class="tool-card" href="/<?= e($other['file']) ?>">
         <span class="tool-card__icon" aria-hidden="true"><?= e($other['icon']) ?></span>
         <strong><?= e($other['name']) ?></strong>
         <span><?= e($other['summary']) ?></span>
@@ -84,12 +84,12 @@ $pageSchemas = [
 
 <section class="section cta">
   <div><span class="eyebrow">Mehr als ein Rechner</span><h2>Individuelle Unterstützung in Leipzig</h2><p>Ein Werkzeug liefert ein Ergebnis. Im Unterricht geht es zusätzlich darum, den Rechenweg und die zugrunde liegende Idee zu verstehen.</p></div>
-  <a class="button button--gold" href="/nh_hor/kontakt.php">Nachhilfe anfragen</a>
+  <a class="button button--gold" href="/kontakt.php">Nachhilfe anfragen</a>
 </section>
 </div>
 <?php require __DIR__ . '/footer.php'; ?>
 </main>
 </div>
-<script src="/nh_hor/assets/js/tools.js" defer></script>
+<script src="/assets/js/tools.js" defer></script>
 </body>
 </html>

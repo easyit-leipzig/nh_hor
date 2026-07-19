@@ -4,47 +4,47 @@ declare(strict_types=1);
 function horizontal_menu_items(): array
 {
     return [
-        ['title'=>'Start','url'=>'/nh_hor/index.php'],
+        ['title'=>'Start','url'=>'/index.php'],
         ['title'=>'Über','url'=>'#','children'=>[
-            ['title'=>'Warum easyIT?','url'=>'/nh_hor/warum-easyit.php'],
-            ['title'=>'Über mich','url'=>'/nh_hor/ueber-mich.php'],
-            ['title'=>'Methodik','url'=>'/nh_hor/methodik.php'],
-            ['title'=>'Bewertungen','url'=>'/nh_hor/bewertungen.php'],
+            ['title'=>'Warum easyIT?','url'=>'/warum-easyit.php'],
+            ['title'=>'Über mich','url'=>'/ueber-mich.php'],
+            ['title'=>'Methodik','url'=>'/methodik.php'],
+            ['title'=>'Bewertungen','url'=>'/bewertungen.php'],
         ]],
-        ['title'=>'Fächer','url'=>'/nh_hor/faecher.php','children'=>[
+        ['title'=>'Fächer','url'=>'/faecher.php','children'=>[
             ['title'=>'Naturwissenschaften','url'=>'#','children'=>[
-                ['title'=>'Mathematik','url'=>'/nh_hor/mathe-nachhilfe-leipzig.php'],
-                ['title'=>'Physik','url'=>'/nh_hor/physik-nachhilfe-leipzig.php'],
-                ['title'=>'Chemie','url'=>'/nh_hor/chemie-nachhilfe-leipzig.php'],
-                ['title'=>'Informatik','url'=>'/nh_hor/informatik-nachhilfe-leipzig.php'],
+                ['title'=>'Mathematik','url'=>'/mathe-nachhilfe-leipzig.php'],
+                ['title'=>'Physik','url'=>'/physik-nachhilfe-leipzig.php'],
+                ['title'=>'Chemie','url'=>'/chemie-nachhilfe-leipzig.php'],
+                ['title'=>'Informatik','url'=>'/informatik-nachhilfe-leipzig.php'],
             ]],
             ['title'=>'Sprachen','url'=>'#','children'=>[
-                ['title'=>'Deutsch','url'=>'/nh_hor/deutsch-nachhilfe-leipzig.php'],
-                ['title'=>'Englisch','url'=>'/nh_hor/englisch-nachhilfe-leipzig.php'],
-                ['title'=>'Französisch','url'=>'/nh_hor/franzoesisch-nachhilfe-leipzig.php'],
-                ['title'=>'Spanisch','url'=>'/nh_hor/spanisch-nachhilfe-leipzig.php'],
-                ['title'=>'Latein','url'=>'/nh_hor/latein-nachhilfe-leipzig.php'],
+                ['title'=>'Deutsch','url'=>'/deutsch-nachhilfe-leipzig.php'],
+                ['title'=>'Englisch','url'=>'/englisch-nachhilfe-leipzig.php'],
+                ['title'=>'Französisch','url'=>'/franzoesisch-nachhilfe-leipzig.php'],
+                ['title'=>'Spanisch','url'=>'/spanisch-nachhilfe-leipzig.php'],
+                ['title'=>'Latein','url'=>'/latein-nachhilfe-leipzig.php'],
             ]],
             ['title'=>'Gesellschaft','url'=>'#','children'=>[
-                ['title'=>'Ethik','url'=>'/nh_hor/ethik-nachhilfe-leipzig.php'],
+                ['title'=>'Ethik','url'=>'/ethik-nachhilfe-leipzig.php'],
             ]],
         ]],
-        ['title'=>'Schulformen','url'=>'/nh_hor/schulformen.php','children'=>[
-            ['title'=>'Grundschule','url'=>'/nh_hor/nachhilfe-grundschule-leipzig.php'],
-            ['title'=>'Oberschule','url'=>'/nh_hor/nachhilfe-oberschule-leipzig.php'],
-            ['title'=>'Gymnasium','url'=>'/nh_hor/nachhilfe-gymnasium-leipzig.php'],
-            ['title'=>'Berufsschule','url'=>'/nh_hor/nachhilfe-berufsschule-leipzig.php'],
-            ['title'=>'Abitur','url'=>'/nh_hor/abiturvorbereitung-leipzig.php'],
-            ['title'=>'Studium','url'=>'/nh_hor/nachhilfe-studium-leipzig.php'],
+        ['title'=>'Schulformen','url'=>'/schulformen.php','children'=>[
+            ['title'=>'Grundschule','url'=>'/nachhilfe-grundschule-leipzig.php'],
+            ['title'=>'Oberschule','url'=>'/nachhilfe-oberschule-leipzig.php'],
+            ['title'=>'Gymnasium','url'=>'/nachhilfe-gymnasium-leipzig.php'],
+            ['title'=>'Berufsschule','url'=>'/nachhilfe-berufsschule-leipzig.php'],
+            ['title'=>'Abitur','url'=>'/abiturvorbereitung-leipzig.php'],
+            ['title'=>'Studium','url'=>'/nachhilfe-studium-leipzig.php'],
         ]],
         ['title'=>'Sonstiges','url'=>'#','children'=>[
-            ['title'=>'Leipzig & Stadtteile','url'=>'/nh_hor/nachhilfe-in-leipzig.php'],
-            ['title'=>'Lernwerkzeuge','url'=>'/nh_hor/lernwerkzeuge.php'],
-            ['title'=>'Lernblog','url'=>'/nh_hor/blog.php'],
-            ['title'=>'Preise & Ablauf','url'=>'/nh_hor/preise.php'],
-            ['title'=>'FAQ','url'=>'/nh_hor/faq.php'],
-            ['title'=>'Jobs','url'=>'/nh_hor/jobs.php'],
-            ['title'=>'Sitemap','url'=>'/nh_hor/sitemap.php'],
+            ['title'=>'Leipzig & Stadtteile','url'=>'/nachhilfe-in-leipzig.php'],
+            ['title'=>'Lernwerkzeuge','url'=>'/lernwerkzeuge.php'],
+            ['title'=>'Lernblog','url'=>'/blog.php'],
+            ['title'=>'Preise & Ablauf','url'=>'/preise.php'],
+            ['title'=>'FAQ','url'=>'/faq.php'],
+            ['title'=>'Jobs','url'=>'/jobs.php'],
+            ['title'=>'Sitemap','url'=>'/sitemap.php'],
         ]],
     ];
 }

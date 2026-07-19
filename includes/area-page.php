@@ -38,7 +38,7 @@ $pageSchemas = [
         '@type' => 'BreadcrumbList',
         'itemListElement' => [
             ['@type' => 'ListItem', 'position' => 1, 'name' => 'Startseite', 'item' => $site['base_url'] . $site['base_path'] . '/index.php'],
-            ['@type' => 'ListItem', 'position' => 2, 'name' => 'Nachhilfe in Leipzig', 'item' => $site['base_url'] . '/nh_hor/nachhilfe-leipzig.php'],
+            ['@type' => 'ListItem', 'position' => 2, 'name' => 'Nachhilfe in Leipzig', 'item' => $site['base_url'] . '/nachhilfe-leipzig.php'],
             ['@type' => 'ListItem', 'position' => 3, 'name' => $area['name'], 'item' => $pageCanonical],
         ],
     ],
@@ -54,7 +54,7 @@ $pageSchemas = [
 <div class="content-wrap">
 <nav class="breadcrumbs" aria-label="Brotkrumen">
   <a href="index.php">Startseite</a><span>›</span>
-  <?php if ($areaKey !== 'leipzig'): ?><a href="/nh_hor/nachhilfe-leipzig.php">Leipzig</a><span>›</span><?php endif; ?>
+  <?php if ($areaKey !== 'leipzig'): ?><a href="/nachhilfe-leipzig.php">Leipzig</a><span>›</span><?php endif; ?>
   <span aria-current="page"><?= e($area['name']) ?></span>
 </nav>
 
@@ -64,7 +64,7 @@ $pageSchemas = [
     <h1>Nachhilfe in <?= e($area['name']) ?></h1>
     <p><?= e($area['lead']) ?></p>
     <div class="hero-actions">
-      <a class="button button--gold" href="/nh_hor/kontakt.php?ort=<?= rawurlencode($area['name']) ?>">Nachhilfe anfragen</a>
+      <a class="button button--gold" href="/kontakt.php?ort=<?= rawurlencode($area['name']) ?>">Nachhilfe anfragen</a>
       <a class="button button--blue" href="#faecher">Fächer ansehen</a>
     </div>
   </div>
@@ -93,7 +93,7 @@ $pageSchemas = [
   </header>
   <div class="mini-link-grid">
     <?php foreach ($subjects as $subject): ?>
-      <a href="/nh_hor/<?= e($subject['file']) ?>"><span aria-hidden="true"><?= e($subject['icon']) ?></span><strong><?= e($subject['name']) ?></strong></a>
+      <a href="/<?= e($subject['file']) ?>"><span aria-hidden="true"><?= e($subject['icon']) ?></span><strong><?= e($subject['name']) ?></strong></a>
     <?php endforeach; ?>
   </div>
 </section>
@@ -103,7 +103,7 @@ $pageSchemas = [
     <span class="eyebrow">Ablauf</span>
     <h2>Vom ersten Kontakt zum Lernplan</h2>
     <p>In der Anfrage genügen zunächst Fach, Klassenstufe oder Studiengang, aktuelles Thema und das gewünschte Ziel. Danach wird geklärt, ob eine regelmäßige Begleitung oder eine zeitlich begrenzte Vorbereitung sinnvoller ist.</p>
-    <a class="text-link" href="/nh_hor/preise.php">Ablauf und Rahmen ansehen →</a>
+    <a class="text-link" href="/preise.php">Ablauf und Rahmen ansehen →</a>
   </div>
   <aside class="check-panel">
     <h3>Für die Anfrage hilfreich</h3>
@@ -124,7 +124,7 @@ $pageSchemas = [
   </header>
   <div class="local-link-grid">
     <?php foreach ($areas as $key => $other): if ($key === 'leipzig') continue; ?>
-      <a href="/nh_hor/<?= e($other['file']) ?>"><?= e($other['name']) ?><span>→</span></a>
+      <a href="/<?= e($other['file']) ?>"><?= e($other['name']) ?><span>→</span></a>
     <?php endforeach; ?>
   </div>
 </section>
@@ -132,11 +132,11 @@ $pageSchemas = [
 <section class="section related-local">
   <header class="section-heading">
     <div><span class="eyebrow">Weitere Stadtteile</span><h2>Nachhilfe in Leipzig</h2></div>
-    <a class="text-link" href="/nh_hor/nachhilfe-leipzig.php">Leipzig-Übersicht →</a>
+    <a class="text-link" href="/nachhilfe-leipzig.php">Leipzig-Übersicht →</a>
   </header>
   <div class="local-link-grid local-link-grid--compact">
     <?php $shown = 0; foreach ($areas as $key => $other): if ($key === 'leipzig' || $key === $areaKey) continue; ?>
-      <a href="/nh_hor/<?= e($other['file']) ?>"><?= e($other['name']) ?><span>→</span></a>
+      <a href="/<?= e($other['file']) ?>"><?= e($other['name']) ?><span>→</span></a>
     <?php if (++$shown >= 6) break; endforeach; ?>
   </div>
 </section>
@@ -144,7 +144,7 @@ $pageSchemas = [
 
 <section class="section cta">
   <div><span class="eyebrow">Unverbindlich starten</span><h2>Nachhilfe für <?= e($area['name']) ?> anfragen</h2><p>Beschreibe kurz Lernziel und aktuellen Stand. So kann die erste Rückmeldung bereits konkret ausfallen.</p></div>
-  <a class="button button--gold" href="/nh_hor/kontakt.php?ort=<?= rawurlencode($area['name']) ?>">Kontakt aufnehmen</a>
+  <a class="button button--gold" href="/kontakt.php?ort=<?= rawurlencode($area['name']) ?>">Kontakt aufnehmen</a>
 </section>
 </div>
 <?php require __DIR__ . '/footer.php'; ?>

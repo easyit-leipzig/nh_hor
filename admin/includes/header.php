@@ -8,19 +8,19 @@ $user = admin_user();
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <title><?= admin_e($adminTitle ?? 'Admin') ?> | easyIT</title>
-<link rel="stylesheet" href="/nh_hor/assets/css/admin.css">
+<link rel="stylesheet" href="/assets/css/admin.css">
 </head>
 <body class="admin-body">
 <header class="admin-header">
-  <a href="/nh_hor/admin/index.php" class="admin-brand">easyIT CMS</a>
+  <a href="/admin/index.php" class="admin-brand">easyIT CMS</a>
   <?php if ($user): ?>
     <nav>
-      <a href="/nh_hor/admin/index.php">Dashboard</a>
-      <a href="/nh_hor/admin/content.php?type=faq">FAQ</a>
-      <a href="/nh_hor/admin/content.php?type=review">Bewertungen</a>
-      <a href="/nh_hor/admin/content.php?type=job">Jobs</a>
-      <a href="/nh_hor/admin/content.php?type=blog">Blog</a>
-      <a href="/nh_hor/admin/logout.php">Abmelden</a>
+      <a href="/admin/index.php">Dashboard</a>
+      <a href="/admin/content.php?type=faq">FAQ</a>
+      <a href="/admin/content.php?type=review">Bewertungen</a>
+      <a href="/admin/content.php?type=job">Jobs</a>
+      <a href="/admin/content.php?type=blog">Blog</a>
+      <a href="/admin/logout.php">Abmelden</a>
     </nav>
   <?php endif; ?>
 </header>

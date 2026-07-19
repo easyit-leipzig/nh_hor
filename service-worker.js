@@ -1,27 +1,27 @@
 const CACHE_VERSION = 'easyit-phase10-images-v1';
 const CORE_ASSETS = [
-  '/nh_hor/assets/img/subjects/latein.svg',
-  '/nh_hor/assets/img/subjects/spanisch.svg',
-  '/nh_hor/assets/img/subjects/franzoesisch.svg',
-  '/nh_hor/assets/img/subjects/englisch.svg',
-  '/nh_hor/assets/img/subjects/deutsch.svg',
-  '/nh_hor/assets/img/subjects/informatik.svg',
-  '/nh_hor/assets/img/subjects/chemie.svg',
-  '/nh_hor/assets/img/subjects/physik.svg',
-  '/nh_hor/assets/img/subjects/mathe.svg',
-  '/nh_hor/assets/img/lern-stud.svg',
-  '/nh_hor/assets/img/stud-lern.svg',
-  '/nh_hor/',
-  '/nh_hor/assets/css/main.css',
-  '/nh_hor/assets/css/header.css',
-  '/nh_hor/assets/css/sidebar.css',
-  '/nh_hor/assets/css/content.css',
-  '/nh_hor/assets/css/footer.css',
-  '/nh_hor/assets/js/nojquery_3.1.1.js',
-  '/nh_hor/assets/js/app.js',
-  '/nh_hor/assets/img/logo.svg',
-  '/nh_hor/assets/img/favicon.svg',
-  '/nh_hor/offline.php'
+  '/assets/img/subjects/latein.svg',
+  '/assets/img/subjects/spanisch.svg',
+  '/assets/img/subjects/franzoesisch.svg',
+  '/assets/img/subjects/englisch.svg',
+  '/assets/img/subjects/deutsch.svg',
+  '/assets/img/subjects/informatik.svg',
+  '/assets/img/subjects/chemie.svg',
+  '/assets/img/subjects/physik.svg',
+  '/assets/img/subjects/mathe.svg',
+  '/assets/img/lern-stud.svg',
+  '/assets/img/stud-lern.svg',
+  '/',
+  '/assets/css/main.css',
+  '/assets/css/header.css',
+  '/assets/css/sidebar.css',
+  '/assets/css/content.css',
+  '/assets/css/footer.css',
+  '/assets/js/nojquery_3.1.1.js',
+  '/assets/js/app.js',
+  '/assets/img/logo.svg',
+  '/assets/img/favicon.svg',
+  '/offline.php'
 ];
 
 self.addEventListener('install', event => {
@@ -50,7 +50,7 @@ self.addEventListener('fetch', event => {
       })
       .catch(() =>
         caches.match(event.request).then(cached =>
-          cached || (event.request.mode === 'navigate' ? caches.match('/nh_hor/offline.php') : undefined)
+          cached || (event.request.mode === 'navigate' ? caches.match('/offline.php') : undefined)
         )
       )
   );

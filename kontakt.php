@@ -7,7 +7,7 @@ $formConfig = require __DIR__ . '/config/forms.php';
 
 $pageTitle = 'Kontakt & Probestunde | Nachhilfe Leipzig | easyIT';
 $pageDescription = 'Kontakt zu easyIT Nachhilfe Leipzig. Fach, Schulform und Lernziel unverbindlich mitteilen.';
-$pageCanonical = $site['base_url'] . '/nh_hor/kontakt.php';
+$pageCanonical = $site['base_url'] . '/kontakt.php';
 
 ensure_session_started();
 $errors = $_SESSION['contact_errors'] ?? [];
@@ -64,7 +64,7 @@ $selectedLocation = $old['location'] ?? $prefillLocation;
       </div>
     <?php endif; ?>
 
-    <form class="contact-form" action="/nh_hor/kontakt-senden.php" method="post" novalidate>
+    <form class="contact-form" action="/kontakt-senden.php" method="post" novalidate>
       <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
 
       <div class="honeypot" aria-hidden="true">
@@ -108,7 +108,7 @@ $selectedLocation = $old['location'] ?? $prefillLocation;
 
       <label class="checkbox-label">
         <input type="checkbox" name="privacy" value="1" required <?= (($old['privacy'] ?? '') === '1') ? 'checked' : '' ?>>
-        <span>Ich habe die <a href="/nh_hor/datenschutz.php">Datenschutzhinweise</a> gelesen und stimme der Verarbeitung meiner Angaben zur Bearbeitung der Anfrage zu. *</span>
+        <span>Ich habe die <a href="/datenschutz.php">Datenschutzhinweise</a> gelesen und stimme der Verarbeitung meiner Angaben zur Bearbeitung der Anfrage zu. *</span>
       </label>
 
       <button class="button button--gold" type="submit">Anfrage absenden</button>

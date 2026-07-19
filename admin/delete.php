@@ -26,7 +26,7 @@ if (!in_array($type, $allowedTypes, true)) {
 }
 
 if ($id === false || $id === null || !db_available()) {
-    header('Location: /nh_hor/admin/content.php?type=' . rawurlencode($type) . '&archive=invalid', true, 303);
+    header('Location: /admin/content.php?type=' . rawurlencode($type) . '&archive=invalid', true, 303);
     exit;
 }
 
@@ -40,7 +40,7 @@ $stmt->execute(['id' => $id]);
 $item = $stmt->fetch();
 
 if (!$item) {
-    header('Location: /nh_hor/admin/content.php?type=' . rawurlencode($type) . '&archive=missing', true, 303);
+    header('Location: /admin/content.php?type=' . rawurlencode($type) . '&archive=missing', true, 303);
     exit;
 }
 
@@ -64,5 +64,5 @@ if ((string)$item['status'] !== 'archived') {
     admin_log('archive', $type, $id, ['previous_status' => (string)$item['status']]);
 }
 
-header('Location: /nh_hor/admin/content.php?type=' . rawurlencode($type) . '&archive=success', true, 303);
+header('Location: /admin/content.php?type=' . rawurlencode($type) . '&archive=success', true, 303);
 exit;

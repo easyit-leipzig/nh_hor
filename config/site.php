@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 $defaults = [
     'site_name' => 'easyIT Nachhilfe Leipzig',
-    'base_url' => 'https://easyit-nachhilfe.de',
-    'base_path' => '/nh_hor',
+    'base_url' => 'https://easyit-leipzig.de',
+    'base_path' => '',
     'phone' => '',
     'email' => 'info@easyit-leipzig.de',
     'service_area' => 'Leipzig',

@@ -6,7 +6,7 @@ $site = require __DIR__ . '/config/site.php';
 
 $pageTitle = 'Bewertungen & Erfahrungen | easyIT Nachhilfe Leipzig';
 $pageDescription = 'Erfahrungen und Rückmeldungen zur Nachhilfe bei easyIT Leipzig.';
-$pageCanonical = $site['base_url'] . '/nh_hor/bewertungen.php';
+$pageCanonical = $site['base_url'] . '/bewertungen.php';
 
 $reviews = cms_items('review', 'published', 50);
 ?><!doctype html>

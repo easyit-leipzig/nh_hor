@@ -5,7 +5,7 @@ require __DIR__ . '/../includes/functions.php';
 $site = require __DIR__ . '/../config/site.php';
 $pageTitle = 'Technischer Fehler | easyIT Nachhilfe Leipzig';
 $pageDescription = 'Ein technischer Fehler ist aufgetreten.';
-$pageCanonical = $site['base_url'] . '/nh_hor/errors/500.php';
+$pageCanonical = $site['base_url'] . '/errors/500.php';
 $pageRobots = 'noindex,nofollow';
 ?><!doctype html>
 <html lang="de">
@@ -21,8 +21,8 @@ $pageRobots = 'noindex,nofollow';
   <h1>Etwas ist schiefgelaufen.</h1>
   <p>Die Seite konnte nicht vollständig geladen werden. Bitte versuche es später erneut.</p>
   <div class="hero-actions">
-    <a class="button button--gold" href="/nh_hor/index.php">Zur Startseite</a>
-    <a class="button button--blue" href="/nh_hor/sitemap.php">Sitemap öffnen</a>
+    <a class="button button--gold" href="/index.php">Zur Startseite</a>
+    <a class="button button--blue" href="/sitemap.php">Sitemap öffnen</a>
   </div>
 </section>
 </div>
