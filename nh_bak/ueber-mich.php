@@ -90,7 +90,7 @@ $categoryLabels = [
 <section class="section">
     <div class="info-panel">
         <h2>Die Tutorprofile werden vorbereitet</h2>
-        <p>Momentan konnten keine aktiven Tutorprofile aus der Datenbank geladen werden. Bitte prüfen Sie die Datenbankverbindung und den veröffentlichten Datenbestand.</p>
+        <p>Momentan konnten keine aktiven Tutorprofile aus der Datenbank geladen werden. Bitte führen Sie die Migration <code>database/migrations/20260718_003_tutoren.sql</code> aus und prüfen Sie anschließend die Datenbankverbindung.</p>
     </div>
 </section>
 <?php else: ?>

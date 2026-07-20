@@ -29,9 +29,6 @@ ErrorDocument 500 /errors/500.php
   RewriteRule ^storage/ - [F,L]
   RewriteRule ^database/ - [F,L]
   RewriteRule ^cache/ - [F,L]
-
-  # Entwicklungs-, Archiv-, Dump- und temporäre Verzeichnisse sperren.
-  RewriteRule ^(?:backup|backups|archive|archives|dump|dumps|temp|tmp)(?:/|$) - [F,L,NC]
 </IfModule>
 
 <IfModule mod_deflate.c>
@@ -59,7 +56,6 @@ ErrorDocument 500 /errors/500.php
   Header set Cache-Control "public, max-age=2592000" "expr=%{CONTENT_TYPE} =~ m#^(text/css|application/javascript|image/)#"
 </IfModule>
 
-# Quell-, Konfigurations-, Datenbank-, Archiv-, Backup- und Projektdateien nie ausliefern.
-<FilesMatch "(?i)(^\.|(?:^|\.)(?:env|ini|log|sql|sqlite|sqlite3|zip|7z|rar|tar|gz|tgz|bz2|xz|md|markdown|ppj|bak|backup|old|orig|save|swp|tmp|temp|dist|example|lock|yml|yaml|csv)$|composer\.(?:json|lock)$|README(?:[^/]*)$)">
+<FilesMatch "(^\.|composer\.(json|lock)|README\.md|config)">
   Require all denied
 </FilesMatch>

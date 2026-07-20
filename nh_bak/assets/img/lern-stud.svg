@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" role="img" aria-labelledby="title desc">
+<title id="title">Lernende erklärt einen Lösungsweg und festigt ihr Verständnis</title><desc id="desc">Illustration im easyIT-Leipzig-Design</desc>
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#EEF8FF"/><stop offset="1" stop-color="#D9F2FF"/></linearGradient><filter id="shadow"><feDropShadow dx="0" dy="12" stdDeviation="14" flood-opacity=".16"/></filter></defs>
+
+<rect width="800" height="600" rx="36" fill="url(#bg)"/>
+<rect x="80" y="75" width="640" height="310" rx="24" fill="#003B70" filter="url(#shadow)"/>
+<g fill="none" stroke-linecap="round"><path d="M135 170h180M135 220h250M135 270h150" stroke="#4CD9FF" stroke-width="10"/><path d="M485 145l55 82 55-82M540 227v78" stroke="#F2B600" stroke-width="10"/><circle cx="650" cy="250" r="42" stroke="#FFFFFF" stroke-width="8"/><path d="M620 250h60M650 220v60" stroke="#FFFFFF" stroke-width="6"/></g>
+<!-- Lernende links erklärt -->
+<circle cx="245" cy="415" r="54" fill="#EFC5A4"/><path d="M195 412q5-75 58-72 59 3 51 82-27-27-73-24z" fill="#4A2E27"/><rect x="176" y="465" width="140" height="112" rx="45" fill="#0057A4"/><path d="M296 456l118-95" stroke="#EFC5A4" stroke-width="20" stroke-linecap="round"/><circle cx="418" cy="357" r="14" fill="#EFC5A4"/>
+<!-- Tutor rechts hört zu -->
+<circle cx="555" cy="430" r="58" fill="#E5B993"/><path d="M500 420q10-75 62-72 61 3 62 84-30-30-81-22z" fill="#AAA"/><rect x="490" y="480" width="140" height="97" rx="42" fill="#003B70"/>
+<text x="400" y="40" text-anchor="middle" font-family="Arial,sans-serif" font-size="29" font-weight="800" fill="#003B70">Wer erklären kann, hat verstanden.</text>
+</svg>
