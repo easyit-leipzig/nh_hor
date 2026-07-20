@@ -103,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     cms_forget_type_cache($type);
                 }
                 $pdo->commit();
-                header('Location: /admin/content.php?type=' . rawurlencode($type), true, 303);
+                header('Location: ' . app_path('/admin/content.php?type=' . rawurlencode($type)), true, 303);
                 exit;
             } catch (Throwable $e) {
                 $pdo->rollBack();
@@ -146,7 +146,7 @@ require __DIR__ . '/includes/header.php';
   <label><input type="checkbox" name="featured" value="1" <?= !empty($item['featured']) ? 'checked' : '' ?>> Hervorheben</label>
   <div class="admin-actions">
     <button class="admin-btn admin-btn--gold" type="submit">Speichern</button>
-    <a class="admin-btn" href="/admin/content.php?type=<?= admin_e($type) ?>">Abbrechen</a>
+    <a class="admin-btn" href="<?= admin_e(app_path('/admin/content.php?type=' . rawurlencode($type))) ?>">Abbrechen</a>
   </div>
 </form>
 <?php require __DIR__ . '/includes/footer.php'; ?>

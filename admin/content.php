@@ -33,7 +33,7 @@ require __DIR__ . '/includes/header.php';
 <?php endif; ?>
 <div class="admin-actions">
   <h1 style="margin-right:auto"><?= admin_e(strtoupper($type)) ?></h1>
-  <a class="admin-btn admin-btn--gold" href="/admin/edit.php?type=<?= admin_e($type) ?>">Neuer Eintrag</a>
+  <a class="admin-btn admin-btn--gold" href="<?= admin_e(app_path('/admin/edit.php?type=' . rawurlencode($type))) ?>">Neuer Eintrag</a>
 </div>
 <table class="admin-table">
 <thead><tr><th>Titel</th><th>Status</th><th>Geändert</th><th>Aktionen</th></tr></thead>
@@ -44,10 +44,10 @@ require __DIR__ . '/includes/header.php';
   <td><?= admin_e($item['status']) ?></td>
   <td><?= admin_e($item['updated_at']) ?></td>
   <td class="admin-actions">
-    <a class="admin-btn" href="/admin/edit.php?id=<?= (int)$item['id'] ?>">Bearbeiten</a>
-    <a class="admin-btn" href="/admin/preview/content.php?id=<?= (int)$item['id'] ?>">Vorschau</a>
+    <a class="admin-btn" href="<?= admin_e(app_path('/admin/edit.php?id=' . (int)$item['id'])) ?>">Bearbeiten</a>
+    <a class="admin-btn" href="<?= admin_e(app_path('/admin/preview/content.php?id=' . (int)$item['id'])) ?>">Vorschau</a>
     <?php if (admin_has_role('admin')): ?>
-    <form method="post" action="/admin/delete.php" class="admin-inline-form" onsubmit="return confirm('Diesen Eintrag wirklich archivieren?');">
+    <form method="post" action="<?= admin_e(app_path('/admin/delete.php')) ?>" class="admin-inline-form" onsubmit="return confirm('Diesen Eintrag wirklich archivieren?');">
       <input type="hidden" name="csrf_token" value="<?= admin_e(csrf_token()) ?>">
       <input type="hidden" name="id" value="<?= (int)$item['id'] ?>">
       <input type="hidden" name="type" value="<?= admin_e($type) ?>">

@@ -32,7 +32,7 @@ $pageCanonical = $site['base_url'] . $site['base_path'] . '/index.php';
     </div>
   </div>
   <aside class="hero-panel hero-panel--visual">
-    <img class="hero-learning-image" src="/assets/img/stud-lern.svg" width="800" height="600" alt="Schülerin lernt gemeinsam mit einem erfahrenen Tutor" loading="eager" fetchpriority="high">
+    <img class="hero-learning-image" src="/assets/img/stud-lern.png" width="800" height="600" alt="Schülerin lernt gemeinsam mit einem erfahrenen Tutor" loading="eager" fetchpriority="high">
     <h2>Wobei brauchst du Unterstützung?</h2>
     <ul>
       <li>Grundlagen sicher aufbauen</li>

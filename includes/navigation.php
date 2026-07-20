@@ -1,52 +1,98 @@
 <?php
 declare(strict_types=1);
 
+require_once __DIR__ . '/database.php';
+
+/**
+ * Lädt die aktive Hauptnavigation ausschließlich aus der Datenbank.
+ * Es existiert bewusst kein statischer PHP-Fallback: Der sichtbare
+ * Menübestand entspricht damit immer dem Inhalt von navigation_items.
+ */
 function horizontal_menu_items(): array
 {
-    return [
-        ['title'=>'Start','url'=>'/index.php'],
-        ['title'=>'Über','url'=>'#','children'=>[
-            ['title'=>'Warum easyIT?','url'=>'/warum-easyit.php'],
-            ['title'=>'Über mich','url'=>'/ueber-mich.php'],
-            ['title'=>'Methodik','url'=>'/methodik.php'],
-            ['title'=>'Bewertungen','url'=>'/bewertungen.php'],
-        ]],
-        ['title'=>'Fächer','url'=>'/faecher.php','children'=>[
-            ['title'=>'Naturwissenschaften','url'=>'#','children'=>[
-                ['title'=>'Mathematik','url'=>'/mathe-nachhilfe-leipzig.php'],
-                ['title'=>'Physik','url'=>'/physik-nachhilfe-leipzig.php'],
-                ['title'=>'Chemie','url'=>'/chemie-nachhilfe-leipzig.php'],
-                ['title'=>'Informatik','url'=>'/informatik-nachhilfe-leipzig.php'],
-            ]],
-            ['title'=>'Sprachen','url'=>'#','children'=>[
-                ['title'=>'Deutsch','url'=>'/deutsch-nachhilfe-leipzig.php'],
-                ['title'=>'Englisch','url'=>'/englisch-nachhilfe-leipzig.php'],
-                ['title'=>'Französisch','url'=>'/franzoesisch-nachhilfe-leipzig.php'],
-                ['title'=>'Spanisch','url'=>'/spanisch-nachhilfe-leipzig.php'],
-                ['title'=>'Latein','url'=>'/latein-nachhilfe-leipzig.php'],
-            ]],
-            ['title'=>'Gesellschaft','url'=>'#','children'=>[
-                ['title'=>'Ethik','url'=>'/ethik-nachhilfe-leipzig.php'],
-            ]],
-        ]],
-        ['title'=>'Schulformen','url'=>'/schulformen.php','children'=>[
-            ['title'=>'Grundschule','url'=>'/nachhilfe-grundschule-leipzig.php'],
-            ['title'=>'Oberschule','url'=>'/nachhilfe-oberschule-leipzig.php'],
-            ['title'=>'Gymnasium','url'=>'/nachhilfe-gymnasium-leipzig.php'],
-            ['title'=>'Berufsschule','url'=>'/nachhilfe-berufsschule-leipzig.php'],
-            ['title'=>'Abitur','url'=>'/abiturvorbereitung-leipzig.php'],
-            ['title'=>'Studium','url'=>'/nachhilfe-studium-leipzig.php'],
-        ]],
-        ['title'=>'Sonstiges','url'=>'#','children'=>[
-            ['title'=>'Leipzig & Stadtteile','url'=>'/nachhilfe-in-leipzig.php'],
-            ['title'=>'Lernwerkzeuge','url'=>'/lernwerkzeuge.php'],
-            ['title'=>'Lernblog','url'=>'/blog.php'],
-            ['title'=>'Preise & Ablauf','url'=>'/preise.php'],
-            ['title'=>'FAQ','url'=>'/faq.php'],
-            ['title'=>'Jobs','url'=>'/jobs.php'],
-            ['title'=>'Sitemap','url'=>'/sitemap.php'],
-        ]],
-    ];
+    if (!db_available()) {
+        error_log('Navigation konnte nicht geladen werden: Datenbank ist nicht verfügbar.');
+        return [];
+    }
+
+    try {
+        $stmt = db()->query(
+            'SELECT id, parent_id, title, url, sort_order, is_active
+             FROM navigation_items
+             WHERE is_active <> 0
+             ORDER BY sort_order, id'
+        );
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (Throwable $e) {
+        error_log('Navigation konnte nicht aus der Datenbank geladen werden: ' . $e->getMessage());
+        return [];
+    }
+
+    if (!$rows) {
+        error_log('Navigation konnte nicht geladen werden: navigation_items enthält keine aktiven Einträge.');
+        return [];
+    }
+
+    // Zuerst alle aktiven IDs erfassen. Dadurch können auch ältere Bestände
+    // mit parent_id = 0 sowie verwaiste Parent-Verweise sicher verarbeitet werden.
+    $activeIds = [];
+    foreach ($rows as $row) {
+        $activeIds[(int)$row['id']] = true;
+    }
+
+    $byParent = [];
+    foreach ($rows as $row) {
+        $id = (int)$row['id'];
+        $rawParent = $row['parent_id'];
+        $parentId = ($rawParent === null || (int)$rawParent === 0) ? 0 : (int)$rawParent;
+
+        // Verweist ein aktiver Eintrag auf einen nicht vorhandenen oder inaktiven
+        // Parent, wird er nicht unsichtbar, sondern als Haupteintrag ausgegeben.
+        if ($parentId !== 0 && !isset($activeIds[$parentId])) {
+            error_log('Navigation: Parent ' . $parentId . ' für Eintrag ' . $id . ' fehlt oder ist inaktiv; Eintrag wird auf Hauptebene ausgegeben.');
+            $parentId = 0;
+        }
+
+        $byParent[$parentId][] = [
+            'id' => $id,
+            'title' => trim((string)$row['title']),
+            'url' => trim((string)$row['url']) !== '' ? (string)$row['url'] : '#',
+            'sort_order' => (int)$row['sort_order'],
+        ];
+    }
+
+    foreach ($byParent as &$siblings) {
+        usort($siblings, static fn(array $a, array $b): int =>
+            [$a['sort_order'], $a['id']] <=> [$b['sort_order'], $b['id']]
+        );
+    }
+    unset($siblings);
+
+    $build = static function (int $parentId, array $trail = []) use (&$build, $byParent): array {
+        $items = [];
+        foreach ($byParent[$parentId] ?? [] as $row) {
+            $id = (int)$row['id'];
+            if (in_array($id, $trail, true)) {
+                error_log('Zyklische Navigation erkannt; Eintrag ' . $id . ' wurde übersprungen.');
+                continue;
+            }
+
+            $item = ['title' => $row['title'], 'url' => $row['url']];
+            $children = $build($id, [...$trail, $id]);
+            if ($children) {
+                $item['children'] = $children;
+            }
+            $items[] = $item;
+        }
+        return $items;
+    };
+
+    $menu = $build(0);
+    if (!$menu) {
+        error_log('Navigation: Aktive Datensätze wurden gelesen, aber es konnte keine Hauptebene gebildet werden.');
+    }
+
+    return $menu;
 }
 
 function horizontal_menu_active(array $item): bool

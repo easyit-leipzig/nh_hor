@@ -4,7 +4,7 @@ require __DIR__ . '/includes/admin-functions.php';
 
 ensure_session_started();
 if (admin_user()) {
-    header('Location: /admin/index.php', true, 303);
+    header('Location: ' . app_path('/admin/index.php'), true, 303);
     exit;
 }
 
@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif (admin_login($username, (string)($_POST['password'] ?? ''))) {
         login_rate_clear($username);
         admin_log('login_success', 'admin_session', null, ['username' => $username]);
-        header('Location: /admin/index.php', true, 303);
+        header('Location: ' . app_path('/admin/index.php'), true, 303);
         exit;
     } else {
         $failure = login_rate_record_failure($username);
@@ -48,8 +48,10 @@ $adminTitle = 'Anmeldung';
 require __DIR__ . '/includes/header.php';
 ?>
 <section class="admin-login">
+  <img src="<?= admin_e(app_path('/assets/img/brand-logo.svg')) ?>" alt="easyIT" class="admin-login-logo">
   <h1>Admin-Anmeldung</h1>
   <?php if (!db_available()): ?><div class="admin-alert">Die Datenbankverbindung ist noch nicht eingerichtet.</div><?php endif; ?>
+  <?php if (isset($_GET["logged_out"])): ?><div class="admin-notice admin-notice--success">Du wurdest sicher abgemeldet.</div><?php endif; ?>
   <?php if ($error): ?><div class="admin-alert"><?= admin_e($error) ?></div><?php endif; ?>
   <form method="post" class="admin-form">
     <input type="hidden" name="csrf_token" value="<?= admin_e(csrf_token()) ?>">
@@ -57,5 +59,6 @@ require __DIR__ . '/includes/header.php';
     <label>Passwort<input type="password" name="password" required autocomplete="current-password"></label>
     <button class="admin-btn admin-btn--gold" type="submit">Anmelden</button>
   </form>
+<p class="admin-help">Noch kein Administrator? <a href="<?= admin_e(app_path('/admin/setup.php')) ?>">Ersteinrichtung öffnen</a></p>
 </section>
 <?php require __DIR__ . '/includes/footer.php'; ?>

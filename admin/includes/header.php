@@ -13,15 +13,28 @@ $user = admin_user();
 </head>
 <body class="admin-body">
 <header class="admin-header">
-  <a href="/admin/index.php" class="admin-brand">easyIT CMS</a>
+  <a href="<?= admin_e(app_path($user ? '/admin/index.php' : '/admin/login.php')) ?>" class="admin-brand" aria-label="easyIT Adminbereich">
+    <img src="<?= admin_e(app_path('/assets/img/brand-logo.svg')) ?>" alt="easyIT" class="admin-brand-logo">
+    <span>Administration</span>
+  </a>
   <?php if ($user): ?>
-    <nav>
-      <a href="/admin/index.php">Dashboard</a>
-      <a href="/admin/content.php?type=faq">FAQ</a>
-      <a href="/admin/content.php?type=review">Bewertungen</a>
-      <a href="/admin/content.php?type=job">Jobs</a>
-      <a href="/admin/content.php?type=blog">Blog</a>
-      <a href="/admin/logout.php">Abmelden</a>
+    <nav aria-label="Admin-Navigation">
+      <a href="<?= admin_e(app_path('/admin/index.php')) ?>">Dashboard</a>
+      <a href="<?= admin_e(app_path('/admin/content.php?type=faq')) ?>">FAQ</a>
+      <a href="<?= admin_e(app_path('/admin/content.php?type=review')) ?>">Bewertungen</a>
+      <a href="<?= admin_e(app_path('/admin/content.php?type=job')) ?>">Jobs</a>
+      <a href="<?= admin_e(app_path('/admin/content.php?type=blog')) ?>">Blog</a>
+      <?php if (admin_has_role('admin')): ?>
+        <a href="<?= admin_e(app_path('/admin/navigation.php')) ?>">Navigation</a>
+        <a href="<?= admin_e(app_path('/admin/imprint-persons.php')) ?>">Personen</a>
+        <a href="<?= admin_e(app_path('/admin/imprint-roles.php')) ?>">Rollen</a>
+        <a href="<?= admin_e(app_path('/admin/users.php')) ?>">Benutzer</a>
+      <?php endif; ?>
+      <a href="<?= admin_e(app_path('/admin/account.php')) ?>">Konto</a>
+      <form method="post" action="<?= admin_e(app_path('/admin/logout.php')) ?>" class="admin-inline-form">
+        <input type="hidden" name="csrf_token" value="<?= admin_e(csrf_token()) ?>">
+        <button type="submit" class="admin-link-button">Abmelden</button>
+      </form>
     </nav>
   <?php endif; ?>
 </header>

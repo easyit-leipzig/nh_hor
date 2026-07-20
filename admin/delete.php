@@ -43,13 +43,13 @@ if (!admin_has_role('admin')) {
 
 if ($id === false || $id === null) {
     admin_log('archive_failed', $type, null, ['reason' => 'invalid_id']);
-    header('Location: /admin/content.php?type=' . rawurlencode($type) . '&archive=invalid', true, 303);
+    header('Location: ' . app_path('/admin/content.php?type=' . rawurlencode($type)) . '&archive=invalid', true, 303);
     exit;
 }
 
 if (!db_available()) {
     admin_log('archive_failed', $type, $id, ['reason' => 'database_unavailable']);
-    header('Location: /admin/content.php?type=' . rawurlencode($type) . '&archive=error', true, 303);
+    header('Location: ' . app_path('/admin/content.php?type=' . rawurlencode($type)) . '&archive=error', true, 303);
     exit;
 }
 
@@ -65,7 +65,7 @@ try {
 
     if (!$item) {
         admin_log('archive_failed', $type, $id, ['reason' => 'not_found']);
-        header('Location: /admin/content.php?type=' . rawurlencode($type) . '&archive=missing', true, 303);
+        header('Location: ' . app_path('/admin/content.php?type=' . rawurlencode($type)) . '&archive=missing', true, 303);
         exit;
     }
 
@@ -76,7 +76,7 @@ try {
 
     if ((string)$item['status'] === 'archived') {
         admin_log('archive_skipped', $type, $id, ['reason' => 'already_archived']);
-        header('Location: /admin/content.php?type=' . rawurlencode($type) . '&archive=already', true, 303);
+        header('Location: ' . app_path('/admin/content.php?type=' . rawurlencode($type)) . '&archive=already', true, 303);
         exit;
     }
 
@@ -93,7 +93,7 @@ try {
 
     if ($update->rowCount() !== 1) {
         admin_log('archive_failed', $type, $id, ['reason' => 'update_not_applied']);
-        header('Location: /admin/content.php?type=' . rawurlencode($type) . '&archive=error', true, 303);
+        header('Location: ' . app_path('/admin/content.php?type=' . rawurlencode($type)) . '&archive=error', true, 303);
         exit;
     }
 
@@ -102,7 +102,7 @@ try {
         'new_status' => 'archived',
     ]);
 
-    header('Location: /admin/content.php?type=' . rawurlencode($type) . '&archive=success', true, 303);
+    header('Location: ' . app_path('/admin/content.php?type=' . rawurlencode($type)) . '&archive=success', true, 303);
     exit;
 } catch (Throwable $e) {
     admin_log('archive_failed', $type, $id, [
@@ -110,6 +110,6 @@ try {
         'exception_class' => get_class($e),
     ]);
     error_log('Archivierung fehlgeschlagen: ' . $e->getMessage());
-    header('Location: /admin/content.php?type=' . rawurlencode($type) . '&archive=error', true, 303);
+    header('Location: ' . app_path('/admin/content.php?type=' . rawurlencode($type)) . '&archive=error', true, 303);
     exit;
 }

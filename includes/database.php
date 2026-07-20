@@ -24,6 +24,7 @@ function db_available(): bool
         db()->query('SELECT 1');
         return true;
     } catch (Throwable $e) {
+        error_log('[easyIT database] Verbindung fehlgeschlagen: ' . $e->getMessage());
         return false;
     }
 }

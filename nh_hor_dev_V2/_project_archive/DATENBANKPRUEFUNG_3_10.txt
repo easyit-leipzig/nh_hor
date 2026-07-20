@@ -1,7 +1,0 @@
-Datenbankprüfung 3.10
-=======================
-Kanonisches Schema: vorhanden
-Migrationen: 20260716_001_content_indexes.sql, 20260717_002_review_metadata.sql, 20260718_003_tutoren.sql, 20260718_004_tutor_bewertungen.sql, 20260720_005_innodb_normalisierung.sql
-MyISAM-Verweise: 0
-SQL/ZIP/MD im Webroot: 0
-PHP-Syntaxfehler: 0

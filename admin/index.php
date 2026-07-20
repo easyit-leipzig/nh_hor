@@ -14,15 +14,32 @@ if (db_available()) {
 $adminTitle = 'Dashboard';
 require __DIR__ . '/includes/header.php';
 ?>
-<div class="admin-actions"><h1 style="margin-right:auto">Dashboard</h1><a class="admin-btn" href="/admin/cache-clear.php">Cache leeren</a></div>
+<div class="admin-actions"><h1 style="margin-right:auto">Dashboard</h1><form method="post" action="<?= admin_e(app_path('/admin/cache-clear.php')) ?>" class="admin-inline-form"><input type="hidden" name="csrf_token" value="<?= admin_e(csrf_token()) ?>"><button class="admin-btn" type="submit">Cache leeren</button></form></div>
 <p>Inhalte zentral bearbeiten, prüfen und veröffentlichen.</p><?php if (isset($_GET["cache"])): ?><div class="admin-alert"><?= (int)$_GET["cache"] ?> Cache-Dateien wurden entfernt.</div><?php endif; ?>
 <div class="admin-grid">
   <?php foreach ($counts as $type => $count): ?>
     <article class="admin-card">
       <h2><?= admin_e(strtoupper($type)) ?></h2>
       <p><strong><?= $count ?></strong> Einträge</p>
-      <a class="admin-btn" href="/admin/content.php?type=<?= admin_e($type) ?>">Verwalten</a>
+      <a class="admin-btn" href="<?= admin_e(app_path('/admin/content.php?type=' . rawurlencode($type))) ?>">Verwalten</a>
     </article>
   <?php endforeach; ?>
+  <?php if (admin_has_role('admin')): ?>
+    <article class="admin-card">
+      <h2>NAVIGATION</h2>
+      <p>Hauptmenü und Untermenüs verwalten.</p>
+      <a class="admin-btn" href="<?= admin_e(app_path('/admin/navigation.php')) ?>">Verwalten</a>
+    </article>
+    <article class="admin-card">
+      <h2>IMPRESSUMSPERSONEN</h2>
+      <p>Personen und Namensformen den Rollen zuordnen.</p>
+      <a class="admin-btn" href="<?= admin_e(app_path('/admin/imprint-persons.php')) ?>">Verwalten</a>
+    </article>
+    <article class="admin-card">
+      <h2>IMPRESSUMSROLLEN</h2>
+      <p>Rollen für Impressum und Adressnennung verwalten.</p>
+      <a class="admin-btn" href="<?= admin_e(app_path('/admin/imprint-roles.php')) ?>">Verwalten</a>
+    </article>
+  <?php endif; ?>
 </div>
 <?php require __DIR__ . '/includes/footer.php'; ?>

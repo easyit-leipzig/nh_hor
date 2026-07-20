@@ -1,0 +1,13 @@
+<?php
+declare(strict_types=1);
+
+// Nach database.local.php kopieren und bei Bedarf anpassen.
+// Diese lokale Datei nicht in ein öffentliches Repository übernehmen.
+return [
+    'host' => '127.0.0.1',
+    'port' => '3306',
+    'name' => 'easyit',
+    'user' => 'root',
+    'password' => '',
+    'charset' => 'utf8mb4',
+];

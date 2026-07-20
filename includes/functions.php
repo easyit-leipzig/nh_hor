@@ -7,6 +7,51 @@ function e(string $value): string
 }
 
 /**
+ * Returns the application base path for the current deployment.
+ * Local XAMPP installations use /nh_hor, production uses the domain root.
+ */
+function app_base_path(): string
+{
+    static $basePath = null;
+    if ($basePath !== null) {
+        return $basePath;
+    }
+
+    $configured = getenv('SITE_BASE_PATH');
+    if (is_string($configured) && trim($configured) !== '') {
+        $basePath = '/' . trim($configured, '/');
+        return $basePath === '/' ? '' : $basePath;
+    }
+
+    $host = strtolower((string)($_SERVER['HTTP_HOST'] ?? ''));
+    $isLocal = $host === 'localhost' || str_starts_with($host, 'localhost:')
+        || $host === '127.0.0.1' || str_starts_with($host, '127.0.0.1:');
+
+    if ($isLocal) {
+        $scriptName = str_replace('\\', '/', (string)($_SERVER['SCRIPT_NAME'] ?? ''));
+        if (preg_match('~^(/[^/]+)(?:/|$)~', $scriptName, $match) === 1) {
+            $basePath = $match[1];
+            return $basePath;
+        }
+        $basePath = '/nh_hor';
+        return $basePath;
+    }
+
+    $basePath = '';
+    return $basePath;
+}
+
+function app_path(string $path = '/'): string
+{
+    $normalized = '/' . ltrim($path, '/');
+    $basePath = app_base_path();
+    if ($normalized === '/') {
+        return $basePath !== '' ? $basePath . '/' : '/';
+    }
+    return $basePath . $normalized;
+}
+
+/**
  * Builds a canonical URL exclusively from the configured base URL.
  *
  * Security/SEO rules:
@@ -130,5 +175,5 @@ function asset_url(string $logicalPath): string
     }
 
     $resolved = $manifest[$normalized] ?? $normalized;
-    return '/' . ltrim((string)$resolved, '/');
+    return app_path('/' . ltrim((string)$resolved, '/'));
 }
