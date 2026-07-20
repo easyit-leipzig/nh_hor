@@ -1,0 +1,27 @@
+name: HTML und Accessibility
+on: [push, pull_request]
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '22', cache: 'npm', cache-dependency-path: '_project_archive/quality/package-lock.json' }
+      - name: PHP installieren
+        uses: shivammathur/setup-php@v2
+        with: { php-version: '8.2' }
+      - name: Abhängigkeiten installieren
+        working-directory: _project_archive/quality
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+      - name: Lokalen Webserver starten
+        run: php -S 127.0.0.1:8080 -t nh_hor > /tmp/easyit-php.log 2>&1 &
+      - name: Server abwarten
+        run: for i in {1..30}; do curl -fsS http://127.0.0.1:8080/ >/dev/null && exit 0; sleep 1; done; cat /tmp/easyit-php.log; exit 1
+      - name: HTML-Struktur prüfen
+        working-directory: _project_archive/quality
+        run: python3 tests/html-headings.py http://127.0.0.1:8080/ http://127.0.0.1:8080/tutor-bewertungen.php
+      - name: WCAG-Audit ausführen
+        working-directory: _project_archive/quality
+        run: node tests/accessibility.mjs http://127.0.0.1:8080/ http://127.0.0.1:8080/tutor-bewertungen.php

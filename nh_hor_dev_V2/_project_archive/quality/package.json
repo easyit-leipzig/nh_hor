@@ -1,0 +1,17 @@
+{
+  "name": "easyit-quality-checks",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test:html": "python3 tests/html-headings.py",
+    "test:a11y": "node tests/accessibility.mjs",
+    "test:release": "python3 tests/release-audit.py",
+    "test:browsers": "node tests/browser-smoke.mjs",
+    "test:all": "npm run test:release && npm run test:v3 && npm run test:html && npm run test:browsers",
+    "test:v3": "python3 tests/v3_definition_of_done.py"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.10.2",
+    "playwright": "^1.54.1"
+  }
+}
