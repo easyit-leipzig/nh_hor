@@ -105,7 +105,7 @@ function security_send_headers(): void
     }
 
     $nonce = security_csp_nonce();
-    $policy = implode('; ', [
+    $directives = [
         "default-src 'self'",
         "base-uri 'self'",
         "object-src 'none'",
@@ -120,8 +120,15 @@ function security_send_headers(): void
         "worker-src 'self'",
         "media-src 'self'",
         "frame-src 'none'",
-        'upgrade-insecure-requests',
-    ]);
+    ];
+
+    // Never force HTTP localhost requests to HTTPS. In production this
+    // directive remains useful when CSP is switched to enforce mode.
+    if (config_is_production()) {
+        $directives[] = 'upgrade-insecure-requests';
+    }
+
+    $policy = implode('; ', $directives);
 
     $mode = strtolower(config_env('CSP_MODE', 'report-only') ?? 'report-only');
     if ($mode === 'enforce') {

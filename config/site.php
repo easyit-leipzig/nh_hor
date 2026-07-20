@@ -33,9 +33,36 @@ try {
     $local = config_load_local('site.local.php');
     $site = array_replace($defaults, $local);
 
+    // Local development commonly runs below http://localhost/nh_hor/.
+    // Detect that setup automatically unless explicit environment/local values override it.
+    $requestHost = strtolower((string)($_SERVER['HTTP_HOST'] ?? ''));
+    $isLocalHost = $requestHost === 'localhost'
+        || str_starts_with($requestHost, 'localhost:')
+        || $requestHost === '127.0.0.1'
+        || str_starts_with($requestHost, '127.0.0.1:');
+
+    if ($isLocalHost) {
+        $scriptName = str_replace('\\', '/', (string)($_SERVER['SCRIPT_NAME'] ?? ''));
+        $detectedBasePath = '';
+        if (preg_match('~^(/[^/]+)(?:/|$)~', $scriptName, $match) === 1) {
+            $detectedBasePath = $match[1];
+        }
+
+        if (!array_key_exists('base_url', $local) && config_env('SITE_BASE_URL') === null) {
+            $site['base_url'] = 'http://' . $requestHost;
+        }
+        if (!array_key_exists('base_path', $local) && config_env('SITE_BASE_PATH') === null) {
+            $site['base_path'] = $detectedBasePath;
+        }
+    }
+
     $site['phone'] = config_env('SITE_PHONE', (string)$site['phone']) ?? '';
     $site['email'] = config_env('SITE_EMAIL', (string)$site['email']) ?? '';
     $site['base_url'] = rtrim(config_env('SITE_BASE_URL', (string)$site['base_url']) ?? '', '/');
+    $site['base_path'] = '/' . trim(config_env('SITE_BASE_PATH', (string)($site['base_path'] ?? '')) ?? '', '/');
+    if ($site['base_path'] === '/') {
+        $site['base_path'] = '';
+    }
     $site['owner'] = config_env('SITE_OWNER', (string)$site['owner']) ?? '';
 
     $address = is_array($site['postal_address']) ? $site['postal_address'] : [];
