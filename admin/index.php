@@ -31,9 +31,24 @@ require __DIR__ . '/includes/header.php';
       <a class="admin-btn" href="<?= admin_e(app_path('/admin/navigation.php')) ?>">Verwalten</a>
     </article>
     <article class="admin-card">
+      <h2>STARTSEITENBLÖCKE</h2>
+      <p>Aktionen, Veranstaltungen und Hinweise positionieren oder Bereiche ersetzen.</p>
+      <a class="admin-btn" href="<?= admin_e(app_path('/admin/index-content.php')) ?>">Verwalten</a>
+    </article>
+    <article class="admin-card">
       <h2>IMPRESSUMSPERSONEN</h2>
       <p>Personen und Namensformen den Rollen zuordnen.</p>
       <a class="admin-btn" href="<?= admin_e(app_path('/admin/imprint-persons.php')) ?>">Verwalten</a>
+    </article>
+    <article class="admin-card">
+      <h2>ADRESSEN</h2>
+      <p>Internationale Anschriften den Personen zuordnen.</p>
+      <a class="admin-btn" href="<?= admin_e(app_path('/admin/imprint-addresses.php')) ?>">Verwalten</a>
+    </article>
+    <article class="admin-card">
+      <h2>KONTAKTE</h2>
+      <p>Telefon, E-Mail, Webseiten und weitere Kontaktwege verwalten.</p>
+      <a class="admin-btn" href="<?= admin_e(app_path('/admin/imprint-contacts.php')) ?>">Verwalten</a>
     </article>
     <article class="admin-card">
       <h2>IMPRESSUMSROLLEN</h2>

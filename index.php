@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 require __DIR__ . '/includes/functions.php';
+require __DIR__ . '/includes/index-content.php';
 $site = require __DIR__ . '/config/site.php';
 $pageTitle = 'Nachhilfe Leipzig für Mathe, Physik, Chemie & Informatik | easyIT';
 $pageDescription = 'Persönliche Nachhilfe in Leipzig für Mathematik, Physik, Chemie und Informatik. Individuelle Förderung, Prüfungsvorbereitung und verständliche Erklärungen.';
@@ -16,6 +17,8 @@ $pageCanonical = $site['base_url'] . $site['base_path'] . '/index.php';
 <div class="content-wrap">
 <nav class="breadcrumbs" aria-label="Brotkrumen"><span aria-current="page">Startseite</span></nav>
 
+<?php render_index_content(1, 'before'); ?>
+<?php if (!index_content_has_replace(1)): ?>
 <section class="hero">
   <div>
     <span class="eyebrow">Individuelle Nachhilfe in Leipzig</span>
@@ -43,7 +46,11 @@ $pageCanonical = $site['base_url'] . $site['base_path'] . '/index.php';
     <a href="/methodik.php">Meine Methodik kennenlernen →</a>
   </aside>
 </section>
+<?php else: render_index_content(1, 'replace'); endif; ?>
+<?php render_index_content(1, 'after'); ?>
 
+<?php render_index_content(2, 'before'); ?>
+<?php if (!index_content_has_replace(2)): ?>
 <section class="section" id="faecher">
   <header class="section-heading">
     <div><span class="eyebrow">Fächer</span><h2>Nachhilfe, die Zusammenhänge sichtbar macht</h2></div>
@@ -60,8 +67,12 @@ $pageCanonical = $site['base_url'] . $site['base_path'] . '/index.php';
     <article class="card subject-card subject-card--visual"><img class="subject-card__image" src="/assets/img/lern-stud.svg" width="800" height="600" alt="Lernende erklärt einen Lösungsweg" loading="lazy"><h3>Alle Fächer</h3><p>Die vollständige Übersicht mit neun Fachangeboten.</p><a href="/faecher.php">Fächerübersicht →</a></article>
   </div>
 </section>
+<?php else: render_index_content(2, 'replace'); endif; ?>
+<?php render_index_content(2, 'after'); ?>
 
 
+<?php render_index_content(3, 'before'); ?>
+<?php if (!index_content_has_replace(3)): ?>
 <section class="section" id="orientierung">
   <header class="section-heading"><div><span class="eyebrow">easyIT kennenlernen</span><h2>Mehr als eine Fachseite</h2></div><p>Methodik, Ablauf und Haltung transparent erklärt.</p></header>
   <div class="card-grid">
@@ -71,18 +82,31 @@ $pageCanonical = $site['base_url'] . $site['base_path'] . '/index.php';
     <article class="card"><h3>Erfahrungen</h3><p>Welche Aspekte Lernende in Rückmeldungen hervorheben.</p><a href="/bewertungen.php">Bewertungen lesen →</a></article>
   </div>
 </section>
+<?php else: render_index_content(3, 'replace'); endif; ?>
+<?php render_index_content(3, 'after'); ?>
 
+<?php render_index_content(4, 'before'); ?>
+<?php if (!index_content_has_replace(4)): ?>
 <section class="section faq">
   <header class="section-heading"><div><span class="eyebrow">Häufige Fragen</span><h2>Was Eltern und Lernende wissen möchten</h2></div></header>
   <details><summary>Für welche Klassenstufen ist die Nachhilfe geeignet?</summary><p>Die Förderung kann an Schulform, Klassenstufe, Ausbildung oder Studium angepasst werden.</p></details>
   <details><summary>Wie läuft eine erste Stunde ab?</summary><p>Zunächst werden Ziele, aktueller Stand und konkrete Schwierigkeiten gemeinsam geklärt.</p></details>
   <details><summary>Ist Prüfungsvorbereitung möglich?</summary><p>Ja. Inhalte, Zeitplan, Übungsphasen und typische Aufgaben können gezielt vorbereitet werden.</p></details>
 </section>
+<?php else: render_index_content(4, 'replace'); endif; ?>
+<?php render_index_content(4, 'after'); ?>
 
+<?php render_index_content(5, 'before'); ?>
+<?php if (!index_content_has_replace(5)): ?>
 <section class="section cta">
   <div><span class="eyebrow">Nächster Schritt</span><h2>Unverbindlich kennenlernen</h2><p>Beschreibe kurz Fach, Klassenstufe und aktuelle Herausforderung.</p></div>
   <a class="button button--gold" href="/kontakt.php">Kontakt aufnehmen</a>
 </section>
+<?php else: render_index_content(5, 'replace'); endif; ?>
+<?php render_index_content(5, 'after'); ?>
+<?php render_index_content(6, 'before'); ?>
+<?php render_index_content(6, 'replace'); ?>
+<?php render_index_content(6, 'after'); ?>
 </div>
 <?php require __DIR__ . '/includes/footer.php'; ?>
 </main>

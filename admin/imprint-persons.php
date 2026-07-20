@@ -72,7 +72,7 @@ $persons = db_available() ? db()->query("SELECT p.id, p.to_role, p.saturation, p
 $adminTitle = 'Impressumspersonen';
 require __DIR__ . '/includes/header.php';
 ?>
-<div class="admin-actions"><h1 style="margin-right:auto">Impressumspersonen</h1><a class="admin-btn" href="<?= admin_e(app_path('/admin/imprint-roles.php')) ?>">Rollen verwalten</a></div>
+<div class="admin-actions"><h1 style="margin-right:auto">Impressumspersonen</h1><a class="admin-btn" href="<?= admin_e(app_path('/admin/imprint-roles.php')) ?>">Rollen verwalten</a><a class="admin-btn" href="<?= admin_e(app_path('/admin/imprint-addresses.php')) ?>">Adressen verwalten</a><a class="admin-btn" href="<?= admin_e(app_path('/admin/imprint-contacts.php')) ?>">Kontakte verwalten</a></div>
 <p>Personen und Namensformen den Rollen für Impressum und Adressnennung zuordnen.</p>
 <?php if ($notice): ?><p class="admin-notice admin-notice--success">Änderung gespeichert.</p><?php endif; ?>
 <?php if ($error): ?><p class="admin-notice admin-notice--error"><?= admin_e($error) ?></p><?php endif; ?>
