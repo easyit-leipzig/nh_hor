@@ -46,17 +46,23 @@ if ($isIndexable) {
 <meta property="og:description" content="<?= e($pageDescription) ?>">
 <meta property="og:url" content="<?= e($pageCanonical) ?>">
 <meta property="og:image" content="<?= e(schema_absolute_url($site, (string)$site['image'])) ?>">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="easyIT Nachhilfe Leipzig – Verstehen, anwenden und sicherer werden">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="<?= e(schema_absolute_url($site, (string)$site['image'])) ?>">
+<meta name="twitter:image:alt" content="easyIT Nachhilfe Leipzig – Verstehen, anwenden und sicherer werden">
 <meta name="twitter:title" content="<?= e($pageTitle) ?>">
 <meta name="twitter:description" content="<?= e($pageDescription) ?>">
 <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
 <link rel="manifest" href="/manifest.webmanifest">
-<link rel="preload" href="/assets/css/main.css" as="style">
-<link rel="stylesheet" href="/assets/css/main.css">
-<link rel="stylesheet" href="/assets/css/header.css">
-<link rel="stylesheet" href="/assets/css/sidebar.css">
-<link rel="stylesheet" href="/assets/css/content.css">
-<link rel="stylesheet" href="/assets/css/footer.css">
+<link rel="preload" href="<?= e(asset_url('assets/css/main.css')) ?>" as="style">
+<link rel="stylesheet" href="<?= e(asset_url('assets/css/main.css')) ?>">
+<link rel="stylesheet" href="<?= e(asset_url('assets/css/header.css')) ?>">
+<link rel="stylesheet" href="<?= e(asset_url('assets/css/sidebar.css')) ?>">
+<link rel="stylesheet" href="<?= e(asset_url('assets/css/content.css')) ?>">
+<link rel="stylesheet" href="<?= e(asset_url('assets/css/footer.css')) ?>">
 <?php if ($isIndexable): ?>
 <script type="application/ld+json" nonce="<?= e(security_csp_nonce()) ?>">
 <?= json_encode($organizationSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) ?>

@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+require_once __DIR__ . '/../../includes/functions.php';
 $user = admin_user();
 ?><!doctype html>
 <html lang="de">
@@ -8,7 +9,7 @@ $user = admin_user();
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <title><?= admin_e($adminTitle ?? 'Admin') ?> | easyIT</title>
-<link rel="stylesheet" href="/assets/css/admin.css">
+<link rel="stylesheet" href="<?= e(asset_url('assets/css/admin.css')) ?>">
 </head>
 <body class="admin-body">
 <header class="admin-header">

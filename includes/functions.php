@@ -108,3 +108,27 @@ function nav_link(string $href, string $label, string $icon = ''): string
         . '<span aria-hidden="true">' . e($icon) . '</span>'
         . '<span>' . e($label) . '</span></a>';
 }
+
+
+/**
+ * Returns the public path of a content-hashed frontend asset.
+ *
+ * Logical asset names remain stable in PHP templates, while deployed CSS and
+ * JavaScript files receive immutable content hashes in their filenames.
+ */
+function asset_url(string $logicalPath): string
+{
+    static $manifest = null;
+
+    $normalized = ltrim($logicalPath, '/');
+    if ($manifest === null) {
+        $manifestFile = __DIR__ . '/../config/asset-manifest.php';
+        $manifest = is_file($manifestFile) ? require $manifestFile : [];
+        if (!is_array($manifest)) {
+            $manifest = [];
+        }
+    }
+
+    $resolved = $manifest[$normalized] ?? $normalized;
+    return '/' . ltrim((string)$resolved, '/');
+}

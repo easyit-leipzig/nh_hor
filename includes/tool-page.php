@@ -90,6 +90,6 @@ $pageSchemas = [
 <?php require __DIR__ . '/footer.php'; ?>
 </main>
 </div>
-<script src="/assets/js/tools.js" defer></script>
+<script src="<?= e(asset_url('assets/js/tools.js')) ?>" defer></script>
 </body>
 </html>

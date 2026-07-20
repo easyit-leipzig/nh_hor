@@ -19,8 +19,8 @@ try {
             'addressCountry' => 'DE',
         
         ],
-        'logo' => 'assets/img/logo.svg',
-        'image' => 'assets/img/og-easyit.svg',
+        'logo' => 'assets/img/brand-logo.svg',
+        'image' => 'assets/img/social-preview-1200x630.png',
         'price_range' => '',
         'opening_hours' => [],
         'geo' => [],

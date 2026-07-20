@@ -42,6 +42,7 @@ if (!$tutor) {
 }
 
 $average = $reviews ? array_sum(array_map(static fn(array $review): int => (int)$review['stars'], $reviews)) / count($reviews) : 0;
+$mainHeading = $tutor ? 'Bewertungen für ' . (string)$tutor['display_name'] : 'Tutorprofil nicht gefunden';
 ?><!doctype html>
 <html lang="de">
 <head><?php require __DIR__ . '/includes/meta.php'; ?></head>
@@ -52,15 +53,17 @@ $average = $reviews ? array_sum(array_map(static fn(array $review): int => (int)
 <main class="main-content" id="hauptinhalt"><div class="content-wrap">
 <nav class="breadcrumbs" aria-label="Brotkrumen"><a href="index.php">Startseite</a><span>›</span><a href="ueber-mich.php">Tutorenteam</a><span>›</span><span aria-current="page">Bewertungen</span></nav>
 
+<h1 class="visually-hidden"><?= e($mainHeading) ?></h1>
+
 <?php if (!$tutor): ?>
-<section class="content-hero"><span class="eyebrow">Nicht gefunden</span><h1>Tutorprofil nicht gefunden</h1><p class="lead">Das angeforderte Tutorprofil ist nicht verfügbar.</p></section>
+<section class="content-hero" aria-labelledby="tutor-status-heading"><span class="eyebrow">Nicht gefunden</span><h2 id="tutor-status-heading">Tutorprofil nicht gefunden</h2><p class="lead">Das angeforderte Tutorprofil ist nicht verfügbar.</p></section>
 <section class="section"><a class="button button--primary" href="ueber-mich.php">Zum Tutorenteam</a></section>
 <?php else: ?>
 <section class="content-hero tutor-review-hero">
     <img src="<?= e((string)$tutor['image_path']) ?>" alt="<?= e((string)$tutor['image_alt']) ?>">
     <div>
         <span class="eyebrow">Erfahrungen von Lernenden</span>
-        <h1>Bewertungen für <?= e((string)$tutor['display_name']) ?></h1>
+        <h2>Bewertungen für <?= e((string)$tutor['display_name']) ?></h2>
         <p class="tutor-profile__title"><?= e((string)$tutor['professional_title']) ?></p>
         <div class="tutor-review-summary" aria-label="Durchschnittliche Bewertung <?= number_format($average, 1, ',', '.') ?> von 5 Sternen">
             <span class="star-rating" aria-hidden="true">★★★★★</span>

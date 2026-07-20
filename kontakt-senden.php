@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 require __DIR__ . '/includes/functions.php';
 require __DIR__ . '/includes/security.php';
+require __DIR__ . '/includes/SmtpMailer.php';
+require __DIR__ . '/includes/contact-log.php';
 
 $site = require __DIR__ . '/config/site.php';
 $formConfig = require __DIR__ . '/config/forms.php';
@@ -78,34 +80,35 @@ $body = implode("\n", [
 ]);
 
 $mailSent = false;
+$mailError = null;
+contact_log_cleanup((int)$formConfig['contact_log_retention_days']);
+
 if ((bool)$formConfig['enable_mail']) {
-    $headers = [
-        'From: ' . $formConfig['sender_name'] . ' <' . $formConfig['sender_email'] . '>',
-        'Reply-To: ' . $data['email'],
-        'Content-Type: text/plain; charset=UTF-8',
-    ];
-    $mailSent = mail(
-        $formConfig['recipient_email'],
-        '=?UTF-8?B?' . base64_encode($subject) . '?=',
-        $body,
-        implode("\r\n", $headers)
-    );
+    try {
+        (new SmtpMailer($formConfig))->send(
+            (string)$formConfig['recipient_email'],
+            $subject,
+            $body,
+            $data['email']
+        );
+        $mailSent = true;
+        contact_log_event('contact_mail_handed_to_smtp', true);
+    } catch (Throwable $exception) {
+        $mailError = 'smtp_' . preg_replace('/[^a-z0-9]+/i', '_', strtolower($exception->getMessage()));
+        $mailError = substr(trim($mailError, '_'), 0, 80);
+        contact_log_event('contact_mail_failed', false, $mailError);
+        error_log('[easyIT contact SMTP] ' . $exception->getMessage());
+    }
+} else {
+    contact_log_event('contact_mail_disabled', false, 'mail_disabled');
 }
 
-$logEntry = [
-    'created_at' => date(DATE_ATOM),
-    'fingerprint' => client_fingerprint(),
-    'subject' => $data['subject'],
-    'school_type' => $data['school_type'],
-    'location' => $data['location'],
-    'mail_enabled' => (bool)$formConfig['enable_mail'],
-    'mail_sent' => $mailSent,
-];
-@file_put_contents(
-    __DIR__ . '/storage/contact-events.log',
-    json_encode($logEntry, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . PHP_EOL,
-    FILE_APPEND | LOCK_EX
-);
+if (!$mailSent) {
+    $_SESSION['contact_errors'] = ['Die Nachricht konnte technisch nicht versendet werden. Bitte versuche es später erneut oder nutze Telefon beziehungsweise E-Mail.'];
+    $_SESSION['contact_old'] = $data;
+    header('Location: /kontakt.php#kontaktformular', true, 303);
+    exit;
+}
 
 unset($_SESSION['contact_old'], $_SESSION['contact_errors']);
 $_SESSION['contact_success'] = true;

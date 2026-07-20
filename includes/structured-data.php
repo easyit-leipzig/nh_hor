@@ -72,12 +72,20 @@ function organization_schema(array $site): array
             '@id' => $home . '#logo',
             'url' => $logo,
             'contentUrl' => $logo,
+            'width' => 1200,
+            'height' => 900,
         ];
     }
 
     $image = schema_absolute_url($site, (string)($site['image'] ?? ''));
     if ($image !== '') {
-        $schema['image'] = [$image];
+        $schema['image'] = [[
+            '@type' => 'ImageObject',
+            'url' => $image,
+            'contentUrl' => $image,
+            'width' => 1200,
+            'height' => 630,
+        ]];
     }
 
     if (schema_nonempty($site['price_range'] ?? null)) {

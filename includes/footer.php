@@ -11,12 +11,11 @@
     </nav>
     <p>© <?= date('Y') ?> easyIT</p>
 </footer>
-<script src="/assets/js/nojquery_3.1.1.js" defer></script>
-<script src="/assets/js/app.js" defer></script>
-<script src="/assets/js/search-index.js" defer></script>
-<script src="/assets/js/search.js" defer></script>
-<script src="/assets/js/consent.js" defer></script>
-<script src="/assets/js/analytics.js" defer></script>
+<script src="<?= e(asset_url('assets/js/app.js')) ?>" defer></script>
+<script src="<?= e(asset_url('assets/js/search-index.js')) ?>" defer></script>
+<script src="<?= e(asset_url('assets/js/search.js')) ?>" defer></script>
+<script src="<?= e(asset_url('assets/js/consent.js')) ?>" defer></script>
+<script src="<?= e(asset_url('assets/js/analytics.js')) ?>" defer></script>
 <script nonce="<?= e(security_csp_nonce()) ?>">
 if ("serviceWorker" in navigator) { window.addEventListener("load", () => navigator.serviceWorker.register("/service-worker.js")); }
 </script>
