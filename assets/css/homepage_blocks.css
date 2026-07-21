@@ -1,0 +1,19 @@
+.homepage-block{display:flex;gap:2rem;padding:2rem;margin:2rem 0;border-radius:20px;background:#fff;box-shadow:0 8px 25px rgba(0,0,0,.08);position:relative;overflow:hidden}
+.homepage-block__media{width:280px;position:relative;flex-shrink:0}
+.homepage-block__image{width:100%;height:220px;object-fit:cover;border-radius:16px;display:block}
+.homepage-block__content{flex:1}
+.homepage-block__sticker{position:absolute;width:90px;height:90px;overflow:hidden;z-index:2}
+.homepage-block__sticker img{height:270px;width:auto;position:absolute;max-width:none}
+.homepage-block__sticker--top-right{right:-5px;top:-5px}
+.homepage-block__sticker--top-left{left:-5px;top:-5px}
+.homepage-block__sticker--bottom-right{right:-5px;bottom:-5px}
+.homepage-block__sticker--neu img{top:0;left:0}
+.homepage-block__sticker--sale img{top:0;left:-90px}
+.homepage-block__sticker--gutschein img{top:0;left:-180px}
+.homepage-block__sticker--aktion img{top:0;left:-270px}
+.homepage-block__image--neu{object-position:0% 0%}
+.homepage-block__image--event{object-position:50% 0%}
+.homepage-block__image--lern{object-position:70% 0%}
+.homepage-block__image--kontakt{object-position:100% 0%}
+.homepage-block--gutschein{background:#005bbb;color:#fff}.homepage-block--neu{border-left:8px solid #2ecc71}.homepage-block--veranstaltung{border-left:8px solid #f2b705}
+@media(max-width:700px){.homepage-block{flex-direction:column}.homepage-block__media{width:100%}.homepage-block__image{width:100%}}

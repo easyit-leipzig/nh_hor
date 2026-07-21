@@ -2,6 +2,7 @@
 declare(strict_types=1);
 require __DIR__ . '/includes/functions.php';
 require __DIR__ . '/includes/index-content.php';
+require __DIR__ . '/includes/homepage_blocks.php';
 $site = require __DIR__ . '/config/site.php';
 $pageTitle = 'Nachhilfe Leipzig für Mathe, Physik, Chemie & Informatik | easyIT';
 $pageDescription = 'Persönliche Nachhilfe in Leipzig für Mathematik, Physik, Chemie und Informatik. Individuelle Förderung, Prüfungsvorbereitung und verständliche Erklärungen.';
@@ -16,6 +17,7 @@ $pageCanonical = $site['base_url'] . $site['base_path'] . '/index.php';
 <main class="main-content" id="hauptinhalt">
 <div class="content-wrap">
 <nav class="breadcrumbs" aria-label="Brotkrumen"><span aria-current="page">Startseite</span></nav>
+<?php render_homepage_blocks(); ?>
 
 <?php render_index_content(1, 'before'); ?>
 <?php if (!index_content_has_replace(1)): ?>

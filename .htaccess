@@ -11,14 +11,17 @@ ErrorDocument 500 /errors/500.php
   # Dynamische XML-Sitemap aus indexierbaren Seiten und veröffentlichten Blogartikeln.
   RewriteRule ^sitemap\.xml$ sitemap-xml.php [END]
 
-  # Alte öffentlich erreichbare Projektpfade dauerhaft bereinigen.
-  # THE_REQUEST verhindert eine Schleife, wenn /nh_hor nur serverintern verwendet wird.
-  RewriteCond %{THE_REQUEST} \s/+nh_hor(?:/([^?\ ]*))? [NC]
-  RewriteRule ^nh_hor(?:/(.*))?$ https://easyit-leipzig.de/$1 [R=301,L,NE]
+  # Lokaler Betrieb:
+  # http://localhost/nh_hor -> htdocs/nh_hor
+  # niemals auf Produktionsdomain umleiten.
+  #
+  # Die nh_hor-Weiterleitung wurde entfernt, da sie lokal
+  # den Entwicklungsstand überschreiben würde.
+
 
   # Alle Zugangsdomains auf die einzige kanonische Domain umleiten.
-  RewriteCond %{HTTP_HOST} ^(?:www\.)?(?:easyit-nachhilfe\.de|thiele-nachhilfe\.de)$ [NC]
-  RewriteRule ^ https://easyit-leipzig.de%{REQUEST_URI} [R=301,L,NE]
+  # Separate Domains bleiben erhalten.
+  # Keine automatische Umleitung von easyit-nachhilfe.de.
 
   # Hauptdomain: HTTPS und Variante ohne www erzwingen.
   RewriteCond %{HTTP_HOST} ^www\.easyit-leipzig\.de$ [NC,OR]

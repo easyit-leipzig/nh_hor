@@ -63,6 +63,7 @@ if ($isIndexable) {
 <link rel="stylesheet" href="<?= e(asset_url('assets/css/sidebar.css')) ?>">
 <link rel="stylesheet" href="<?= e(asset_url('assets/css/content.css')) ?>">
 <link rel="stylesheet" href="<?= e(asset_url('assets/css/footer.css')) ?>">
+<link rel="stylesheet" href="<?= e(asset_url('assets/css/homepage_blocks.css')) ?>">
 <?php if ($isIndexable): ?>
 <script type="application/ld+json" nonce="<?= e(security_csp_nonce()) ?>">
 <?= json_encode($organizationSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) ?>
