@@ -1,0 +1,49 @@
+/* Original CSS3Menu-Design, in nh_hor eingebunden. */
+ul#css3menu0,ul#css3menu0 ul{
+ margin:0;list-style:none;padding:0;background-color:#dedede;border-width:1px;border-style:solid;border-color:#5f5f5f;border-radius:5px;
+}
+ul#css3menu0 ul{
+ display:none;position:absolute;left:0;top:100%;box-shadow:3.5px 3.5px 5px #000;background-color:#fff;border-radius:6px;border-color:#d4d4d4;padding:0 10px 10px;
+}
+ul#css3menu0 li:hover>*{display:block}
+ul#css3menu0 li{position:relative;display:block;white-space:nowrap;font-size:0;float:left}
+ul#css3menu0 li:hover{z-index:1}
+ul#css3menu0 ul ul{position:absolute;left:100%;top:0}
+ul#css3menu0{font-size:0;z-index:999;position:relative;display:inline-block;zoom:1;padding:0}
+ul#css3menu0::after{content:"";display:block;clear:both}
+ul#css3menu0>li{margin:0}
+ul#css3menu0 a:active,ul#css3menu0 a:focus{outline-style:none}
+ul#css3menu0 a{
+ display:block;vertical-align:middle;text-align:left;text-decoration:none;font:bold 14px "Trebuchet MS",Arial,sans-serif;color:#fff;text-shadow:#fff 0 0 1px;cursor:pointer;padding:10px;background-color:#005aa9;background-image:url("../../img/css3menu0/mainbk.png");background-repeat:repeat;background-position:0 0;border-width:0 0 0 1px;border-style:solid;border-color:#c0c0c0;
+}
+ul#css3menu0 ul li{float:none;margin:10px 0 0}
+ul#css3menu0 ul a{
+ text-align:left;padding:4px;background-color:#fff;background-image:none;border-width:0;border-radius:0;font:14px Tahoma,Arial,sans-serif;color:#000;text-decoration:none;
+}
+ul#css3menu0 li:hover>a,ul#css3menu0 li a.pressed,ul#css3menu0 li.is-active>a{
+ background-color:#ffd500;border-color:#c0c0c0;border-style:solid;color:#000;text-shadow:#fff 0 0 1px;background-image:url("../../img/css3menu0/mainbk.png");background-position:0 100px;text-decoration:none;
+}
+ul#css3menu0 span{display:block;overflow:visible;background-position:right center;background-repeat:no-repeat;padding-right:0}
+ul#css3menu0 ul span{background-image:url("../../img/css3menu0/arrowsub.png");padding-right:12px}
+ul#css3menu0 ul li:hover>a,ul#css3menu0 ul li a.pressed,ul#css3menu0 ul li.is-active>a{background-color:#fff;background-image:none;color:#868686;text-decoration:none}
+ul#css3menu0 li.topfirst>a{border-radius:5px 0 0 5px}
+ul#css3menu0 li.toplast>a{border-radius:0 5px 5px 0}
+.horizontal-nav{display:flex;justify-content:center;align-items:center;padding:0;background:transparent;border:0;overflow:visible}
+
+/* Tastaturbedienung: Untermenüs werden auch bei Fokus sichtbar. */
+ul#css3menu0 li:focus-within>ul{display:block}
+ul#css3menu0 a:focus-visible{outline:3px solid #ffbf47;outline-offset:2px}
+
+/* Bestehender nh_hor-Menüknopf öffnet die Navigation auf kleinen Bildschirmen. */
+@media screen and (max-width:1050px){
+ .horizontal-nav{display:none;padding:8px 10px;background:#005aa9}
+ .horizontal-nav.is-open{display:block}
+ ul#css3menu0{display:block;width:100%;border-radius:5px}
+ ul#css3menu0>li{float:none;width:100%;white-space:normal}
+ ul#css3menu0>li>a{border-left:0;border-top:1px solid #c0c0c0;border-radius:0!important}
+ ul#css3menu0>li:first-child>a{border-top:0;border-radius:5px 5px 0 0!important}
+ ul#css3menu0>li:last-child>a{border-radius:0 0 5px 5px!important}
+ ul#css3menu0 ul,ul#css3menu0 ul ul{position:static;left:auto;top:auto;width:auto;box-shadow:none;border:0;border-radius:0;padding:0 10px 10px;background:#fff}
+ ul#css3menu0 li:hover>ul,ul#css3menu0 li:focus-within>ul{display:block}
+ ul#css3menu0 ul li{white-space:normal}
+}

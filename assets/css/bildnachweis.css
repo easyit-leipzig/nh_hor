@@ -1,0 +1,96 @@
+.image-credits-summary {
+    margin: 0 0 1rem;
+    font-weight: 700;
+}
+
+.image-credits-table-wrap {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid rgba(17, 44, 73, .14);
+    border-radius: 14px;
+    background: #fff;
+}
+
+.image-credits-table {
+    width: 100%;
+    min-width: 1100px;
+    border-collapse: collapse;
+}
+
+.image-credits-table th,
+.image-credits-table td {
+    padding: .9rem 1rem;
+    border-bottom: 1px solid rgba(17, 44, 73, .12);
+    text-align: left;
+    vertical-align: top;
+}
+
+.image-credits-table th {
+    background: rgba(17, 44, 73, .06);
+    font-size: .9rem;
+    white-space: nowrap;
+}
+
+.image-credits-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.image-credits-table small {
+    display: block;
+    margin-top: .3rem;
+    color: #5f6b76;
+    overflow-wrap: anywhere;
+}
+
+.image-credits-table a {
+    overflow-wrap: anywhere;
+}
+
+@media (max-width: 760px) {
+    .image-credits-table-wrap {
+        overflow: visible;
+        border: 0;
+        background: transparent;
+    }
+
+    .image-credits-table {
+        min-width: 0;
+    }
+
+    .image-credits-table thead {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        white-space: nowrap;
+    }
+
+    .image-credits-table,
+    .image-credits-table tbody,
+    .image-credits-table tr,
+    .image-credits-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .image-credits-table tr {
+        margin-bottom: 1rem;
+        padding: .5rem 1rem;
+        border: 1px solid rgba(17, 44, 73, .14);
+        border-radius: 14px;
+        background: #fff;
+    }
+
+    .image-credits-table td {
+        display: grid;
+        grid-template-columns: minmax(7rem, 35%) 1fr;
+        gap: .75rem;
+        padding: .65rem 0;
+    }
+
+    .image-credits-table td::before {
+        content: attr(data-label);
+        font-weight: 700;
+    }
+}
