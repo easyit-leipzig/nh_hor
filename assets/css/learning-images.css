@@ -1,0 +1,179 @@
+
+/* ============================================================
+   Neue Bildintegration Startseite
+   ============================================================ */
+.hero-slider{
+  position:relative;
+  overflow:hidden;
+  min-height:570px;
+  padding:0;
+  background:#08233d;
+  border:0;
+}
+.hero-slider__stage,
+.hero-slider__slide{
+  position:absolute;
+  inset:0;
+  margin:0;
+}
+.hero-slider__slide{
+  opacity:0;
+  transition:opacity 1.1s ease;
+}
+.hero-slider__slide.is-active{opacity:1}
+.hero-slider__slide img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+  display:block;
+  transform:scale(1.02);
+  transition:transform 8s ease;
+}
+.hero-slider__slide.is-active img{transform:scale(1.09)}
+.hero-slider::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,rgba(3,20,35,.04) 24%,rgba(3,20,35,.90) 100%);
+}
+.hero-slider__overlay{
+  position:absolute;
+  z-index:2;
+  left:0;
+  right:0;
+  bottom:54px;
+  padding:2rem;
+  color:#fff;
+}
+.hero-slider__overlay>span{
+  display:inline-block;
+  margin-bottom:.45rem;
+  color:var(--gold,#ffd500);
+  font-size:.78rem;
+  font-weight:900;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+}
+.hero-slider__overlay h2{margin:.1rem 0 .7rem;color:#fff}
+.hero-slider__overlay ul{margin:.5rem 0;padding-left:1.2rem}
+.hero-slider__overlay a{color:#fff;font-weight:900}
+.hero-slider__controls{
+  position:absolute;
+  z-index:3;
+  left:1rem;
+  right:1rem;
+  bottom:1rem;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:.55rem;
+}
+.hero-slider__button,
+.hero-slider__pause,
+.hero-slider__dots button{
+  border:1px solid rgba(255,255,255,.5);
+  background:rgba(0,0,0,.35);
+  color:#fff;
+  cursor:pointer;
+  backdrop-filter:blur(6px);
+}
+.hero-slider__button{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  font-size:1.4rem;
+  line-height:1;
+}
+.hero-slider__pause{
+  min-height:34px;
+  padding:0 .8rem;
+  border-radius:999px;
+  font-weight:800;
+}
+.hero-slider__dots{display:flex;gap:.35rem}
+.hero-slider__dots button{
+  width:10px;
+  height:10px;
+  padding:0;
+  border-radius:50%;
+}
+.hero-slider__dots button.is-active{
+  width:28px;
+  border-radius:999px;
+  background:var(--gold,#ffd500);
+  border-color:var(--gold,#ffd500);
+}
+.subject-card__image{
+  aspect-ratio:16/10;
+  object-fit:cover;
+  object-position:center;
+}
+.learning-gallery{
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(145deg,#fff,#eef8ff);
+}
+.learning-gallery__grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  grid-auto-rows:260px;
+  gap:1rem;
+}
+.learning-gallery__item{
+  position:relative;
+  overflow:hidden;
+  margin:0;
+  border-radius:20px;
+  background:#0a3154;
+  box-shadow:0 14px 34px rgba(13,58,94,.13);
+}
+.learning-gallery__item--wide{grid-column:span 2}
+.learning-gallery__item img{
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:cover;
+  transition:transform .45s ease;
+}
+.learning-gallery__item:hover img{transform:scale(1.045)}
+.learning-gallery__item::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,transparent 42%,rgba(3,22,38,.88));
+}
+.learning-gallery__item figcaption{
+  position:absolute;
+  z-index:1;
+  left:0;
+  right:0;
+  bottom:0;
+  display:flex;
+  flex-direction:column;
+  padding:1.15rem;
+  color:#fff;
+}
+.learning-gallery__item figcaption strong{font-size:1.1rem}
+.learning-gallery__item figcaption span{
+  margin-top:.2rem;
+  color:rgba(255,255,255,.78);
+  font-size:.88rem;
+}
+@media(max-width:1050px){
+  .learning-gallery__grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:700px){
+  .hero-slider{min-height:520px}
+  .hero-slider__overlay{padding:1.35rem;bottom:52px}
+  .learning-gallery__grid{
+    grid-template-columns:1fr;
+    grid-auto-rows:300px;
+  }
+  .learning-gallery__item--wide{grid-column:auto}
+}
+@media(prefers-reduced-motion:reduce){
+  .hero-slider__slide,
+  .hero-slider__slide img,
+  .learning-gallery__item img{transition:none!important}
+}

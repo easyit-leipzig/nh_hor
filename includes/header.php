@@ -21,6 +21,15 @@ require_once __DIR__ . '/navigation.php';
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-navigation"><span></span><span></span><span></span><span class="sr-only">Menü öffnen</span></button>
     </div>
   </div>
+
+  <style nonce="<?= e(security_csp_nonce()) ?>">
+    .horizontal-nav {
+      background: linear-gradient(180deg, #0067b8 0%, #0057a4 100%) !important;
+      border-top: 1px solid rgba(255,255,255,.18) !important;
+      border-bottom: 2px solid var(--gold, #ffd500) !important;
+    }
+  </style>
+
   <nav id="main-navigation" class="horizontal-nav" aria-label="Hauptnavigation">
     <?= render_horizontal_menu(horizontal_menu_items()) ?>
   </nav>
