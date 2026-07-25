@@ -6,6 +6,7 @@ const EASYIT_SESSION_INACTIVITY_TIMEOUT = 1800; // 30 minutes
 const EASYIT_LOGIN_WINDOW = 900; // 15 minutes
 const EASYIT_LOGIN_MAX_ATTEMPTS = 5;
 const EASYIT_LOGIN_LOCKOUT = 900; // 15 minutes
+const EASYIT_SESSION_REGENERATE_INTERVAL = 900; // 15 minutes
 
 function request_is_https(): bool
 {
@@ -33,11 +34,14 @@ function ensure_session_started(): void
         'use_only_cookies' => true,
         'use_trans_sid' => false,
         'gc_maxlifetime' => EASYIT_SESSION_ABSOLUTE_TIMEOUT,
+        'cache_limiter' => 'nocache',
     ]);
 
     $now = time();
     $_SESSION['created_at'] = (int)($_SESSION['created_at'] ?? $now);
     $_SESSION['last_activity_at'] = (int)($_SESSION['last_activity_at'] ?? $now);
+    $_SESSION['regenerated_at'] = (int)($_SESSION['regenerated_at'] ?? $now);
+    $_SESSION['user_agent_hash'] = (string)($_SESSION['user_agent_hash'] ?? hash('sha256', (string)($_SERVER['HTTP_USER_AGENT'] ?? '')));
     enforce_session_timeouts();
 }
 
@@ -51,7 +55,11 @@ function enforce_session_timeouts(): void
     $created = (int)($_SESSION['created_at'] ?? $now);
     $lastActivity = (int)($_SESSION['last_activity_at'] ?? $now);
 
-    if (($now - $created) > EASYIT_SESSION_ABSOLUTE_TIMEOUT || ($now - $lastActivity) > EASYIT_SESSION_INACTIVITY_TIMEOUT) {
+    $expectedAgent = (string)($_SESSION['user_agent_hash'] ?? '');
+    $currentAgent = hash('sha256', (string)($_SERVER['HTTP_USER_AGENT'] ?? ''));
+    $fingerprintMismatch = $expectedAgent !== '' && !hash_equals($expectedAgent, $currentAgent);
+
+    if ($fingerprintMismatch || ($now - $created) > EASYIT_SESSION_ABSOLUTE_TIMEOUT || ($now - $lastActivity) > EASYIT_SESSION_INACTIVITY_TIMEOUT) {
         $_SESSION = [];
         if (ini_get('session.use_cookies')) {
             $params = session_get_cookie_params();
@@ -68,6 +76,11 @@ function enforce_session_timeouts(): void
         session_start();
         session_regenerate_id(true);
         $_SESSION['created_at'] = $now;
+        $_SESSION['regenerated_at'] = $now;
+        $_SESSION['user_agent_hash'] = $currentAgent;
+    } elseif (($now - (int)($_SESSION['regenerated_at'] ?? $now)) >= EASYIT_SESSION_REGENERATE_INTERVAL) {
+        session_regenerate_id(true);
+        $_SESSION['regenerated_at'] = $now;
     }
 
     $_SESSION['last_activity_at'] = $now;

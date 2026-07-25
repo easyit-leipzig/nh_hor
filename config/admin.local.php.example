@@ -1,0 +1,9 @@
+<?php
+declare(strict_types=1);
+
+return [
+    // Mindestens 32 zufällige Zeichen; nur für die einmalige lokale Einrichtung aktivieren.
+    'setup_token' => 'HIER_EINEN_LANGEN_ZUFAELLIGEN_SCHLUESSEL_EINTRAGEN',
+    'setup_enabled' => true,
+    'password_min_length' => 12,
+];

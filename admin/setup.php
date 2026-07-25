@@ -5,6 +5,12 @@ require __DIR__ . '/includes/admin-functions.php';
 $config = require __DIR__ . '/../config/admin.php';
 $error = '';
 $done = false;
+$setupEnabled = (bool)($config['setup_enabled'] ?? false);
+$configuredToken = (string)($config['setup_token'] ?? '');
+if (!$setupEnabled || strlen($configuredToken) < 32) {
+    http_response_code(404);
+    exit('Nicht gefunden.');
+}
 $count = 0;
 if (db_available()) {
     try { $count = (int)db()->query('SELECT COUNT(*) FROM admin_users')->fetchColumn(); }
@@ -24,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $error === '') {
     $minLength = (int)($config['password_min_length'] ?? 12);
 
     if (!csrf_is_valid((string)($_POST['csrf_token'] ?? ''))) $error = 'Die Sitzung ist abgelaufen.';
-    elseif (!hash_equals((string)$config['setup_token'], $setupToken)) $error = 'Der Einrichtungsschlüssel ist ungültig.';
+    elseif (!hash_equals($configuredToken, $setupToken)) $error = 'Der Einrichtungsschlüssel ist ungültig.';
     elseif (!preg_match('/^[A-Za-z0-9._-]{3,80}$/', $username)) $error = 'Der Benutzername muss 3–80 zulässige Zeichen enthalten.';
     elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) $error = 'Bitte eine gültige E-Mail-Adresse eingeben.';
     elseif (strlen($password) < $minLength) $error = 'Das Passwort muss mindestens ' . $minLength . ' Zeichen lang sein.';
@@ -47,7 +53,7 @@ require __DIR__ . '/includes/header.php';
 <div class="admin-notice admin-notice--success">Der erste Administrator wurde angelegt.</div>
 <p><a class="admin-btn admin-btn--gold" href="<?= admin_e(app_path('/admin/login.php')) ?>">Zur Anmeldung</a></p>
 <?php else: ?>
-<p>Der Einrichtungsschlüssel steht in <code>config/admin.php</code>.</p>
+<p>Der einmalige Einrichtungsschlüssel wurde außerhalb des öffentlich erreichbaren Projektcodes konfiguriert.</p>
 <form method="post" class="admin-form">
 <input type="hidden" name="csrf_token" value="<?= admin_e(csrf_token()) ?>">
 <label>Einrichtungsschlüssel<input type="password" name="setup_token" required autocomplete="off"></label>

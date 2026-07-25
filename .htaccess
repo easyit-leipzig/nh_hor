@@ -36,6 +36,10 @@ ErrorDocument 500 /errors/500.php
 
   RewriteRule ^storage/ - [F,L]
   RewriteRule ^database/ - [F,L]
+  RewriteRule ^config/ - [F,L]
+  RewriteRule ^_project_archive/ - [F,L]
+  RewriteRule ^easyIT_Relaunch_Startseite_01-09-2026/ - [F,L]
+  RewriteRule ^tools/(?:tools\.md)?$ - [F,L,NC]
   RewriteRule ^cache/ - [F,L]
 
   # Entwicklungs-, Archiv-, Dump- und temporäre Verzeichnisse sperren.
@@ -77,3 +81,9 @@ ErrorDocument 500 /errors/500.php
 <FilesMatch "(?i)(^\.|(?:^|\.)(?:env|ini|log|sql|sqlite|sqlite3|zip|7z|rar|tar|gz|tgz|bz2|xz|md|markdown|ppj|bak|backup|old|orig|save|swp|tmp|temp|dist|example|lock|yml|yaml|csv)$|composer\.(?:json|lock)$|README(?:[^/]*)$)">
   Require all denied
 </FilesMatch>
+
+
+# PHP-Ausführung in öffentlich beschreibbaren Uploadpfaden unterbinden.
+<IfModule mod_rewrite.c>
+  RewriteRule ^uploads/.*\.(?:php[0-9]?|phtml|phar)$ - [F,L,NC]
+</IfModule>

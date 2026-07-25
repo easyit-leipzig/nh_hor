@@ -130,7 +130,8 @@ function security_send_headers(): void
 
     $policy = implode('; ', $directives);
 
-    $mode = strtolower(config_env('CSP_MODE', 'report-only') ?? 'report-only');
+    $defaultCspMode = config_is_production() ? 'enforce' : 'report-only';
+    $mode = strtolower(config_env('CSP_MODE', $defaultCspMode) ?? $defaultCspMode);
     if ($mode === 'enforce') {
         header('Content-Security-Policy: ' . $policy);
     } elseif ($mode !== 'off') {
@@ -141,6 +142,10 @@ function security_send_headers(): void
     header('Referrer-Policy: strict-origin-when-cross-origin');
     header('Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()');
     header('X-Frame-Options: SAMEORIGIN');
+    header('Cross-Origin-Opener-Policy: same-origin');
+    header('Cross-Origin-Resource-Policy: same-origin');
+    header('X-Permitted-Cross-Domain-Policies: none');
+    header('Cache-Control: no-store, private', false);
 }
 
 function config_abort(Throwable $exception): never

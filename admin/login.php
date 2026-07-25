@@ -59,6 +59,9 @@ require __DIR__ . '/includes/header.php';
     <label>Passwort<input type="password" name="password" required autocomplete="current-password"></label>
     <button class="admin-btn admin-btn--gold" type="submit">Anmelden</button>
   </form>
+<?php $setupConfig = require __DIR__ . '/../config/admin.php'; ?>
+<?php if ((bool)($setupConfig['setup_enabled'] ?? false) && strlen((string)($setupConfig['setup_token'] ?? '')) >= 32): ?>
 <p class="admin-help">Noch kein Administrator? <a href="<?= admin_e(app_path('/admin/setup.php')) ?>">Ersteinrichtung öffnen</a></p>
+<?php endif; ?>
 </section>
 <?php require __DIR__ . '/includes/footer.php'; ?>
