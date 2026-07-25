@@ -28,6 +28,18 @@ $buttonUrl = trim((string)($_POST['button_url'] ?? ''));
 $position = filter_var($_POST['position'] ?? 0, FILTER_VALIDATE_INT, ['options' => ['min_range' => 0, 'max_range' => 100000]]);
 $active = isset($_POST['active']) ? 1 : 0;
 $image = trim((string)($_POST['existing_image'] ?? '')) ?: null;
+$styleJsonRaw = trim((string)($_POST['style_json'] ?? ''));
+$customCss = trim((string)($_POST['custom_css'] ?? ''));
+$styleData = json_decode($styleJsonRaw, true);
+if (!is_array($styleData)) { $styleData = []; }
+$allowedStyleKeys = ['backgroundColor','textColor','accentColor','buttonColor','buttonTextColor','padding','gap','borderRadius','borderWidth','borderColor','shadow','minHeight','imageWidth','imageHeight','imageRadius','imageFit','imagePosition','layout','textAlign','titleSize','contentSize','hoverEffect'];
+$styleData = array_intersect_key($styleData, array_flip($allowedStyleKeys));
+$styleJson = json_encode($styleData, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+$cssForbidden = preg_match('/[{}]|@import|<\/?style|expression\s*\(|javascript\s*:|behavior\s*:|-moz-binding/i', $customCss) === 1;
+if ($cssForbidden || strlen($customCss) > 10000) {
+    header('Location: ' . app_path('/admin/homepage_blocks_edit.php' . ($id ? '?id=' . $id . '&error=css' : '?error=css')), true, 303);
+    exit;
+}
 
 if ($title === '') {
     header('Location: ' . app_path('/admin/homepage_blocks_edit.php' . ($id ? '?id=' . $id . '&error=title' : '?error=title')), true, 303);
@@ -79,7 +91,8 @@ try {
         $stmt = db()->prepare(
             'UPDATE homepage_blocks
              SET block_type=:block_type,title=:title,content=:content,image=:image,
-                 button_text=:button_text,button_url=:button_url,position=:position,active=:active
+                 button_text=:button_text,button_url=:button_url,position=:position,active=:active,
+                 style_json=:style_json,custom_css=:custom_css
              WHERE id=:id'
         );
         $stmt->execute([
@@ -91,6 +104,8 @@ try {
             'button_url' => $buttonUrl,
             'position' => $position,
             'active' => $active,
+            'style_json' => $styleJson,
+            'custom_css' => $customCss !== '' ? $customCss : null,
             'id' => $id,
         ]);
         admin_log('update', 'homepage_block', $id);
@@ -98,8 +113,8 @@ try {
     } else {
         $stmt = db()->prepare(
             'INSERT INTO homepage_blocks
-             (block_type,title,content,image,button_text,button_url,position,active)
-             VALUES (:block_type,:title,:content,:image,:button_text,:button_url,:position,:active)'
+             (block_type,title,content,image,button_text,button_url,position,active,style_json,custom_css)
+             VALUES (:block_type,:title,:content,:image,:button_text,:button_url,:position,:active,:style_json,:custom_css)'
         );
         $stmt->execute([
             'block_type' => $blockType,
@@ -110,6 +125,8 @@ try {
             'button_url' => $buttonUrl,
             'position' => $position,
             'active' => $active,
+            'style_json' => $styleJson,
+            'custom_css' => $customCss !== '' ? $customCss : null,
         ]);
         $id = (int)db()->lastInsertId();
         admin_log('create', 'homepage_block', $id);

@@ -7,7 +7,7 @@ require_once __DIR__ . '/navigation.php';
 <header class="site-header">
   <div class="header-top">
     <a class="brand" href="<?= e(app_path('/index.php')) ?>" aria-label="easyIT Nachhilfe Leipzig – Startseite">
-      <img src="<?= e(app_path('/assets/img/brand-logo.svg')) ?>" alt="easyIT Nachhilfe Leipzig" width="160" height="120" decoding="async">
+      <img src="<?= e(app_path('/assets/img/brand-logo.svg')) ?>" alt="easyIT Nachhilfe Leipzig" width="250" height="167" decoding="async">
       <span class="brand-copy"><strong>Nachhilfe in Leipzig</strong><small>Mathematik · Physik · Chemie · Informatik</small></span>
     </a>
     <form class="site-search" role="search" action="<?= e(app_path('/suche.php')) ?>" method="get">

@@ -1,19 +1,5 @@
-.homepage-block{display:flex;gap:2rem;padding:2rem;margin:2rem 0;border-radius:20px;background:#fff;box-shadow:0 8px 25px rgba(0,0,0,.08);position:relative;overflow:hidden}
-.homepage-block__media{width:280px;position:relative;flex-shrink:0}
-.homepage-block__image{width:100%;height:220px;object-fit:cover;border-radius:16px;display:block}
-.homepage-block__content{flex:1}
-.homepage-block__sticker{position:absolute;width:90px;height:90px;overflow:hidden;z-index:2}
-.homepage-block__sticker img{height:270px;width:auto;position:absolute;max-width:none}
-.homepage-block__sticker--top-right{right:-5px;top:-5px}
-.homepage-block__sticker--top-left{left:-5px;top:-5px}
-.homepage-block__sticker--bottom-right{right:-5px;bottom:-5px}
-.homepage-block__sticker--neu img{top:0;left:0}
-.homepage-block__sticker--sale img{top:0;left:-90px}
-.homepage-block__sticker--gutschein img{top:0;left:-180px}
-.homepage-block__sticker--aktion img{top:0;left:-270px}
-.homepage-block__image--neu{object-position:0% 0%}
-.homepage-block__image--event{object-position:50% 0%}
-.homepage-block__image--lern{object-position:70% 0%}
-.homepage-block__image--kontakt{object-position:100% 0%}
-.homepage-block--gutschein{background:#005bbb;color:#fff}.homepage-block--neu{border-left:8px solid #2ecc71}.homepage-block--veranstaltung{border-left:8px solid #f2b705}
-@media(max-width:700px){.homepage-block{flex-direction:column}.homepage-block__media{width:100%}.homepage-block__image{width:100%}}
+.homepage-block{--hb-bg:#fff;--hb-text:#17324d;--hb-accent:#0057a4;--hb-button:#0057a4;--hb-button-text:#fff;--hb-padding:32px;--hb-gap:32px;--hb-radius:20px;--hb-border-width:0px;--hb-border:#cad8e4;--hb-min-height:220px;--hb-image-width:280px;--hb-image-height:220px;--hb-image-radius:16px;--hb-title-size:32px;--hb-content-size:16px;--hb-image-fit:cover;--hb-image-position:center center;display:flex;gap:var(--hb-gap);padding:var(--hb-padding);margin:2rem 0;min-height:var(--hb-min-height);border:var(--hb-border-width) solid var(--hb-border);border-left:8px solid var(--hb-accent);border-radius:var(--hb-radius);background:var(--hb-bg);color:var(--hb-text);position:relative;overflow:hidden;transition:transform .22s ease,box-shadow .22s ease}
+.homepage-block__media{width:var(--hb-image-width);flex:0 0 var(--hb-image-width);position:relative}.homepage-block__image{display:block;width:100%;height:var(--hb-image-height);object-fit:var(--hb-image-fit);object-position:var(--hb-image-position);border-radius:var(--hb-image-radius)}.homepage-block__content{flex:1;min-width:0}.homepage-block__content h2{margin-top:0;font-size:var(--hb-title-size);line-height:1.15;color:inherit}.homepage-block__content p{font-size:var(--hb-content-size);line-height:1.55}.homepage-block__button,.homepage-block .button--blue{background:var(--hb-button);color:var(--hb-button-text)}
+.homepage-block__sticker{position:absolute;width:90px;height:90px;overflow:hidden;z-index:2}.homepage-block__sticker img{height:270px;width:auto;position:absolute;max-width:none}.homepage-block__sticker--top-right{right:-5px;top:-5px}.homepage-block__sticker--top-left{left:-5px;top:-5px}.homepage-block__sticker--bottom-right{right:-5px;bottom:-5px}.homepage-block__sticker--neu img{top:0;left:0}.homepage-block__sticker--sale img{top:0;left:-90px}.homepage-block__sticker--gutschein img{top:0;left:-180px}.homepage-block__sticker--aktion img{top:0;left:-270px}.homepage-block__image--neu{object-position:0 0}.homepage-block__image--event{object-position:50% 0}.homepage-block__image--lern{object-position:70% 0}.homepage-block__image--kontakt{object-position:100% 0}
+.homepage-block--layout-image-right{flex-direction:row-reverse}.homepage-block--layout-image-top{flex-direction:column}.homepage-block--layout-image-top .homepage-block__media{width:100%;flex-basis:auto}.homepage-block--layout-text-only .homepage-block__media{display:none}.homepage-block--hover-lift:hover{transform:translateY(-6px)}.homepage-block--hover-zoom:hover{transform:scale(1.025)}.homepage-block--hover-glow:hover{box-shadow:0 0 0 4px color-mix(in srgb,var(--hb-accent) 25%,transparent),0 12px 28px rgba(0,0,0,.16)!important}
+@media(max-width:700px){.homepage-block,.homepage-block--layout-image-right{flex-direction:column}.homepage-block__media{width:100%;flex-basis:auto}.homepage-block__image{width:100%}}

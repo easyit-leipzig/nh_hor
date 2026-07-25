@@ -55,6 +55,8 @@ CREATE TABLE `addresses` (
   `is_primary` tinyint(1) NOT NULL DEFAULT 0,
   `valid_from` date DEFAULT NULL,
   `valid_until` date DEFAULT NULL,
+  `style_json` longtext DEFAULT NULL,
+  `custom_css` text DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -299,6 +301,8 @@ CREATE TABLE `homepage_blocks` (
   `active` tinyint(1) NOT NULL DEFAULT 1,
   `valid_from` date DEFAULT NULL,
   `valid_until` date DEFAULT NULL,
+  `style_json` longtext DEFAULT NULL,
+  `custom_css` text DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

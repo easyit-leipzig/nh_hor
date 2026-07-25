@@ -1,23 +1,15 @@
-# easyIT Bewertungen – Premium-Ausbaustufe
+# Multi-Domain Paket
 
-Enthalten:
-- `index.html`
-- `assets/css/bewertungen.css`
-- `assets/js/bewertungen.js`
+Domains:
+- easyit-nachhilfe.de
+- thiele-nachhilfe.de
 
-## Einbau
-1. Ordnerinhalt in ein eigenes Verzeichnis, z. B. `/bewertungen/`, kopieren.
-2. Links zu `../index.php`, `../ueber-mich.php`, `../kontakt.php`,
-   `../impressum.php` und `../datenschutz.php` bei Bedarf anpassen.
-3. Den Menüpunkt auf `bewertungen/index.html` verlinken.
+## Einrichtung
 
-## Inhaltliche Grundlage
-Die Texte sind aus tatsächlich bereitgestellten Bewertungen und Rückmeldungen
-abgeleitet. Sie wurden teilweise gekürzt, anonymisiert und sprachlich vereinheitlicht.
-Es wurden keine unbelegten Gesamtquoten wie „97 % Weiterempfehlung“ oder
-„4,9 von 5“ erfunden.
+1. config.local.php.example -> config.local.php
+2. config.server.php.example -> config.server.php
+3. Serverdaten eintragen.
+4. config_check.php einmal ausführen.
+5. Danach config_check.php löschen.
 
-## Projektregel
-Die Bezeichnung „Über mich“ wurde in der sichtbaren Navigation durch
-„Tutorenteam“ ersetzt. Der vorhandene technische Dateiname `ueber-mich.php`
-bleibt aus Kompatibilitätsgründen unverändert.
+Die aktive Marke wird automatisch anhand des Domainnamens ausgewählt.
