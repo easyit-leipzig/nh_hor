@@ -145,3 +145,55 @@ function breadcrumb_schema(array $site, array $items): array
         'itemListElement' => $elements,
     ];
 }
+
+/** @param array<string,mixed> $site */
+function website_schema(array $site): array
+{
+    $home = rtrim((string)$site['base_url'], '/') . '/';
+    return [
+        '@context' => 'https://schema.org',
+        '@type' => 'WebSite',
+        '@id' => $home . '#website',
+        'url' => $home,
+        'name' => trim((string)($site['site_name'] ?? '')),
+        'inLanguage' => 'de-DE',
+        'publisher' => organization_reference($site),
+        'potentialAction' => [
+            '@type' => 'SearchAction',
+            'target' => [
+                '@type' => 'EntryPoint',
+                'urlTemplate' => $home . 'suche.php?q={search_term_string}',
+            ],
+            'query-input' => 'required name=search_term_string',
+        ],
+    ];
+}
+
+/**
+ * @param array<string,mixed> $site
+ * @return array<string,mixed>
+ */
+function webpage_schema(array $site, string $title, string $description, string $canonical, string $image): array
+{
+    $home = rtrim((string)$site['base_url'], '/') . '/';
+    $schema = [
+        '@context' => 'https://schema.org',
+        '@type' => 'WebPage',
+        '@id' => $canonical . '#webpage',
+        'url' => $canonical,
+        'name' => $title,
+        'description' => $description,
+        'inLanguage' => 'de-DE',
+        'isPartOf' => ['@id' => $home . '#website'],
+        'about' => organization_reference($site),
+        'publisher' => organization_reference($site),
+    ];
+    if ($image !== '') {
+        $schema['primaryImageOfPage'] = [
+            '@type' => 'ImageObject',
+            'url' => $image,
+            'contentUrl' => $image,
+        ];
+    }
+    return $schema;
+}

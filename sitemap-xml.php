@@ -22,8 +22,8 @@ function sitemap_lastmod_for_file(string $file): ?string
     return $mtime === false ? null : gmdate('Y-m-d', $mtime);
 }
 
-/** @param array<string,array{loc:string,lastmod:?string}> $urls */
-function sitemap_add(array &$urls, string $loc, ?string $lastmod = null): void
+/** @param array<string,array{loc:string,lastmod:?string,changefreq:string,priority:string}> $urls */
+function sitemap_add(array &$urls, string $loc, ?string $lastmod = null, string $changefreq = 'monthly', string $priority = '0.6'): void
 {
     if (isset($urls[$loc])) {
         if ($lastmod !== null && ($urls[$loc]['lastmod'] === null || $lastmod > $urls[$loc]['lastmod'])) {
@@ -31,7 +31,7 @@ function sitemap_add(array &$urls, string $loc, ?string $lastmod = null): void
         }
         return;
     }
-    $urls[$loc] = ['loc' => $loc, 'lastmod' => $lastmod];
+    $urls[$loc] = ['loc' => $loc, 'lastmod' => $lastmod, 'changefreq' => $changefreq, 'priority' => $priority];
 }
 
 $staticPages = [
@@ -64,7 +64,9 @@ foreach (array_unique($staticPages) as $file) {
         continue;
     }
     $path = $file === 'index.php' ? '/' : '/' . ltrim($file, '/');
-    sitemap_add($urls, canonical_url($site, $path), sitemap_lastmod_for_file($file));
+    $priority = $file === 'index.php' ? '1.0' : (in_array($file, ['faecher.php', 'nachhilfe-in-leipzig.php', 'preise.php', 'kontakt.php'], true) ? '0.8' : '0.6');
+    $changefreq = $file === 'index.php' ? 'weekly' : 'monthly';
+    sitemap_add($urls, canonical_url($site, $path), sitemap_lastmod_for_file($file), $changefreq, $priority);
 }
 
 // Only published CMS records are eligible. Drafts, previews and archived items never enter the sitemap.
@@ -76,7 +78,7 @@ foreach (cms_items('blog', 'published', 500, false) as $post) {
     $lastmodRaw = (string)($post['updated_at'] ?? $post['published_at'] ?? '');
     $timestamp = $lastmodRaw !== '' ? strtotime($lastmodRaw) : false;
     $lastmod = $timestamp !== false ? gmdate('Y-m-d', $timestamp) : null;
-    sitemap_add($urls, canonical_url($site, '/blog-artikel.php', ['slug' => $slug]), $lastmod);
+    sitemap_add($urls, canonical_url($site, '/blog-artikel.php', ['slug' => $slug]), $lastmod, 'monthly', '0.7');
 }
 
 ksort($urls, SORT_STRING);
@@ -89,6 +91,8 @@ foreach ($urls as $entry) {
     if ($entry['lastmod'] !== null) {
         echo '    <lastmod>' . $entry['lastmod'] . "</lastmod>\n";
     }
+    echo '    <changefreq>' . $entry['changefreq'] . "</changefreq>\n";
+    echo '    <priority>' . $entry['priority'] . "</priority>\n";
     echo "  </url>\n";
 }
 echo '</urlset>' . "\n";

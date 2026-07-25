@@ -23,6 +23,11 @@ ErrorDocument 500 /errors/500.php
   # Separate Domains bleiben erhalten.
   # Keine automatische Umleitung von easyit-nachhilfe.de.
 
+  # Doppelte Startseiten-URL vermeiden: /index.php wird auf / kanonisiert.
+  RewriteCond %{HTTP_HOST} ^(?:www\.)?easyit-leipzig\.de$ [NC]
+  RewriteCond %{THE_REQUEST} \s/+index\.php(?:[?\s]) [NC]
+  RewriteRule ^index\.php$ https://easyit-leipzig.de/ [R=301,L,NE]
+
   # Hauptdomain: HTTPS und Variante ohne www erzwingen.
   RewriteCond %{HTTP_HOST} ^www\.easyit-leipzig\.de$ [NC,OR]
   RewriteCond %{HTTPS} !=on

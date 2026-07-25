@@ -1,14 +1,16 @@
 User-agent: *
 Allow: /
+Disallow: /admin/
 Disallow: /config/
 Disallow: /includes/
+Disallow: /database/
+Disallow: /storage/
+Disallow: /cache/
+Disallow: /errors/
 Disallow: /offline.php
 Disallow: /anfrage-erfolgreich.php
 Disallow: /kontakt-senden.php
-Disallow: /storage/
-Disallow: /database/
-Disallow: /database/migrate.php
-Disallow: /cache/
-Disallow: /admin/
-Disallow: /errors/
+Disallow: /*?q=
+Disallow: /*?fach=
+
 Sitemap: https://easyit-leipzig.de/sitemap.xml
