@@ -47,3 +47,31 @@ ul#css3menu0 a:focus-visible{outline:3px solid #ffbf47;outline-offset:2px}
  ul#css3menu0 li:hover>ul,ul#css3menu0 li:focus-within>ul{display:block}
  ul#css3menu0 ul li{white-space:normal}
 }
+
+/* ============================================================
+   Menüanpassung V2
+   1. Hauptmenü normal statt fett
+   2. Letztes Untermenü rechtsbündig, Folgeebenen nach links
+   3. Hauptmenü rechtsbündig
+   ============================================================ */
+@media screen and (min-width:1051px){
+  .horizontal-nav{
+    justify-content:flex-end;
+    padding-left:clamp(14px,2.5vw,38px);
+    padding-right:clamp(14px,2.5vw,38px);
+  }
+
+  ul#css3menu0>li>a{
+    font-weight:400;
+  }
+
+  ul#css3menu0>li:last-child>ul{
+    left:auto;
+    right:0;
+  }
+
+  ul#css3menu0>li:last-child ul ul{
+    left:auto;
+    right:100%;
+  }
+}
