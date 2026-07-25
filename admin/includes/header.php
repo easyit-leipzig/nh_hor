@@ -26,7 +26,8 @@ $user = admin_user();
       <a href="<?= admin_e(app_path('/admin/content.php?type=blog')) ?>">Blog</a>
       <?php if (admin_has_role('admin')): ?>
         <a href="<?= admin_e(app_path('/admin/navigation.php')) ?>">Navigation</a>
-        <a href="<?= admin_e(app_path('/admin/index-content.php')) ?>">Startseite</a>
+        <a href="<?= admin_e(app_path('/admin/index-content.php')) ?>">Freie Startseiteninhalte</a>
+        <a href="<?= admin_e(app_path('/admin/homepage_blocks.php')) ?>">Homepage-Blöcke</a>
         <a href="<?= admin_e(app_path('/admin/imprint-persons.php')) ?>">Personen</a>
         <a href="<?= admin_e(app_path('/admin/imprint-addresses.php')) ?>">Adressen</a>
         <a href="<?= admin_e(app_path('/admin/imprint-contacts.php')) ?>">Kontakte</a>

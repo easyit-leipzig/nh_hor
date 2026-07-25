@@ -1,77 +1,308 @@
-/* Original CSS3Menu-Design, in nh_hor eingebunden. */
-ul#css3menu0,ul#css3menu0 ul{
- margin:0;list-style:none;padding:0;background-color:#dedede;border-width:1px;border-style:solid;border-color:#5f5f5f;border-radius:5px;
-}
-ul#css3menu0 ul{
- display:none;position:absolute;left:0;top:100%;box-shadow:3.5px 3.5px 5px #000;background-color:#fff;border-radius:6px;border-color:#d4d4d4;padding:0 10px 10px;
-}
-ul#css3menu0 li:hover>*{display:block}
-ul#css3menu0 li{position:relative;display:block;white-space:nowrap;font-size:0;float:left}
-ul#css3menu0 li:hover{z-index:1}
-ul#css3menu0 ul ul{position:absolute;left:100%;top:0}
-ul#css3menu0{font-size:0;z-index:999;position:relative;display:inline-block;zoom:1;padding:0}
-ul#css3menu0::after{content:"";display:block;clear:both}
-ul#css3menu0>li{margin:0}
-ul#css3menu0 a:active,ul#css3menu0 a:focus{outline-style:none}
-ul#css3menu0 a{
- display:block;vertical-align:middle;text-align:left;text-decoration:none;font:bold 14px "Trebuchet MS",Arial,sans-serif;color:#fff;text-shadow:#fff 0 0 1px;cursor:pointer;padding:10px;background-color:#005aa9;background-image:url("../../img/css3menu0/mainbk.png");background-repeat:repeat;background-position:0 0;border-width:0 0 0 1px;border-style:solid;border-color:#c0c0c0;
-}
-ul#css3menu0 ul li{float:none;margin:10px 0 0}
-ul#css3menu0 ul a{
- text-align:left;padding:4px;background-color:#fff;background-image:none;border-width:0;border-radius:0;font:14px Tahoma,Arial,sans-serif;color:#000;text-decoration:none;
-}
-ul#css3menu0 li:hover>a,ul#css3menu0 li a.pressed,ul#css3menu0 li.is-active>a{
- background-color:#ffd500;border-color:#c0c0c0;border-style:solid;color:#000;text-shadow:#fff 0 0 1px;background-image:url("../../img/css3menu0/mainbk.png");background-position:0 100px;text-decoration:none;
-}
-ul#css3menu0 span{display:block;overflow:visible;background-position:right center;background-repeat:no-repeat;padding-right:0}
-ul#css3menu0 ul span{background-image:url("../../img/css3menu0/arrowsub.png");padding-right:12px}
-ul#css3menu0 ul li:hover>a,ul#css3menu0 ul li a.pressed,ul#css3menu0 ul li.is-active>a{background-color:#fff;background-image:none;color:#868686;text-decoration:none}
-ul#css3menu0 li.topfirst>a{border-radius:5px 0 0 5px}
-ul#css3menu0 li.toplast>a{border-radius:0 5px 5px 0}
-.horizontal-nav{display:flex;justify-content:center;align-items:center;padding:0;background:transparent;border:0;overflow:visible}
-
-/* Tastaturbedienung: Untermenüs werden auch bei Fokus sichtbar. */
-ul#css3menu0 li:focus-within>ul{display:block}
-ul#css3menu0 a:focus-visible{outline:3px solid #ffbf47;outline-offset:2px}
-
-/* Bestehender nh_hor-Menüknopf öffnet die Navigation auf kleinen Bildschirmen. */
-@media screen and (max-width:1050px){
- .horizontal-nav{display:none;padding:8px 10px;background:#005aa9}
- .horizontal-nav.is-open{display:block}
- ul#css3menu0{display:block;width:100%;border-radius:5px}
- ul#css3menu0>li{float:none;width:100%;white-space:normal}
- ul#css3menu0>li>a{border-left:0;border-top:1px solid #c0c0c0;border-radius:0!important}
- ul#css3menu0>li:first-child>a{border-top:0;border-radius:5px 5px 0 0!important}
- ul#css3menu0>li:last-child>a{border-radius:0 0 5px 5px!important}
- ul#css3menu0 ul,ul#css3menu0 ul ul{position:static;left:auto;top:auto;width:auto;box-shadow:none;border:0;border-radius:0;padding:0 10px 10px;background:#fff}
- ul#css3menu0 li:hover>ul,ul#css3menu0 li:focus-within>ul{display:block}
- ul#css3menu0 ul li{white-space:normal}
-}
-
 /* ============================================================
-   Menüanpassung V2
-   1. Hauptmenü normal statt fett
-   2. Letztes Untermenü rechtsbündig, Folgeebenen nach links
-   3. Hauptmenü rechtsbündig
+   easyIT Navigation – CSS3Menu-Optik, technisch konsolidiert
    ============================================================ */
-@media screen and (min-width:1051px){
+.horizontal-nav{
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
+  min-height:42px;
+  padding:0 clamp(14px,2.5vw,38px);
+  background:linear-gradient(180deg,#fff,#eef6fc);
+  border-top:1px solid rgba(255,255,255,.3);
+  border-bottom:2px solid var(--gold,#ffd500);
+  overflow:visible;
+}
+
+ul#css3menu0,
+ul#css3menu0 ul{
+  margin:0;
+  padding:0;
+  list-style:none;
+}
+
+ul#css3menu0{
+  position:relative;
+  z-index:999;
+  display:flex;
+  justify-content:flex-end;
+  align-items:stretch;
+  width:auto;
+  border:1px solid #5f5f5f;
+  border-radius:5px;
+  background:#dedede;
+}
+
+ul#css3menu0 li{
+  position:relative;
+  margin:0;
+  padding:0;
+  white-space:nowrap;
+}
+
+ul#css3menu0 > li{
+  display:flex;
+  align-items:stretch;
+}
+
+ul#css3menu0 .menu-entry{
+  display:flex;
+  align-items:stretch;
+}
+
+ul#css3menu0 .menu-link,
+ul#css3menu0 .submenu-button{
+  box-sizing:border-box;
+  min-height:40px;
+  border:0;
+  border-left:1px solid #c0c0c0;
+  border-radius:0;
+  background-color:#005aa9;
+  background-image:url("../../img/css3menu0/mainbk.png");
+  background-repeat:repeat;
+  background-position:0 0;
+  color:#fff;
+  font:400 14px "Trebuchet MS",Arial,sans-serif;
+  line-height:20px;
+  text-decoration:none;
+  text-shadow:#fff 0 0 1px;
+}
+
+ul#css3menu0 .menu-link{
+  display:flex;
+  align-items:center;
+  padding:10px 12px;
+}
+
+ul#css3menu0 .submenu-button{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-width:34px;
+  padding:8px 8px 8px 2px;
+  border-left:0;
+  cursor:pointer;
+}
+
+ul#css3menu0 > li:first-child > .menu-link,
+ul#css3menu0 > li:first-child > .menu-entry > .menu-link{
+  border-left:0;
+  border-radius:5px 0 0 5px;
+}
+
+ul#css3menu0 > li:last-child > .menu-link,
+ul#css3menu0 > li:last-child > .menu-entry > .submenu-button{
+  border-radius:0 5px 5px 0;
+}
+
+ul#css3menu0 li:hover > .menu-link,
+ul#css3menu0 li:hover > .menu-entry > .menu-link,
+ul#css3menu0 li:hover > .menu-entry > .submenu-button,
+ul#css3menu0 li:focus-within > .menu-link,
+ul#css3menu0 li:focus-within > .menu-entry > .menu-link,
+ul#css3menu0 li:focus-within > .menu-entry > .submenu-button,
+ul#css3menu0 li.is-open > .menu-entry > .menu-link,
+ul#css3menu0 li.is-open > .menu-entry > .submenu-button,
+ul#css3menu0 li.is-active > .menu-link,
+ul#css3menu0 li.is-active > .menu-entry > .menu-link{
+  background-color:#ffd500;
+  background-position:0 100px;
+  color:#000;
+}
+
+ul#css3menu0 .submenu-panel{
+  display:none;
+  position:absolute;
+  left:0;
+  top:100%;
+  z-index:1000;
+  min-width:210px;
+  padding-top:1px;
+}
+
+ul#css3menu0 li:hover > .submenu-panel,
+ul#css3menu0 li:focus-within > .submenu-panel,
+ul#css3menu0 li.is-open > .submenu-panel{
+  display:block;
+}
+
+ul#css3menu0 .submenu{
+  min-width:210px;
+  padding:4px 10px 10px;
+  border:1px solid #d4d4d4;
+  border-radius:6px;
+  background:#fff;
+  box-shadow:3.5px 3.5px 5px rgba(0,0,0,.55);
+}
+
+ul#css3menu0 .submenu li{
+  display:block;
+  margin:6px 0 0;
+}
+
+ul#css3menu0 .submenu .menu-entry{
+  width:100%;
+}
+
+ul#css3menu0 .submenu .menu-link,
+ul#css3menu0 .submenu .submenu-button{
+  min-height:32px;
+  border:0;
+  background:#fff;
+  background-image:none;
+  color:#000;
+  font:400 14px Tahoma,Arial,sans-serif;
+  text-shadow:none;
+}
+
+ul#css3menu0 .submenu .menu-link{
+  flex:1;
+  padding:6px 8px;
+}
+
+ul#css3menu0 .submenu .submenu-button{
+  min-width:30px;
+  padding:5px;
+  color:#555;
+}
+
+ul#css3menu0 .submenu li:hover > .menu-link,
+ul#css3menu0 .submenu li:hover > .menu-entry > .menu-link,
+ul#css3menu0 .submenu li:hover > .menu-entry > .submenu-button,
+ul#css3menu0 .submenu li:focus-within > .menu-link,
+ul#css3menu0 .submenu li:focus-within > .menu-entry > .menu-link,
+ul#css3menu0 .submenu li:focus-within > .menu-entry > .submenu-button,
+ul#css3menu0 .submenu li.is-open > .menu-entry > .menu-link,
+ul#css3menu0 .submenu li.is-open > .menu-entry > .submenu-button,
+ul#css3menu0 .submenu li.is-active > .menu-link,
+ul#css3menu0 .submenu li.is-active > .menu-entry > .menu-link{
+  background:#f2f2f2;
+  color:#555;
+}
+
+/* Untermenüs ab Ebene 3 öffnen seitlich. */
+ul#css3menu0 .submenu-panel .submenu-panel{
+  left:100%;
+  top:-5px;
+  padding-top:0;
+  padding-left:2px;
+}
+
+/* Der letzte Hauptmenüpunkt richtet sein Untermenü rechts aus. */
+ul#css3menu0 > li:last-child > .submenu-panel{
+  right:0;
+  left:auto;
+}
+
+/* Alle tieferen Ebenen des letzten Hauptmenüpunkts öffnen nach links. */
+ul#css3menu0 > li:last-child .submenu-panel .submenu-panel{
+  right:100%;
+  left:auto;
+  padding-right:2px;
+  padding-left:0;
+}
+
+ul#css3menu0 a:focus-visible,
+ul#css3menu0 button:focus-visible{
+  position:relative;
+  z-index:2;
+  outline:3px solid #ffbf47;
+  outline-offset:-3px;
+}
+
+@media screen and (max-width:1050px){
   .horizontal-nav{
-    justify-content:flex-end;
-    padding-left:clamp(14px,2.5vw,38px);
-    padding-right:clamp(14px,2.5vw,38px);
+    display:none;
+    min-height:0;
+    padding:8px 10px;
+    background:#005aa9;
   }
 
-  ul#css3menu0>li>a{
-    font-weight:400;
+  .horizontal-nav.is-open{display:block}
+
+  ul#css3menu0{
+    display:block;
+    width:100%;
   }
 
-  ul#css3menu0>li:last-child>ul{
-    left:auto;
-    right:0;
+  ul#css3menu0 > li,
+  ul#css3menu0 .menu-entry{
+    display:flex;
+    width:100%;
   }
 
-  ul#css3menu0>li:last-child ul ul{
-    left:auto;
-    right:100%;
+  ul#css3menu0 > li{
+    flex-direction:column;
+    white-space:normal;
   }
+
+  ul#css3menu0 .menu-link{
+    flex:1;
+  }
+
+  ul#css3menu0 > li > .menu-link,
+  ul#css3menu0 > li > .menu-entry > .menu-link,
+  ul#css3menu0 > li > .menu-entry > .submenu-button{
+    border-radius:0;
+  }
+
+  ul#css3menu0 > li:first-child > .menu-link,
+  ul#css3menu0 > li:first-child > .menu-entry > .menu-link{
+    border-radius:5px 0 0 0;
+  }
+
+  ul#css3menu0 > li:first-child:not(.has-submenu) > .menu-link{
+    border-radius:5px 5px 0 0;
+  }
+
+  ul#css3menu0 > li:last-child > .menu-link{
+    border-radius:0 0 5px 5px;
+  }
+
+  ul#css3menu0 > li:last-child.has-submenu > .menu-entry > .menu-link{
+    border-radius:0;
+  }
+
+  ul#css3menu0 > li:last-child.has-submenu > .menu-entry > .submenu-button{
+    border-radius:0 0 5px 0;
+  }
+
+  ul#css3menu0 .submenu-panel,
+  ul#css3menu0 > li:last-child > .submenu-panel,
+  ul#css3menu0 .submenu-panel .submenu-panel,
+  ul#css3menu0 > li:last-child .submenu-panel .submenu-panel{
+    position:static;
+    width:100%;
+    min-width:0;
+    padding:0;
+  }
+
+  /* Auf Touch-Geräten nur per Schaltfläche öffnen, nicht dauerhaft durch Hover. */
+  ul#css3menu0 li:hover > .submenu-panel,
+  ul#css3menu0 li:focus-within > .submenu-panel{
+    display:none;
+  }
+
+  ul#css3menu0 li.is-open > .submenu-panel{
+    display:block;
+  }
+
+  ul#css3menu0 .submenu{
+    width:auto;
+    min-width:0;
+    margin:0;
+    padding:4px 10px 10px 18px;
+    border:0;
+    border-left:4px solid #ffd500;
+    border-radius:0;
+    box-shadow:none;
+  }
+
+  ul#css3menu0 .submenu .menu-link,
+  ul#css3menu0 .submenu .submenu-button{
+    min-height:42px;
+  }
+}
+
+@media (prefers-reduced-motion:reduce){
+  ul#css3menu0 *{scroll-behavior:auto!important}
 }

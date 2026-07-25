@@ -104,14 +104,18 @@ function horizontal_menu_active(array $item): bool
     return false;
 }
 
-function render_horizontal_menu(array $items, int $level = 1): string
+function render_horizontal_menu(array $items, int $level = 1, string $idPrefix = 'menu'): string
 {
     if ($items === []) {
         return '';
     }
 
-    $attributes = $level === 1 ? ' id="css3menu0" class="topmenu"' : '';
-    $html = '<ul' . $attributes . '>';
+    $ulClasses = $level === 1 ? 'topmenu level-1' : 'submenu level-' . $level;
+    $ulAttributes = $level === 1
+        ? ' id="css3menu0" class="' . $ulClasses . '"'
+        : ' class="' . $ulClasses . '"';
+
+    $html = '<ul' . $ulAttributes . '>';
     $lastIndex = count($items) - 1;
 
     foreach ($items as $index => $item) {
@@ -119,30 +123,36 @@ function render_horizontal_menu(array $items, int $level = 1): string
         $classes = [];
 
         if ($level === 1) {
-            if ($index === 0) {
-                $classes[] = 'topfirst';
-            } elseif ($index === $lastIndex) {
-                $classes[] = 'toplast';
-            } else {
-                $classes[] = 'topmenu';
-            }
+            $classes[] = $index === 0 ? 'topfirst' : ($index === $lastIndex ? 'toplast' : 'topitem');
         }
-
-        if (horizontal_menu_active($item)) {
+        if ($children) {
+            $classes[] = 'has-submenu';
+        }
+        $active = horizontal_menu_active($item);
+        if ($active) {
             $classes[] = 'is-active';
         }
 
+        $itemId = $idPrefix . '-' . $level . '-' . $index;
+        $panelId = $itemId . '-submenu';
         $html .= '<li' . ($classes ? ' class="' . e(implode(' ', $classes)) . '"' : '') . '>';
+
         $title = e((string)$item['title']);
-        $content = $children ? '<span>' . $title . '</span>' : $title;
         $rawUrl = trim((string)$item['url']);
         $href = ($rawUrl === '' || $rawUrl === '#')
             ? '#'
             : (preg_match('~^(?:https?:)?//|^(?:mailto|tel):~i', $rawUrl) ? $rawUrl : app_path($rawUrl));
-        $html .= '<a href="' . e($href) . '">' . $content . '</a>';
 
         if ($children) {
-            $html .= render_horizontal_menu($children, $level + 1);
+            $html .= '<div class="menu-entry">';
+            $html .= '<a class="menu-link" href="' . e($href) . '"' . ($active ? ' aria-current="page"' : '') . '><span>' . $title . '</span></a>';
+            $html .= '<button class="submenu-button" type="button" aria-expanded="false" aria-controls="' . e($panelId) . '" aria-label="Untermenü ' . $title . ' öffnen"><span aria-hidden="true">▾</span></button>';
+            $html .= '</div>';
+            $html .= '<div id="' . e($panelId) . '" class="submenu-panel">';
+            $html .= render_horizontal_menu($children, $level + 1, $itemId);
+            $html .= '</div>';
+        } else {
+            $html .= '<a class="menu-link" href="' . e($href) . '"' . ($active ? ' aria-current="page"' : '') . '>' . $title . '</a>';
         }
 
         $html .= '</li>';

@@ -31,9 +31,14 @@ require __DIR__ . '/includes/header.php';
       <a class="admin-btn" href="<?= admin_e(app_path('/admin/navigation.php')) ?>">Verwalten</a>
     </article>
     <article class="admin-card">
-      <h2>STARTSEITENBLÖCKE</h2>
-      <p>Aktionen, Veranstaltungen und Hinweise positionieren oder Bereiche ersetzen.</p>
+      <h2>FREIE STARTSEITENINHALTE</h2>
+      <p>Eigene HTML-, CSS- und JavaScript-Blöcke positionieren oder Bereiche ersetzen.</p>
       <a class="admin-btn" href="<?= admin_e(app_path('/admin/index-content.php')) ?>">Verwalten</a>
+    </article>
+    <article class="admin-card">
+      <h2>HOMEPAGE-BLÖCKE</h2>
+      <p>Vordefinierte Aktionen, Veranstaltungen, Gutscheine und Bildblöcke pflegen.</p>
+      <a class="admin-btn" href="<?= admin_e(app_path('/admin/homepage_blocks.php')) ?>">Verwalten</a>
     </article>
     <article class="admin-card">
       <h2>IMPRESSUMSPERSONEN</h2>
