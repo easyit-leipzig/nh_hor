@@ -1,8 +1,0 @@
-/config/*.local.php
-/config/*.local.*.php
-.env
-.env.*
-!.env.example
-/storage/*.log
-/cache/*
-!/cache/.gitkeep
