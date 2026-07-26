@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 25. Jul 2026 um 11:07
+-- Erstellungszeit: 26. Jul 2026 um 08:15
 -- Server-Version: 10.4.32-MariaDB
 -- PHP-Version: 8.2.12
 
@@ -55,8 +55,6 @@ CREATE TABLE `addresses` (
   `is_primary` tinyint(1) NOT NULL DEFAULT 0,
   `valid_from` date DEFAULT NULL,
   `valid_until` date DEFAULT NULL,
-  `style_json` longtext DEFAULT NULL,
-  `custom_css` text DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -92,7 +90,7 @@ CREATE TABLE `add_index_content` (
 --
 
 INSERT INTO `add_index_content` (`id`, `internal_name`, `title`, `slot_id`, `position_no`, `placement`, `html_content`, `media_id`, `css_content`, `js_content`, `wrapper_class`, `active`, `sort_order`, `valid_from`, `valid_until`, `created_at`, `updated_at`) VALUES
-(1, 'summer_sale_2026', 'Sommersale 2026', 1, 1, 'before', '<div class=\"container\"><strong>SOMMERSALE</strong><br>Jetzt Nachhilfe zum Ferienpreis sichern.<br><a class=\"button button--gold\" href=\"/kontakt.php\">Jetzt Termin vereinbaren</a></div>', NULL, '.promo-summer{background:#ffb300;color:#222;padding:30px;text-align:center;border-radius:18px;margin-bottom:24px}.promo-summer strong{font-size:clamp(1.6rem,4vw,2.8rem)}', '', 'promo-banner promo-summer', 1, 10, '2026-07-20 00:00:00', '2026-08-31 23:59:59', '2026-07-20 12:33:14', '2026-07-20 12:33:14'),
+(1, 'summer_sale_2026', 'Sommersale 2026', 1, 1, 'before', '<div class=\"container\"><strong>SOMMERSALE</strong><br>Jetzt Nachhilfe zum Ferienpreis sichern.<br><a class=\"button button--gold\" href=\"/kontakt.php\">Jetzt Termin vereinbaren</a></div>', NULL, '.promo-summer{background:#ffb300;color:#222;padding:30px;text-align:center;border-radius:18px;margin-bottom:24px}.promo-summer strong{font-size:clamp(1.6rem,4vw,2.8rem)}', '', 'promo-banner promo-summer', 0, 10, '2026-07-20 00:00:00', '2026-08-31 23:59:00', '2026-07-20 12:33:14', '2026-07-25 13:51:25'),
 (2, 'mathe_workshop', 'Kostenloser Mathe-Workshop', 2, 2, 'after', '<div class=\"container\"><h2>Kostenloser Mathe-Workshop</h2><p>Samstag um 14 Uhr: Abiturvorbereitung Mathematik.</p><a class=\"button button--blue\" href=\"/kontakt.php\">Jetzt anmelden</a></div>', NULL, '.event-box{border:4px solid #0b63ce;padding:40px;margin:40px auto;text-align:center;border-radius:18px}', '', 'event-box', 1, 20, NULL, NULL, '2026-07-20 12:33:14', '2026-07-20 12:33:14'),
 (3, 'christmas_special', 'Weihnachtsaktion', 5, 5, 'replace', '<div class=\"container\"><h2>Weihnachtsaktion</h2><p>Verschenke Nachhilfe-Gutscheine.</p><a class=\"button button--gold\" href=\"/kontakt.php\">Gutschein bestellen</a></div>', NULL, '.christmas{background:#8f1111;color:#fff;padding:60px;border-radius:18px;text-align:center}', '', 'christmas', 1, 30, '2026-12-01 00:00:00', '2026-12-24 23:59:59', '2026-07-20 12:33:14', '2026-07-20 12:33:14'),
 (4, 'holiday_notice', 'Ferienhinweis', 6, 6, 'after', '<div class=\"container\"><h3>Hinweis</h3><p>Während der Sommerferien sind Termine nach Vereinbarung möglich.</p></div>', NULL, '.holiday{background:#eee;padding:25px;font-size:.95rem;border-radius:14px;margin-top:24px}', '', 'holiday', 1, 40, NULL, NULL, '2026-07-20 12:33:14', '2026-07-20 12:33:14');
@@ -120,7 +118,7 @@ CREATE TABLE `admin_users` (
 --
 
 INSERT INTO `admin_users` (`id`, `username`, `email`, `password_hash`, `role`, `is_active`, `last_login_at`, `created_at`, `updated_at`) VALUES
-(1, 'othiele', 'thiele.olaf@googlemail.com', '$2y$10$aMR8wLIohS2AwQx7qZEXIOnvfoW8rzogHY8kl4ECNM/59qx2Gt7s.', 'admin', 1, '2026-07-25 09:15:25', '2026-07-20 12:52:09', '2026-07-25 09:15:25');
+(1, 'othiele', 'thiele.olaf@googlemail.com', '$2y$10$aMR8wLIohS2AwQx7qZEXIOnvfoW8rzogHY8kl4ECNM/59qx2Gt7s.', 'admin', 1, '2026-07-26 07:38:55', '2026-07-20 12:52:09', '2026-07-26 07:38:55');
 
 -- --------------------------------------------------------
 
@@ -148,6 +146,134 @@ INSERT INTO `audit_log` (`id`, `user_id`, `action`, `entity_type`, `entity_id`, 
 (0, NULL, 'login_failed', 'admin_session', NULL, '{\"username_hash\":\"8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918\",\"attempts\":1,\"locked\":false}', 'eff8e7ca506627fe15dda5e0e512fcaad70b6d520f37cc76597fdb4f2d83a1a3', '2026-07-25 06:46:45', NULL),
 (1, 1, 'login_success', 'admin_session', NULL, '{\"username\":\"othiele\"}', 'eff8e7ca506627fe15dda5e0e512fcaad70b6d520f37cc76597fdb4f2d83a1a3', '2026-07-20 12:55:39', NULL),
 (2, 1, 'create', 'imprint_person', 4, '{\"to_role\":2}', 'eff8e7ca506627fe15dda5e0e512fcaad70b6d520f37cc76597fdb4f2d83a1a3', '2026-07-20 13:40:04', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `career_faq`
+--
+
+CREATE TABLE `career_faq` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `career_job_id` int(10) UNSIGNED NOT NULL,
+  `question` varchar(1000) NOT NULL,
+  `answer` text NOT NULL,
+  `sort_order` int(11) NOT NULL DEFAULT 100,
+  `is_active` tinyint(1) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Daten für Tabelle `career_faq`
+--
+
+INSERT INTO `career_faq` (`id`, `career_job_id`, `question`, `answer`, `sort_order`, `is_active`) VALUES
+(1, 1, 'Welche Deutschthemen werden besonders häufig nachgefragt?', 'Häufig geht es um Rechtschreibung, Grammatik, Textverständnis, Aufsatzformen, Argumentation, Literaturarbeit und gezielte Prüfungsvorbereitung.', 10, 1),
+(2, 1, 'Muss ich Germanistik oder Lehramt studiert haben?', 'Ein passendes Studium ist willkommen, aber nicht die einzige Möglichkeit. Entscheidend sind sehr sichere Deutschkenntnisse, fachliche Zuverlässigkeit und die Fähigkeit, verständlich zu erklären.', 20, 1),
+(3, 1, 'Wie individuell soll eine Stunde vorbereitet werden?', 'Die Vorbereitung orientiert sich am konkreten Lernstand, am Schulstoff, an bisherigen Schwierigkeiten und am vereinbarten Lernziel. Vorgefertigte Materialien dürfen genutzt werden, ersetzen aber nicht die didaktische Auswahl.', 30, 1),
+(4, 1, 'Kann ich nur bestimmte Klassenstufen übernehmen?', 'Ja. Die Zuordnung erfolgt nach fachlicher Sicherheit, Erfahrung und persönlicher Präferenz. Niemand soll Themen oder Klassenstufen unterrichten, die nicht zuverlässig abgedeckt werden können.', 40, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `career_images`
+--
+
+CREATE TABLE `career_images` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `career_job_id` int(10) UNSIGNED NOT NULL,
+  `image_role` enum('card','gallery','hero') NOT NULL DEFAULT 'gallery',
+  `image_path` varchar(500) NOT NULL,
+  `alt_text` varchar(500) NOT NULL,
+  `caption` varchar(500) DEFAULT NULL,
+  `sort_order` int(11) NOT NULL DEFAULT 100,
+  `is_active` tinyint(1) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Daten für Tabelle `career_images`
+--
+
+INSERT INTO `career_images` (`id`, `career_job_id`, `image_role`, `image_path`, `alt_text`, `caption`, `sort_order`, `is_active`) VALUES
+(1, 1, 'card', '/assets/img/jobs/deutsch/deutsch-08-empfang-easyit.jpg', 'Heller Empfangsbereich von easyIT Nachhilfe', 'Willkommen bei easyIT Nachhilfe', 10, 1),
+(2, 1, 'card', '/assets/img/jobs/deutsch/deutsch-01-einzelunterricht.jpg', 'Lehrkraft begleitet eine Schülerin im individuellen Deutschunterricht', 'Individuelle Lernbegleitung', 20, 1),
+(3, 1, 'card', '/assets/img/jobs/deutsch/deutsch-05-grammatik-erklaeren.jpg', 'Lehrkraft erklärt Satzbau und Grammatik an einem Whiteboard', 'Verstehen statt Auswendiglernen', 30, 1),
+(4, 1, 'gallery', '/assets/img/jobs/deutsch/deutsch-04-schreibbegleitung.jpg', 'Lehrkraft unterstützt eine Schülerin beim Schreiben', 'Schreiben Schritt für Schritt entwickeln', 40, 1),
+(5, 1, 'gallery', '/assets/img/jobs/deutsch/deutsch-07-gruppenunterricht.jpg', 'Lehrkraft unterrichtet eine kleine Lerngruppe', 'Kleine Gruppen aufmerksam führen', 50, 1),
+(6, 1, 'gallery', '/assets/img/jobs/deutsch/deutsch-02-fachgespraech.jpg', 'Kolleginnen und Kollegen besprechen Unterrichtsmaterialien', 'Fachlicher Austausch im Team', 60, 1),
+(7, 1, 'gallery', '/assets/img/jobs/deutsch/deutsch-03-kollegialer-austausch.jpg', 'Zwei Lehrkräfte tauschen sich mit Büchern aus', 'Materialien gemeinsam weiterentwickeln', 70, 1),
+(8, 1, 'gallery', '/assets/img/jobs/deutsch/deutsch-06-unterrichtsplanung.jpg', 'Lehrkräfte planen Unterricht gemeinsam am Tisch', 'Unterricht sorgfältig vorbereiten', 80, 1),
+(9, 1, 'gallery', '/assets/img/jobs/deutsch/deutsch-09-teammeeting.jpg', 'Teamgespräch in einem hellen Besprechungsraum', 'Offen und verbindlich zusammenarbeiten', 90, 1),
+(10, 1, 'gallery', '/assets/img/jobs/deutsch/deutsch-10-fortbildung.jpg', 'Fortbildung mit Präsentation vor einer Gruppe', 'Fachlich und didaktisch weiterlernen', 100, 1),
+(11, 1, 'gallery', '/assets/img/jobs/deutsch/deutsch-11-kleingruppengespraech.jpg', 'Lehrkraft moderiert ein Gespräch in kleiner Runde', 'Gespräche auf Augenhöhe führen', 110, 1),
+(12, 1, 'gallery', '/assets/img/jobs/deutsch/deutsch-12-arbeitsrunde.jpg', 'Kollegiale Arbeitsrunde mit Unterlagen', 'Erfahrungen reflektieren', 120, 1),
+(13, 1, 'gallery', '/assets/img/jobs/deutsch/deutsch-13-digitale-zusammenarbeit.jpg', 'Team arbeitet gemeinsam mit einem Notebook', 'Digitale Werkzeuge sinnvoll einsetzen', 130, 1),
+(14, 1, 'gallery', '/assets/img/jobs/deutsch/deutsch-14-methodenworkshop.jpg', 'Methodenworkshop mit Präsentation und Flipchart', 'Methoden gemeinsam prüfen und verbessern', 140, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `career_jobs`
+--
+
+CREATE TABLE `career_jobs` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `job_key` varchar(80) NOT NULL,
+  `code` varchar(20) NOT NULL,
+  `slug` varchar(190) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `claim` varchar(500) NOT NULL,
+  `intro` text NOT NULL,
+  `status` enum('draft','published','archived') NOT NULL DEFAULT 'draft',
+  `sort_order` int(11) NOT NULL DEFAULT 100,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Daten für Tabelle `career_jobs`
+--
+
+INSERT INTO `career_jobs` (`id`, `job_key`, `code`, `slug`, `title`, `claim`, `intro`, `status`, `sort_order`, `created_at`, `updated_at`) VALUES
+(1, 'deutsch', 'DEU', 'karriere-deutsch.php', 'Nachhilfelehrkraft Deutsch', 'Sprache verständlich machen. Ausdruck stärken. Selbstvertrauen entwickeln.', 'Gesucht werden Lehrkräfte, die Grammatik, Literatur, Rechtschreibung und schriftlichen Ausdruck nicht nur korrigieren, sondern nachvollziehbar vermitteln.', 'published', 10, '2026-07-26 07:38:22', '2026-07-26 07:38:22'),
+(2, 'franzoesisch', 'FRA', 'karriere-franzoesisch.php', 'Nachhilfelehrkraft Französisch', 'Französisch sprechen, verstehen und mit Freude anwenden.', 'Gesucht werden sprachbegeisterte Lehrkräfte, die Aussprache, Grammatik, Hörverstehen und Kommunikation lebendig miteinander verbinden.', 'published', 20, '2026-07-26 07:38:22', '2026-07-26 07:38:22'),
+(3, 'spanisch', 'SPAN', 'karriere-spanisch.php', 'Nachhilfelehrkraft Spanisch', 'Eine Weltsprache entdecken – verständlich, lebendig und persönlich.', 'Gesucht werden Lehrkräfte, die Lernende zum Sprechen ermutigen und Grammatik mit alltagsnaher Kommunikation verbinden.', 'published', 30, '2026-07-26 07:38:22', '2026-07-26 07:38:22'),
+(4, 'soziale-faecher', 'SOZ', 'karriere-soziale-faecher.php', 'Nachhilfelehrkraft Soziale Fächer', 'Zusammenhänge erkennen. Quellen prüfen. Eigene Urteile begründen.', 'Gesucht werden Lehrkräfte für Geschichte, Geographie, Gemeinschaftskunde, Sozialkunde, Ethik und verwandte Fächer.', 'published', 40, '2026-07-26 07:38:22', '2026-07-26 07:38:22');
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `career_job_items`
+--
+
+CREATE TABLE `career_job_items` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `career_job_id` int(10) UNSIGNED NOT NULL,
+  `item_type` enum('subject','value','requirement','profile') NOT NULL,
+  `item_text` varchar(1000) NOT NULL,
+  `sort_order` int(11) NOT NULL DEFAULT 100
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Daten für Tabelle `career_job_items`
+--
+
+INSERT INTO `career_job_items` (`id`, `career_job_id`, `item_type`, `item_text`, `sort_order`) VALUES
+(1, 1, 'subject', 'Deutsch', 10),
+(2, 1, 'subject', 'Deutsch als Zweitsprache', 20),
+(3, 1, 'subject', 'Literatur', 30),
+(4, 1, 'subject', 'Prüfungsvorbereitung', 40),
+(5, 1, 'value', 'Verstehen statt Auswendiglernen', 10),
+(6, 1, 'value', 'Geduldige und klare Rückmeldung', 20),
+(7, 1, 'value', 'Individuelle Stundenplanung', 30),
+(8, 1, 'value', 'Respekt vor unterschiedlichen Ausdruckswegen', 40),
+(9, 1, 'requirement', 'Sehr sichere Deutschkenntnisse', 10),
+(10, 1, 'requirement', 'Freude an Sprache, Texten und Literatur', 20),
+(11, 1, 'requirement', 'Fähigkeit, Regeln anschaulich zu erklären', 30),
+(12, 1, 'requirement', 'Zuverlässige Vor- und Nachbereitung', 40),
+(13, 1, 'profile', 'Lehramts- oder Germanistikstudierende', 10),
+(14, 1, 'profile', 'Lehrkräfte und pensionierte Lehrkräfte', 20),
+(15, 1, 'profile', 'DaZ-/DaF-Fachkräfte', 30),
+(16, 1, 'profile', 'Fachlich geeignete Quereinsteigerinnen und Quereinsteiger', 40);
 
 -- --------------------------------------------------------
 
@@ -301,8 +427,6 @@ CREATE TABLE `homepage_blocks` (
   `active` tinyint(1) NOT NULL DEFAULT 1,
   `valid_from` date DEFAULT NULL,
   `valid_until` date DEFAULT NULL,
-  `style_json` longtext DEFAULT NULL,
-  `custom_css` text DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -504,7 +628,8 @@ INSERT INTO `navigation_items` (`id`, `parent_id`, `title`, `url`, `sort_order`,
 (33, 5, 'FAQ', '/faq.php', 50, 1, '2026-07-20 07:28:50', '2026-07-20 07:28:50'),
 (34, 5, 'Jobs', '/jobs.php', 60, 1, '2026-07-20 07:28:50', '2026-07-20 07:28:50'),
 (35, 5, 'Sitemap', '/sitemap.php', 70, 1, '2026-07-20 07:28:50', '2026-07-20 07:28:50'),
-(36, 5, 'Bildnachweis', '/nh_hor/bildnachweis.php', 80, 1, '2026-07-23 16:11:02', '2026-07-23 16:11:02');
+(36, 5, 'Bildnachweis', '/nh_hor/bildnachweis.php', 80, 1, '2026-07-23 16:11:02', '2026-07-23 16:11:02'),
+(37, NULL, 'Karriere', '/karriere.php', 90, 1, '2026-07-26 04:25:02', '2026-07-26 04:25:02');
 
 -- --------------------------------------------------------
 
@@ -846,6 +971,36 @@ ALTER TABLE `audit_log`
   ADD KEY `fk_audit_user` (`user_id`);
 
 --
+-- Indizes für die Tabelle `career_faq`
+--
+ALTER TABLE `career_faq`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idx_career_faq_job_sort` (`career_job_id`,`sort_order`);
+
+--
+-- Indizes für die Tabelle `career_images`
+--
+ALTER TABLE `career_images`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idx_career_images_job_role_sort` (`career_job_id`,`image_role`,`sort_order`);
+
+--
+-- Indizes für die Tabelle `career_jobs`
+--
+ALTER TABLE `career_jobs`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `uq_career_jobs_key` (`job_key`),
+  ADD UNIQUE KEY `uq_career_jobs_slug` (`slug`),
+  ADD KEY `idx_career_jobs_status_sort` (`status`,`sort_order`);
+
+--
+-- Indizes für die Tabelle `career_job_items`
+--
+ALTER TABLE `career_job_items`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idx_career_items_job_type_sort` (`career_job_id`,`item_type`,`sort_order`);
+
+--
 -- Indizes für die Tabelle `contacts`
 --
 ALTER TABLE `contacts`
@@ -896,6 +1051,30 @@ ALTER TABLE `notes`
 --
 
 --
+-- AUTO_INCREMENT für Tabelle `career_faq`
+--
+ALTER TABLE `career_faq`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT für Tabelle `career_images`
+--
+ALTER TABLE `career_images`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT für Tabelle `career_jobs`
+--
+ALTER TABLE `career_jobs`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT für Tabelle `career_job_items`
+--
+ALTER TABLE `career_job_items`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
 -- AUTO_INCREMENT für Tabelle `contacts`
 --
 ALTER TABLE `contacts`
@@ -923,13 +1102,35 @@ ALTER TABLE `image_credits`
 -- AUTO_INCREMENT für Tabelle `navigation_items`
 --
 ALTER TABLE `navigation_items`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT für Tabelle `notes`
 --
 ALTER TABLE `notes`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- Constraints der exportierten Tabellen
+--
+
+--
+-- Constraints der Tabelle `career_faq`
+--
+ALTER TABLE `career_faq`
+  ADD CONSTRAINT `fk_career_faq_job` FOREIGN KEY (`career_job_id`) REFERENCES `career_jobs` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints der Tabelle `career_images`
+--
+ALTER TABLE `career_images`
+  ADD CONSTRAINT `fk_career_images_job` FOREIGN KEY (`career_job_id`) REFERENCES `career_jobs` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints der Tabelle `career_job_items`
+--
+ALTER TABLE `career_job_items`
+  ADD CONSTRAINT `fk_career_items_job` FOREIGN KEY (`career_job_id`) REFERENCES `career_jobs` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

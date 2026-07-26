@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         $toRole = filter_var($_POST['to_role'] ?? null, FILTER_VALIDATE_INT, ['options' => ['min_range' => 1]]) ?: null;
-        $saturation = trim((string)($_POST['saturation'] ?? ''));
+        $salutation = trim((string)($_POST['salutation'] ?? ''));
         $title = trim((string)($_POST['title'] ?? ''));
         $firstname = trim((string)($_POST['firstname'] ?? ''));
         $lastname = trim((string)($_POST['lastname'] ?? ''));
@@ -36,21 +36,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!$toRole) throw new RuntimeException('Bitte eine Rolle auswählen.');
         if ($firstname === '' || mb_strlen($firstname) > 120) throw new RuntimeException('Bitte einen gültigen Vornamen angeben.');
         if ($lastname === '' || mb_strlen($lastname) > 120) throw new RuntimeException('Bitte einen gültigen Nachnamen angeben.');
-        if (mb_strlen($saturation) > 40 || mb_strlen($title) > 120) throw new RuntimeException('Anrede oder Titel ist zu lang.');
+        if (mb_strlen($salutation) > 40 || mb_strlen($title) > 120) throw new RuntimeException('Anrede oder Titel ist zu lang.');
 
         $roleCheck = db()->prepare('SELECT COUNT(*) FROM imprint_roles WHERE id = :id');
         $roleCheck->execute(['id' => $toRole]);
         if ((int)$roleCheck->fetchColumn() !== 1) throw new RuntimeException('Die ausgewählte Rolle existiert nicht.');
 
-        $params = ['to_role'=>$toRole, 'saturation'=>$saturation, 'title'=>$title, 'firstname'=>$firstname, 'lastname'=>$lastname];
+        $params = ['to_role'=>$toRole, 'salutation'=>$salutation, 'title'=>$title, 'firstname'=>$firstname, 'lastname'=>$lastname];
         if ($id) {
             $params['id'] = $id;
-            $stmt = db()->prepare('UPDATE imprint_persons SET to_role=:to_role, saturation=:saturation, title=:title, firstname=:firstname, lastname=:lastname WHERE id=:id');
+            $stmt = db()->prepare('UPDATE imprint_persons SET to_role=:to_role, salutation=:salutation, title=:title, firstname=:firstname, lastname=:lastname WHERE id=:id');
             $stmt->execute($params);
             admin_log('update', 'imprint_person', $id, ['to_role'=>$toRole]);
             $result = 'updated';
         } else {
-            $stmt = db()->prepare('INSERT INTO imprint_persons (to_role, saturation, title, firstname, lastname) VALUES (:to_role, :saturation, :title, :firstname, :lastname)');
+            $stmt = db()->prepare('INSERT INTO imprint_persons (to_role, salutation, title, firstname, lastname) VALUES (:to_role, :salutation, :title, :firstname, :lastname)');
             $stmt->execute($params);
             $id = (int)db()->lastInsertId();
             admin_log('create', 'imprint_person', $id, ['to_role'=>$toRole]);
@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $roles = db_available() ? db()->query("SELECT id, role FROM imprint_roles ORDER BY FIELD(role,'admin','company','personal','tutor','other'), id")->fetchAll() : [];
-$persons = db_available() ? db()->query("SELECT p.id, p.to_role, p.saturation, p.title, p.firstname, p.lastname, r.role FROM imprint_persons p JOIN imprint_roles r ON r.id=p.to_role ORDER BY FIELD(r.role,'admin','company','personal','tutor','other'), p.lastname, p.firstname, p.id")->fetchAll() : [];
+$persons = db_available() ? db()->query("SELECT p.id, p.to_role, p.salutation, p.title, p.firstname, p.lastname, r.role FROM imprint_persons p JOIN imprint_roles r ON r.id=p.to_role ORDER BY FIELD(r.role,'admin','company','personal','tutor','other'), p.lastname, p.firstname, p.id")->fetchAll() : [];
 
 $adminTitle = 'Impressumspersonen';
 require __DIR__ . '/includes/header.php';
@@ -82,7 +82,7 @@ require __DIR__ . '/includes/header.php';
 <form method="post" class="admin-form admin-form--columns">
 <input type="hidden" name="csrf_token" value="<?= admin_e(csrf_token()) ?>"><input type="hidden" name="action" value="save">
 <label>Rolle<select name="to_role" required><option value="">Bitte wählen</option><?php foreach($roles as $role): ?><option value="<?= (int)$role['id'] ?>"><?= admin_e((string)$role['role']) ?></option><?php endforeach; ?></select></label>
-<label>Anrede (`saturation`)<input name="saturation" maxlength="40" placeholder="Herr"></label>
+<label>Anrede (`salutation`)<input name="salutation" maxlength="40" placeholder="Herr"></label>
 <label>Titel<input name="title" maxlength="120" placeholder="Dipl.-Ing."></label>
 <label>Vorname<input name="firstname" maxlength="120" required></label>
 <label>Nachname<input name="lastname" maxlength="120" required></label>
@@ -95,7 +95,7 @@ require __DIR__ . '/includes/header.php';
 <tr><form method="post">
 <td><?= (int)$person['id'] ?><input type="hidden" name="csrf_token" value="<?= admin_e(csrf_token()) ?>"><input type="hidden" name="action" value="save"><input type="hidden" name="id" value="<?= (int)$person['id'] ?>"></td>
 <td><select name="to_role" required><?php foreach($roles as $role): ?><option value="<?= (int)$role['id'] ?>"<?= (int)$role['id']===(int)$person['to_role']?' selected':'' ?>><?= admin_e((string)$role['role']) ?></option><?php endforeach; ?></select></td>
-<td><input name="saturation" maxlength="40" value="<?= admin_e((string)$person['saturation']) ?>"></td>
+<td><input name="salutation" maxlength="40" value="<?= admin_e((string)$person['salutation']) ?>"></td>
 <td><input name="title" maxlength="120" value="<?= admin_e((string)$person['title']) ?>"></td>
 <td><input name="firstname" maxlength="120" required value="<?= admin_e((string)$person['firstname']) ?>"></td>
 <td><input name="lastname" maxlength="120" required value="<?= admin_e((string)$person['lastname']) ?>"></td>

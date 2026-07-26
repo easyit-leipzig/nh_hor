@@ -135,11 +135,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-$persons = db_available() ? db()->query("SELECT p.id,p.saturation,p.title,p.firstname,p.lastname,r.role FROM imprint_persons p JOIN imprint_roles r ON r.id=p.to_role ORDER BY p.lastname,p.firstname,p.id")->fetchAll() : [];
-$contacts = db_available() ? db()->query("SELECT c.*,p.saturation,p.title,p.firstname,p.lastname,r.role FROM contacts c JOIN imprint_persons p ON p.id=c.to_person JOIN imprint_roles r ON r.id=p.to_role ORDER BY p.lastname,p.firstname,c.sort_order,c.type,c.id")->fetchAll() : [];
+$persons = db_available() ? db()->query("SELECT p.id,p.salutation,p.title,p.firstname,p.lastname,r.role FROM imprint_persons p JOIN imprint_roles r ON r.id=p.to_role ORDER BY p.lastname,p.firstname,p.id")->fetchAll() : [];
+$contacts = db_available() ? db()->query("SELECT c.*,p.salutation,p.title,p.firstname,p.lastname,r.role FROM contacts c JOIN imprint_persons p ON p.id=c.to_person JOIN imprint_roles r ON r.id=p.to_role ORDER BY p.lastname,p.firstname,c.sort_order,c.type,c.id")->fetchAll() : [];
 
 function contact_person_label(array $p): string {
-    return trim(implode(' ', array_filter([(string)$p['saturation'], (string)$p['title'], (string)$p['firstname'], (string)$p['lastname']]))) . ' [' . (string)$p['role'] . ']';
+    return trim(implode(' ', array_filter([(string)$p['salutation'], (string)$p['title'], (string)$p['firstname'], (string)$p['lastname']]))) . ' [' . (string)$p['role'] . ']';
 }
 
 $adminTitle = 'Kontakte';
