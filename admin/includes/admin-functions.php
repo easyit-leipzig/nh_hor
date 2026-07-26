@@ -41,11 +41,3 @@ function admin_log(string $action, string $entityType, ?int $entityId = null, ar
         error_log('Admin-Audit-Protokollierung fehlgeschlagen: ' . $e->getMessage());
     }
 }
-function admin_verify_csrf_or_abort(): void
-{
-    if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !csrf_is_valid((string)($_POST['csrf_token'] ?? ''))) {
-        http_response_code(403);
-        exit('Die Sitzung ist abgelaufen oder die Anfrage ist ungültig. Bitte laden Sie die Seite neu.');
-    }
-}
-

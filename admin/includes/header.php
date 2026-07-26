@@ -23,7 +23,6 @@ $user = admin_user();
       <a href="<?= admin_e(app_path('/admin/content.php?type=faq')) ?>">FAQ</a>
       <a href="<?= admin_e(app_path('/admin/content.php?type=review')) ?>">Bewertungen</a>
       <a href="<?= admin_e(app_path('/admin/content.php?type=job')) ?>">Jobs</a>
-      <a href="<?= admin_e(app_path('/admin/career-jobs.php')) ?>">Karriereprofile</a>
       <a href="<?= admin_e(app_path('/admin/content.php?type=blog')) ?>">Blog</a>
       <?php if (admin_has_role('admin')): ?>
         <a href="<?= admin_e(app_path('/admin/navigation.php')) ?>">Navigation</a>
