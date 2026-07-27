@@ -26,6 +26,17 @@ require __DIR__ . '/includes/header.php';
   <?php endforeach; ?>
   <?php if (admin_has_role('admin')): ?>
     <article class="admin-card">
+      <h2>KOMMUNIKATION</h2>
+      <p>InformUser und Message testen, E-Mails mit Anhängen versenden und Versandprotokolle prüfen.</p>
+      <a class="admin-btn" href="<?= admin_e(app_path('/admin/communication-test.php')) ?>">Testen</a>
+      <a class="admin-btn" href="<?= admin_e(app_path('/admin/communication-log.php')) ?>">Protokoll</a>
+    </article>
+    <article class="admin-card">
+      <h2>KARRIEREPROFILE</h2>
+      <p>Stellenangebote, Werte, Anforderungen, Bildserien und FAQ pflegen.</p>
+      <a class="admin-btn" href="<?= admin_e(app_path('/admin/career-jobs.php')) ?>">Verwalten</a>
+    </article>
+    <article class="admin-card">
       <h2>NAVIGATION</h2>
       <p>Hauptmenü und Untermenüs verwalten.</p>
       <a class="admin-btn" href="<?= admin_e(app_path('/admin/navigation.php')) ?>">Verwalten</a>

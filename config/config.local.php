@@ -26,6 +26,21 @@ return [
         ],
     ],
 
+    'mail' => [
+        // Lokale Entwicklung: Nachricht wird unter storage/contact-outbox gespeichert.
+        'enabled' => true,
+        'transport' => 'log',
+        'recipient_email' => 'kontakt@easyit-nachhilfe.de',
+        'sender_email' => 'website@localhost.test',
+        'sender_name' => 'easyIT Website lokal',
+        'smtp_host' => '',
+        'smtp_port' => 1025,
+        'smtp_encryption' => 'none',
+        'smtp_username' => '',
+        'smtp_password' => '',
+        'smtp_timeout' => 15,
+    ],
+
     'database' => [
         'host' => '127.0.0.1',
         'port' => 3306,

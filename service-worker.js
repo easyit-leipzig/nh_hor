@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'easyit-assets-3-16-brand';
+const CACHE_VERSION = 'easyit-assets-3-17-header-half';
 const CORE_ASSETS = [
   'assets/img/subjects/latein.svg',
   'assets/img/subjects/spanisch.svg',
@@ -13,7 +13,7 @@ const CORE_ASSETS = [
   'assets/img/stud-lern.svg',
   './',
   'assets/css/main.a58c73c19cb9.css',
-  'assets/css/header.f3094f4e8833.css',
+  'assets/css/header.56eb2f6e7ed4.css',
   'assets/css/sidebar.0ea8ee0a632a.css',
   'assets/css/content.701997f4d583.css',
   'assets/css/footer.664f675d327e.css',

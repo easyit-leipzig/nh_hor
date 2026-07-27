@@ -10,7 +10,7 @@ $site = require __DIR__ . '/config/site.php';
 $formConfig = require __DIR__ . '/config/forms.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: /kontakt.php', true, 303);
+    header('Location: ' . app_path('/kontakt.php'), true, 303);
     exit;
 }
 
@@ -57,7 +57,7 @@ ensure_session_started();
 if ($errors) {
     $_SESSION['contact_errors'] = $errors;
     $_SESSION['contact_old'] = $data;
-    header('Location: /kontakt.php#kontaktformular', true, 303);
+    header('Location: ' . app_path('/kontakt.php#kontaktformular'), true, 303);
     exit;
 }
 
@@ -106,12 +106,12 @@ if ((bool)$formConfig['enable_mail']) {
 if (!$mailSent) {
     $_SESSION['contact_errors'] = ['Die Nachricht konnte technisch nicht versendet werden. Bitte versuche es später erneut oder nutze Telefon beziehungsweise E-Mail.'];
     $_SESSION['contact_old'] = $data;
-    header('Location: /kontakt.php#kontaktformular', true, 303);
+    header('Location: ' . app_path('/kontakt.php#kontaktformular'), true, 303);
     exit;
 }
 
 unset($_SESSION['contact_old'], $_SESSION['contact_errors']);
 $_SESSION['contact_success'] = true;
 
-header('Location: /anfrage-erfolgreich.php', true, 303);
+header('Location: ' . app_path('/anfrage-erfolgreich.php'), true, 303);
 exit;

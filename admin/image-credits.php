@@ -6,7 +6,7 @@ session_start();
 require_once dirname(__DIR__) . '/includes/functions.php';
 
 if (empty($_SESSION['admin_user_id']) && empty($_SESSION['user_id']) && empty($_SESSION['admin'])) {
-    header('Location: /admin/login.php');
+    header('Location: ' . app_path('/admin/login.php'));
     exit;
 }
 

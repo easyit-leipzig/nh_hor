@@ -10,6 +10,9 @@ $count = null;
 if (!db_available()) {
     http_response_code(503);
     $error = 'Die Datenbankverbindung ist nicht verfügbar.';
+    if (!config_is_production() && function_exists('db_last_error') && db_last_error()) {
+        $error .= ' Ursache: ' . db_last_error();
+    }
 } else {
     try {
         $count = (int)db()->query('SELECT COUNT(*) FROM admin_users')->fetchColumn();

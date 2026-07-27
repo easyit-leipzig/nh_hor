@@ -9,21 +9,86 @@ final class SmtpMailer
 
     public function send(string $to, string $subject, string $body, string $replyTo): void
     {
+        $transport = strtolower((string)($this->config['transport'] ?? 'smtp'));
+
+        if ($transport === 'log') {
+            $this->sendToLog($to, $subject, $body, $replyTo);
+            return;
+        }
+        if ($transport === 'mail') {
+            $this->sendWithPhpMail($to, $subject, $body, $replyTo);
+            return;
+        }
+        if ($transport !== 'smtp') {
+            throw new SmtpException('Unbekannter Mail-Transport.');
+        }
+
+        $this->sendWithSmtp($to, $subject, $body, $replyTo);
+    }
+
+    private function sendWithPhpMail(string $to, string $subject, string $body, string $replyTo): void
+    {
+        $from = (string)$this->config['sender_email'];
+        $senderName = $this->encodeHeader((string)$this->config['sender_name']);
+        $headers = [
+            'MIME-Version: 1.0',
+            'Content-Type: text/plain; charset=UTF-8',
+            'Content-Transfer-Encoding: 8bit',
+            'From: ' . $senderName . ' <' . $from . '>',
+            'Reply-To: ' . $replyTo,
+            'X-Mailer: PHP/' . PHP_VERSION,
+        ];
+
+        $encodedSubject = $this->encodeHeader($subject);
+        $success = @mail($to, $encodedSubject, $body, implode("\r\n", $headers));
+        if (!$success) {
+            throw new SmtpException('PHP mail() hat die Nachricht nicht angenommen.');
+        }
+    }
+
+    private function sendToLog(string $to, string $subject, string $body, string $replyTo): void
+    {
+        $directory = dirname(__DIR__) . '/storage/contact-outbox';
+        if (!is_dir($directory) && !@mkdir($directory, 0775, true) && !is_dir($directory)) {
+            throw new SmtpException('Lokale Mail-Ausgangsbox konnte nicht angelegt werden.');
+        }
+        if (!is_writable($directory)) {
+            throw new SmtpException('Lokale Mail-Ausgangsbox ist nicht beschreibbar.');
+        }
+
+        $filename = date('Ymd_His') . '_' . bin2hex(random_bytes(5)) . '.eml.txt';
+        $content = implode("\r\n", [
+            'To: ' . $to,
+            'From: ' . (string)$this->config['sender_name'] . ' <' . (string)$this->config['sender_email'] . '>',
+            'Reply-To: ' . $replyTo,
+            'Subject: ' . $subject,
+            'Date: ' . date(DATE_RFC2822),
+            '',
+            $body,
+        ]);
+
+        if (@file_put_contents($directory . '/' . $filename, $content, LOCK_EX) === false) {
+            throw new SmtpException('Lokale Testnachricht konnte nicht gespeichert werden.');
+        }
+    }
+
+    private function sendWithSmtp(string $to, string $subject, string $body, string $replyTo): void
+    {
         $host = (string)$this->config['smtp_host'];
         $port = (int)$this->config['smtp_port'];
         $timeout = (int)$this->config['smtp_timeout'];
         $encryption = strtolower((string)$this->config['smtp_encryption']);
         $remote = ($encryption === 'ssl' ? 'ssl://' : '') . $host . ':' . $port;
-        $context = stream_context_create([
-            'ssl' => [
-                'verify_peer' => true,
-                'verify_peer_name' => true,
-                'allow_self_signed' => false,
-                'SNI_enabled' => true,
-                'peer_name' => $host,
-            ],
-        ]);
-        $errno = 0; $errstr = '';
+        $context = stream_context_create(['ssl' => [
+            'verify_peer' => true,
+            'verify_peer_name' => true,
+            'allow_self_signed' => false,
+            'SNI_enabled' => true,
+            'peer_name' => $host,
+        ]]);
+
+        $errno = 0;
+        $errstr = '';
         $socket = @stream_socket_client($remote, $errno, $errstr, $timeout, STREAM_CLIENT_CONNECT, $context);
         if (!is_resource($socket)) {
             throw new SmtpException('SMTP-Verbindung fehlgeschlagen (' . $errno . ').');
@@ -47,8 +112,8 @@ final class SmtpMailer
             $password = (string)$this->config['smtp_password'];
             if ($username !== '') {
                 $this->command($socket, 'AUTH LOGIN', [334]);
-                $this->command($socket, base64_encode($username), [334], false);
-                $this->command($socket, base64_encode($password), [235], false);
+                $this->command($socket, base64_encode($username), [334]);
+                $this->command($socket, base64_encode($password), [235]);
             }
 
             $from = (string)$this->config['sender_email'];
@@ -76,7 +141,7 @@ final class SmtpMailer
         }
     }
 
-    private function command($socket, string $command, array $expected, bool $loggable = true): void
+    private function command($socket, string $command, array $expected): void
     {
         if (fwrite($socket, $command . "\r\n") === false) {
             throw new SmtpException('SMTP-Schreibfehler.');
@@ -95,6 +160,7 @@ final class SmtpMailer
             }
             $response .= $line;
         } while (isset($line[3]) && $line[3] === '-');
+
         $code = (int)substr($line, 0, 3);
         if (!in_array($code, $expected, true)) {
             throw new SmtpException('SMTP-Server antwortete mit Status ' . $code . '.');

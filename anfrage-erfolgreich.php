@@ -13,7 +13,7 @@ $valid = (bool)($_SESSION['contact_success'] ?? false);
 unset($_SESSION['contact_success']);
 
 if (!$valid) {
-    header('Location: /kontakt.php', true, 303);
+    header('Location: ' . app_path('/kontakt.php'), true, 303);
     exit;
 }
 ?><!doctype html>
@@ -31,8 +31,8 @@ if (!$valid) {
   <h1>Vielen Dank für die Nachricht.</h1>
   <p>Die Angaben wurden verarbeitet. Sofern der E-Mail-Versand in der Serverkonfiguration aktiviert ist, wurde die Anfrage an easyIT übermittelt.</p>
   <div class="hero-actions">
-    <a class="button button--gold" href="/index.php">Zur Startseite</a>
-    <a class="button button--blue" href="/faq.php">Häufige Fragen</a>
+    <a class="button button--gold" href="<?= e(app_path('/index.php')) ?>">Zur Startseite</a>
+    <a class="button button--blue" href="<?= e(app_path('/faq.php')) ?>">Häufige Fragen</a>
   </div>
 </section>
 </div>

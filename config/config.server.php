@@ -25,6 +25,21 @@ return [
         ],
     ],
 
+    'mail' => [
+        // Produktivbetrieb: PHP mail(). Alternativ transport auf smtp stellen.
+        'enabled' => true,
+        'transport' => 'mail',
+        'recipient_email' => 'kontakt@easyit-nachhilfe.de',
+        'sender_email' => 'kontakt@easyit-nachhilfe.de',
+        'sender_name' => 'easyIT Website',
+        'smtp_host' => '',
+        'smtp_port' => 587,
+        'smtp_encryption' => 'tls',
+        'smtp_username' => '',
+        'smtp_password' => '',
+        'smtp_timeout' => 15,
+    ],
+
     'database' => [
         'host' => 'localhost',
         'port' => 3306,
