@@ -1,28 +1,27 @@
 # Blockeditor-Handbuch – Band B.5
 
-## Thema
+## Flexbox, CSS Grid und professionelle Kartenlayouts
 
-Flexbox, CSS Grid und professionelle Kartenlayouts.
+Dieser Projektstand erweitert das integrierte Blockeditor-Handbuch um Band B.5.
 
-## Real integrierte Kapitel
+### Neue Kapitel
 
-1. Layoutgrundlagen und Trennung von äußerem Raster und innerer Kachel
+1. Äußeres Raster und inneres Kachellayout
 2. Flexbox für Bild-Text-Anordnungen
-3. CSS Grid für responsive Kachelserien
-4. Kartenaufbau aus Bild, Inhalt und Footer
-5. Gleiche Höhen und ruhige Buttonlinien
-6. Responsive Raster und Breakpoints
-7. Overlays, Sticker und Ebenen
-8. Praxisrezepte für typische Seitenbereiche
-9. Abschlussprüfung
+3. Wichtige Flexbox-Eigenschaften
+4. CSS Grid für responsive Kachelserien
+5. Professioneller Kartenaufbau
+6. Gleiche Kartenhöhen und ausgerichtete Buttons
+7. Responsive Raster
+8. Overlays, Sticker und Ebenen
+9. Praxisrezepte
+10. Abschlussprüfung
 
-## Geänderte Dateien
+### Geänderte Dateien
 
 - `admin/homepage_blocks_help.php`
 - `assets/css/homepage-block-help.css`
 
-## Prüfung
+### Prüfung
 
-- PHP-Syntaxprüfung
-- Kontrolle aller B.5-Navigationsanker
-- ZIP-Integritätsprüfung
+Die PHP-Syntax, alle internen Kapitelanker und die ZIP-Integrität wurden geprüft.

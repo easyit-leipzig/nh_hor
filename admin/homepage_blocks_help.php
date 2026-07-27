@@ -2,19 +2,20 @@
 declare(strict_types=1);
 require __DIR__ . '/includes/admin-functions.php';
 admin_require_role('admin');
-$adminTitle = 'Blockeditor-Handbuch – Band A + Band B.1 bis B.4';
+$adminTitle = 'Blockeditor-Handbuch – Band A + Band B.1 bis B.5';
 require __DIR__ . '/includes/header.php';
 ?>
 <link rel="stylesheet" href="<?= admin_e(app_path('/assets/css/homepage-block-help.css')) ?>">
 <div id="top" class="help-hero">
-  <div><p class="help-kicker">Blockeditor-Handbuch · Band A + Band B.1 bis Band B.5</p><h1>Grundlagen und professionelle Designprinzipien</h1><p class="help-lead">Band A erklärt die Bedienung. Band B.1 behandelt die gestalterischen Grundlagen. Band B.2 führt in Farbwirkung und Farbverläufe ein. Band B.3 behandelt professionelle Typografie. Band B.4 erklärt Bildformate, Bildausschnitt, Positionierung, responsive Bilder, Overlays und Alt-Texte. Band B.5 führt Flexbox, CSS Grid und professionelle Kartenlayouts ein.</p></div>
+  <div><p class="help-kicker">Blockeditor-Handbuch · Band A + Band B.1 bis B.5</p><h1>Designgrundlagen, Farben, Typografie, Bilder und Kartenlayouts</h1><p class="help-lead">Band A erklärt die Bedienung. Band B.1 bis B.4 behandeln Designgrundlagen, Farben, Typografie und Bildgestaltung. Band B.5 ergänzt Flexbox, CSS Grid, Kartenaufbau, gleiche Höhen, responsive Raster, Overlays und konkrete Layoutrezepte.</p></div>
   <div class="help-hero-actions"><a class="admin-btn admin-btn--gold" href="<?= admin_e(app_path('/admin/homepage_blocks_edit.php')) ?>">Block anlegen</a><a class="admin-btn" href="<?= admin_e(app_path('/admin/homepage_blocks.php')) ?>">Blockübersicht</a></div>
 </div>
 <div class="help-search" role="search"><label for="help-search-input">Handbuch durchsuchen</label><div class="help-search-row"><input id="help-search-input" type="search" placeholder="Beispiel: Innenabstand, Schriftgröße, cover, Mobilansicht"><button type="button" class="admin-btn" id="help-search-reset">Suche löschen</button></div><p id="help-search-status" aria-live="polite">Alle Inhalte werden angezeigt.</p></div>
 <div class="help-layout">
 <aside class="help-sidebar"><nav>
-<a href="#start">1. Schnellstart</a><a href="#oberflaeche">2. Editoroberfläche</a><a href="#inhalt">3. Inhalte</a><a href="#workflow">4. Arbeitsablauf</a><a href="#farben">5. Farben</a><a href="#typografie">6. Typografie</a><a href="#layout">7. Layout</a><a href="#abstaende">8. Abstände</a><a href="#bilder">9. Bilder</a><a href="#responsive">10. Responsive</a><a href="#expertenmodus">11. Expertenmodus</a><a href="#pruefung">12. Abschlussprüfung</a><a href="#fehler">13. Fehlerhilfe</a><a href="#praxis">14. Praxisrezepte</a><a href="#glossar">15. Glossar</a><hr><a href="#designprinzipien">B.1.1 Designprinzipien</a><a href="#hierarchie">B.1.2 Visuelle Hierarchie</a><a href="#blickfuehrung">B.1.3 Blickführung</a><a href="#weissraum">B.1.4 Weißraum</a><a href="#proportionen">B.1.5 Proportionen</a><a href="#raster">B.1.6 Gestaltungsraster</a><a href="#konsistenz">B.1.7 Konsistenz</a><a href="#b1-praxis">B.1.8 Praxisprüfung</a><hr><a href="#b2-farbwirkung">B.2.1 Farbwirkung</a><a href="#b2-harmonien">B.2.2 Farbharmonien</a><a href="#b2-farbmodelle">B.2.3 HEX, RGB und HSL</a><a href="#b2-verlaeufe">B.2.4 Farbverläufe</a><a href="#b2-transparenz">B.2.5 Transparenzen</a><a href="#b2-zustaende">B.2.6 Zustandsfarben</a><a href="#b2-paletten">B.2.7 Praxispaletten</a><a href="#b2-pruefung">B.2.8 Farbprüfung</a>
-<hr><a href="#b3-hierarchie">B.3.1 Typografische Hierarchie</a><a href="#b3-schriftwahl">B.3.2 Schriftwahl</a><a href="#b3-pairing">B.3.3 Schriftkombinationen</a><a href="#b3-groessen">B.3.4 Responsive Größen</a><a href="#b3-zeilen">B.3.5 Zeilen und Abstände</a><a href="#b3-gewicht">B.3.6 Gewicht und Hervorhebung</a><a href="#b3-buttons">B.3.7 Buttons und Kurztexte</a><a href="#b3-vorlagen">B.3.8 Praxisvorlagen</a><a href="#b3-pruefung">B.3.9 Typografieprüfung</a><hr><a href="#b4-formate">B.4.1 Bildformate</a><a href="#b4-groessen">B.4.2 Größe und Qualität</a><a href="#b4-layout">B.4.3 Bildposition</a><a href="#b4-ausschnitt">B.4.4 Bildausschnitt</a><a href="#b4-position">B.4.5 Fokuspunkt</a><a href="#b4-responsive">B.4.6 Responsive Bilder</a><a href="#b4-overlays">B.4.7 Overlays und Text</a><a href="#b4-alttexte">B.4.8 Alt-Texte</a><a href="#b4-praxis">B.4.9 Praxis und Prüfung</a><hr><a href="#b5-grundlagen">B.5.1 Layoutgrundlagen</a><a href="#b5-flexbox">B.5.2 Flexbox</a><a href="#b5-grid">B.5.3 CSS Grid</a><a href="#b5-karten">B.5.4 Kartenlayouts</a><a href="#b5-hoehen">B.5.5 Gleiche Höhen</a><a href="#b5-breakpoints">B.5.6 Responsive Raster</a><a href="#b5-overlays">B.5.7 Overlays und Ebenen</a><a href="#b5-praxis">B.5.8 Praxisrezepte</a><a href="#b5-pruefung">B.5.9 Layoutprüfung</a></nav></aside>
+<a href="#start">1. Schnellstart</a><a href="#oberflaeche">2. Editoroberfläche</a><a href="#inhalt">3. Inhalte</a><a href="#workflow">4. Arbeitsablauf</a><a href="#farben">5. Farben</a><a href="#typografie">6. Typografie</a><a href="#layout">7. Layout</a><a href="#abstaende">8. Abstände</a><a href="#bilder">9. Bilder</a><a href="#responsive">10. Responsive</a><a href="#expertenmodus">11. Expertenmodus</a><a href="#pruefung">12. Abschlussprüfung</a><a href="#fehler">13. Fehlerhilfe</a><a href="#praxis">14. Praxisrezepte</a><a href="#glossar">15. Glossar</a><hr><a href="#designprinzipien">B.1.1 Designprinzipien</a><a href="#hierarchie">B.1.2 Visuelle Hierarchie</a><a href="#blickfuehrung">B.1.3 Blickführung</a><a href="#weissraum">B.1.4 Weißraum</a><a href="#proportionen">B.1.5 Proportionen</a><a href="#raster">B.1.6 Gestaltungsraster</a><a href="#konsistenz">B.1.7 Konsistenz</a><a href="#b1-praxis">B.1.8 Praxisprüfung</a><hr><a href="#farbwirkung">B.2.1 Farbwirkung</a><a href="#farbharmonien">B.2.2 Farbharmonien</a><a href="#farbmodelle">B.2.3 HEX, RGB und HSL</a><a href="#verlaeufe">B.2.4 Farbverläufe</a><a href="#transparenzen">B.2.5 Transparenzen</a><a href="#zustaende">B.2.6 Zustandsfarben</a><a href="#statusfarben">B.2.7 Statusfarben</a><a href="#b2-paletten">B.2.8 Praxispaletten</a><a href="#b2-pruefung">B.2.9 Farbprüfung</a><hr><a href="#b3-hierarchie">B.3.1 Typografische Hierarchie</a><a href="#b3-schriftwahl">B.3.2 Schriftwahl</a><a href="#b3-kombinationen">B.3.3 Schriftkombinationen</a><a href="#b3-groessen">B.3.4 Responsive Größen</a><a href="#b3-zeilenhoehe">B.3.5 Zeilenhöhe</a><a href="#b3-zeichenabstand">B.3.6 Zeichenabstand</a><a href="#b3-gewicht">B.3.7 Schriftgewichte</a><a href="#b3-buttons">B.3.8 Buttons und Mikrotext</a><a href="#b3-vorlagen">B.3.9 Typografie-Vorlagen</a><a href="#b3-pruefung">B.3.10 Typografieprüfung</a><hr><a href="#b4-formate">B.4.1 Bildformate</a><a href="#b4-groessen">B.4.2 Bildgrößen</a><a href="#b4-position">B.4.3 Bildposition</a><a href="#b4-ausschnitt">B.4.4 Bildausschnitt</a><a href="#b4-responsive">B.4.5 Responsive Bilder</a><a href="#b4-overlays">B.4.6 Overlays</a><a href="#b4-alttexte">B.4.7 Alt-Texte</a><a href="#b4-praxis">B.4.8 Praxisrezepte</a><a href="#b4-fehler">B.4.9 Fehlerhilfe</a><a href="#b4-pruefung">B.4.10 Bildprüfung</a>
+<hr><a href="#b5-grundlagen">B.5.1 Layoutgrundlagen</a><a href="#b5-flexbox">B.5.2 Flexbox</a><a href="#b5-flex-details">B.5.3 Flex-Eigenschaften</a><a href="#b5-grid">B.5.4 CSS Grid</a><a href="#b5-kartenaufbau">B.5.5 Kartenaufbau</a><a href="#b5-gleiche-hoehen">B.5.6 Gleiche Höhen</a><a href="#b5-responsive">B.5.7 Responsive Raster</a><a href="#b5-overlays">B.5.8 Overlays und Ebenen</a><a href="#b5-praxis">B.5.9 Praxisrezepte</a><a href="#b5-pruefung">B.5.10 Layoutprüfung</a>
+</nav></aside>
 <article class="help-content" id="help-content">
 <section id="start" class="help-section" data-search="schnellstart anlegen bearbeiten speichern block kachel">
 <span class="help-step">Kapitel 1</span><h2>Schnellstart</h2><ol class="help-steps"><li><strong>Block öffnen.</strong><span>In der Blockübersicht „Bearbeiten“ wählen oder einen neuen Block anlegen.</span></li><li><strong>Inhalte eintragen.</strong><span>Titel, Text, Button und Bild festlegen.</span></li><li><strong>Grundlayout wählen.</strong><span>Bild links, rechts, oben oder nur Text einstellen.</span></li><li><strong>Design anpassen.</strong><span>Farben, Abstände, Größen, Rahmen und Schatten festlegen.</span></li><li><strong>Alle Ansichten prüfen.</strong><span>Desktop, Tablet und Mobil nacheinander kontrollieren.</span></li><li><strong>Speichern und Startseite prüfen.</strong><span>Nach dem Speichern die reale Ausgabe öffnen.</span></li></ol><div class="help-callout help-callout--tip"><strong>Arbeitsregel:</strong> Ändern Sie immer nur eine Gestaltungsgruppe gleichzeitig. So bleibt nachvollziehbar, welche Einstellung welche Wirkung erzeugt.</div>
@@ -110,254 +111,305 @@ outline: 1px solid rgba(0, 87, 164, 0.12);</code></pre><div class="help-callout 
 <ol class="help-checklist"><li>Jede Kachel besitzt genau eine erkennbare Hauptaussage.</li><li>Titel, Text und Button bilden eine eindeutige Hierarchie.</li><li>Freiräume sind regelmäßig und nicht zufällig.</li><li>Bild-Text-Verhältnisse bleiben in vergleichbaren Kacheln ähnlich.</li><li>Alle Kacheln folgen denselben Außenkanten und Zwischenräumen.</li><li>Buttons besitzen dieselbe Grundform.</li><li>Akzentfarben werden gezielt und nicht flächendeckend eingesetzt.</li><li>Die Serie funktioniert auch in einer einzigen mobilen Spalte.</li></ol>
 <div class="help-callout help-callout--info"><strong>Abschluss von Band B.1:</strong> Erst wenn die Serie ohne Effekte klar und geordnet wirkt, sollten Schatten, Hover-Effekte oder Animationen ergänzt werden.</div>
 </section>
-
-<section id="b2-farbwirkung" class="help-section" data-search="band b2 farbwirkung farbpsychologie blau gelb grün rot neutral wirkung">
+<section id="farbwirkung" class="help-section" data-search="band b2 farbwirkung psychologie blau gelb grün rot violett grau">
 <span class="help-step">Band B.2 · Kapitel 1</span><h2>Farbwirkung gezielt einsetzen</h2>
-<p>Farben unterstützen die Aussage eines Blocks. Sie ersetzen jedoch keine verständliche Überschrift. Für die Nachhilfe-Webseite sollte die Farbwirkung ruhig, vertrauenswürdig und lernorientiert bleiben.</p>
-<div class="help-color-effect-grid"><article style="--effect:#0057a4"><b>Blau</b><p>Vertrauen, Klarheit und Sachlichkeit. Geeignet für Hauptangebote, Beratung und fachliche Inhalte.</p></article><article style="--effect:#ffda58"><b>Gelb</b><p>Aufmerksamkeit und Zuversicht. Als Akzent für Buttons, Hinweise oder zeitlich begrenzte Aktionen.</p></article><article style="--effect:#2a8c56"><b>Grün</b><p>Fortschritt, Erfolg und Entlastung. Geeignet für Lernerfolg, Beratung und positive Rückmeldungen.</p></article><article style="--effect:#d3544f"><b>Rot</b><p>Dringlichkeit und Warnung. Nur sparsam für Fehler, Fristen oder wirklich dringende Hinweise einsetzen.</p></article><article style="--effect:#6b7b88"><b>Neutralgrau</b><p>Ordnung und Zurückhaltung. Ideal für Flächen, Nebeninformationen und ruhige Trennungen.</p></article><article style="--effect:#6c4aa5"><b>Violett</b><p>Kreativität und Besonderheit. Als begrenzter Akzent für spezielle Angebote nutzbar.</p></article></div>
-<div class="help-callout help-callout--tip"><strong>Praxisregel:</strong> Verwenden Sie pro Kachel eine dominante Grundfarbe und eine Akzentfarbe. Weitere Farben sollten neutral bleiben.</div>
+<p>Farben unterstützen die inhaltliche Wirkung einer Kachel. Sie ersetzen jedoch keine klare Überschrift und keine verständliche Handlungsaufforderung. Für die Startseite sollte jede kräftige Farbe eine erkennbare Aufgabe besitzen.</p>
+<div class="help-color-meaning-grid">
+<article style="--meaning:#0057a4"><b>Blau</b><p>Vertrauen, Ruhe und fachliche Verlässlichkeit. Geeignet für Beratung, Mathematik und Hauptangebote.</p></article>
+<article style="--meaning:#e0a400"><b>Gelb</b><p>Aufmerksamkeit und Aktivierung. Geeignet als Akzent, für Hinweise oder zeitlich begrenzte Aktionen.</p></article>
+<article style="--meaning:#2a8c56"><b>Grün</b><p>Fortschritt, Erfolg und Entlastung. Geeignet für Lernerfolg, Anmeldung oder positive Rückmeldungen.</p></article>
+<article style="--meaning:#b23a3a"><b>Rot</b><p>Dringlichkeit und Fehler. Nur sparsam für Warnungen, nicht als dauerhafte Hauptfarbe einsetzen.</p></article>
+<article style="--meaning:#7151a8"><b>Violett</b><p>Kreativität und Besonderheit. Geeignet für Informatik, Workshops oder innovative Angebote.</p></article>
+<article style="--meaning:#5b6670"><b>Grau</b><p>Neutralität und Ordnung. Ideal für Hintergründe, Rahmen und sekundäre Informationen.</p></article>
+</div>
+<div class="help-callout help-callout--tip"><strong>Praxisregel:</strong> Verwenden Sie für eine Kachel eine dominante Grundfarbe, eine gut lesbare Textfarbe und höchstens eine zusätzliche Akzentfarbe.</div>
 </section>
-<section id="b2-harmonien" class="help-section" data-search="farbharmonie monochrom analog komplementär triadisch palette harmonisch">
-<span class="help-step">Band B.2 · Kapitel 2</span><h2>Farbharmonien verstehen</h2>
-<p>Eine Farbharmonie beschreibt, wie Farben zueinander ausgewählt werden. Für die tägliche Arbeit reichen vier einfache Systeme.</p>
-<div class="help-harmony-grid"><article><div class="harmony-swatch mono"><i></i><i></i><i></i><i></i></div><h3>Monochrom</h3><p>Mehrere Helligkeitsstufen einer Farbe. Sehr ruhig und sicher.</p></article><article><div class="harmony-swatch analog"><i></i><i></i><i></i><i></i></div><h3>Analog</h3><p>Benachbarte Farbtöne. Freundlich, weich und wenig konfliktgeladen.</p></article><article><div class="harmony-swatch complementary"><i></i><i></i><i></i><i></i></div><h3>Komplementär</h3><p>Gegensätzliche Farben. Hohe Aufmerksamkeit, deshalb Akzent sparsam dosieren.</p></article><article><div class="harmony-swatch triadic"><i></i><i></i><i></i><i></i></div><h3>Triadisch</h3><p>Drei deutlich getrennte Farben. Nur für bewusst lebendige Aktionsflächen.</p></article></div>
-<table class="help-table"><thead><tr><th>Ziel</th><th>Empfohlene Harmonie</th><th>Beispiel</th></tr></thead><tbody><tr><td>Vertrauen</td><td>monochrom</td><td>Dunkelblau, Mittelblau, Hellblau</td></tr><tr><td>Ruhige Lernatmosphäre</td><td>analog</td><td>Blau, Türkis, Grün</td></tr><tr><td>Starker Button</td><td>komplementär</td><td>Blau mit gelbem Akzent</td></tr><tr><td>Ferienaktion</td><td>triadisch, reduziert</td><td>Blau, Gelb, Rot nur als kleiner Hinweis</td></tr></tbody></table>
+<section id="farbharmonien" class="help-section" data-search="farbharmonie monochrom analog komplementär triadisch farbkreis palette">
+<span class="help-step">Band B.2 · Kapitel 2</span><h2>Farbharmonien verständlich auswählen</h2>
+<p>Eine Farbharmonie beschreibt, wie mehrere Farben miteinander kombiniert werden. Für Block-Kacheln sind kontrollierte, kleine Paletten besser geeignet als ein vollständiger Farbkreis.</p>
+<div class="help-harmony-grid">
+<article><div class="harmony-dots mono"><i></i><i></i><i></i><i></i></div><h3>Monochrom</h3><p>Mehrere Helligkeitsstufen derselben Farbe. Sehr ruhig und sicher.</p></article>
+<article><div class="harmony-dots analog"><i></i><i></i><i></i><i></i></div><h3>Analog</h3><p>Benachbarte Farbtöne. Harmonisch, aber lebendiger als monochrome Paletten.</p></article>
+<article><div class="harmony-dots complement"><i></i><i></i><i></i><i></i></div><h3>Komplementär</h3><p>Gegenüberliegende Farben. Hoher Kontrast; eine Farbe muss klar dominieren.</p></article>
+<article><div class="harmony-dots triad"><i></i><i></i><i></i><i></i></div><h3>Triadisch</h3><p>Drei deutlich verschiedene Farbtöne. Nur für wenige Akzente verwenden.</p></article>
+</div>
+<table class="help-table"><thead><tr><th>Harmonie</th><th>Geeignet für</th><th>Risiko</th></tr></thead><tbody><tr><td>Monochrom</td><td>Fächer- und Informationsserien</td><td>kann ohne Akzent zu ruhig wirken</td></tr><tr><td>Analog</td><td>freundliche Angebotsgruppen</td><td>Kontrast muss geprüft werden</td></tr><tr><td>Komplementär</td><td>Button gegen ruhigen Hintergrund</td><td>beide Farben dürfen nicht gleich stark sein</td></tr><tr><td>Triadisch</td><td>kleine Icons oder Kategorien</td><td>schnell zu bunt</td></tr></tbody></table>
 </section>
-<section id="b2-farbmodelle" class="help-section" data-search="hex rgb hsl farbmodell farbcode sättigung helligkeit hue alpha">
-<span class="help-step">Band B.2 · Kapitel 3</span><h2>HEX, RGB und HSL sicher verwenden</h2>
-<p>Der visuelle Editor arbeitet vor allem mit HEX-Werten. Im Expertenmodus sind auch RGB, RGBA und HSL nützlich.</p>
-<table class="help-table"><thead><tr><th>Modell</th><th>Beispiel</th><th>Geeignet für</th></tr></thead><tbody><tr><td>HEX</td><td><code>#0057A4</code></td><td>klare, feste Farben im Editor</td></tr><tr><td>RGB</td><td><code>rgb(0, 87, 164)</code></td><td>technisch identische Angabe in Rot, Grün und Blau</td></tr><tr><td>RGBA</td><td><code>rgba(0, 87, 164, .18)</code></td><td>transparente Schatten und Überlagerungen</td></tr><tr><td>HSL</td><td><code>hsl(208 100% 32%)</code></td><td>systematische Anpassung von Farbton, Sättigung und Helligkeit</td></tr></tbody></table>
-<div class="help-hsl-demo"><div><span>Farbton</span><b style="--h:208"></b><code>208°</code></div><div><span>Sättigung</span><b style="--s:100%"></b><code>100 %</code></div><div><span>Helligkeit</span><b style="--l:32%"></b><code>32 %</code></div></div>
-<pre class="help-code"><code>/* Gleicher Blauton in drei Schreibweisen */
-color: #0057A4;
-color: rgb(0, 87, 164);
-color: hsl(208 100% 32%);</code></pre>
+<section id="farbmodelle" class="help-section" data-search="hex rgb rgba hsl hsla farbcode transparenz experten css">
+<span class="help-step">Band B.2 · Kapitel 3</span><h2>HEX, RGB, RGBA und HSL</h2>
+<p>Im visuellen Editor werden Farben meist als HEX-Code gespeichert. Im Expertenmodus können zusätzlich RGB-, RGBA- und HSL-Werte sinnvoll sein.</p>
+<table class="help-table"><thead><tr><th>Schreibweise</th><th>Beispiel</th><th>Verwendung</th></tr></thead><tbody><tr><td>HEX</td><td><code>#0057A4</code></td><td>klare, feste Farbe</td></tr><tr><td>RGB</td><td><code>rgb(0, 87, 164)</code></td><td>gleiche Farbe als Rot-Grün-Blau-Wert</td></tr><tr><td>RGBA</td><td><code>rgba(0, 87, 164, .18)</code></td><td>Farbe mit Transparenz</td></tr><tr><td>HSL</td><td><code>hsl(208 100% 32%)</code></td><td>Farbton, Sättigung und Helligkeit getrennt steuern</td></tr></tbody></table>
+<pre class="help-code"><code>background: hsl(208 100% 96%);
+color: hsl(208 86% 21%);
+border-color: hsl(208 40% 78%);</code></pre>
+<div class="help-callout help-callout--info"><strong>Vorteil von HSL:</strong> Für Hover-Zustände lässt sich die Helligkeit verändern, ohne den Farbcharakter vollständig neu festzulegen.</div>
 </section>
-<section id="b2-verlaeufe" class="help-section" data-search="farbverlauf linear gradient radial gradient verlauf winkel stops experten css">
-<span class="help-step">Band B.2 · Kapitel 4</span><h2>Farbverläufe professionell gestalten</h2>
-<p>Ein Verlauf sollte aus eng verwandten Farben bestehen und die Lesbarkeit unterstützen. Harte Regenbogenverläufe wirken in Angebotskacheln meist unruhig.</p>
-<div class="help-gradient-grid"><article><div class="gradient-demo gradient-blue"></div><h3>Ruhiger Markenverlauf</h3><code>linear-gradient(135deg, #073764, #0057A4)</code></article><article><div class="gradient-demo gradient-light"></div><h3>Helle Informationsfläche</h3><code>linear-gradient(135deg, #FFFFFF, #EAF4FC)</code></article><article><div class="gradient-demo gradient-warm"></div><h3>Warme Aktion</h3><code>linear-gradient(120deg, #FFF8DC, #FFDA58)</code></article><article><div class="gradient-demo gradient-radial"></div><h3>Sanfter Lichtpunkt</h3><code>radial-gradient(circle at top right, #FFFFFF, #EAF4FC)</code></article></div>
-<pre class="help-code"><code>background: linear-gradient(135deg, #073764 0%, #0057A4 100%);
-color: #FFFFFF;</code></pre>
-<div class="help-callout help-callout--warning"><strong>Achtung:</strong> Prüfen Sie den Textkontrast an der hellsten und an der dunkelsten Stelle des Verlaufs.</div>
-</section>
-<section id="b2-transparenz" class="help-section" data-search="transparenz alpha rgba overlay hintergrund bild lesbarkeit glass">
-<span class="help-step">Band B.2 · Kapitel 5</span><h2>Transparenzen und Überlagerungen</h2>
-<p>Transparenzen eignen sich für Schatten, Bildüberlagerungen und dezente Akzentflächen. Text sollte nicht direkt auf einem unruhigen Foto stehen.</p>
-<div class="help-overlay-demo"><div class="overlay-card overlay-none"><strong>Ohne Overlay</strong><span>Text konkurriert mit dem Bild.</span></div><div class="overlay-card overlay-good"><strong>Mit Overlay</strong><span>Der Text bleibt klar lesbar.</span></div></div>
+<section id="verlaeufe" class="help-section" data-search="farbverlauf linear gradient radial gradient winkel hintergrund">
+<span class="help-step">Band B.2 · Kapitel 4</span><h2>Farbverläufe für Flächen und Akzente</h2>
+<p>Farbverläufe sollten eine Fläche strukturieren, nicht die Lesbarkeit beeinträchtigen. Für Texte ist ein ruhiger, kontrastreicher Bereich erforderlich.</p>
+<div class="help-gradient-grid">
+<article><div class="gradient-sample gradient-blue"></div><h3>Linear, ruhig</h3><code>linear-gradient(135deg,#eef7ff,#cfe8f8)</code></article>
+<article><div class="gradient-sample gradient-warm"></div><h3>Linear, warm</h3><code>linear-gradient(120deg,#fff8dc,#ffd98a)</code></article>
+<article><div class="gradient-sample gradient-radial"></div><h3>Radialer Lichtpunkt</h3><code>radial-gradient(circle at 20% 20%,#fff,#d9ecfa)</code></article>
+<article><div class="gradient-sample gradient-overlay"></div><h3>Bild-Overlay</h3><code>linear-gradient(90deg,rgba(7,55,100,.92),rgba(7,55,100,.18))</code></article>
+</div>
 <pre class="help-code"><code>background:
-  linear-gradient(rgba(7, 55, 100, .72), rgba(7, 55, 100, .72)),
-  url('/assets/img/beispiel.webp') center / cover no-repeat;
-color: #FFFFFF;</code></pre>
-<ul class="help-checklist"><li>Für Schatten reichen häufig Alpha-Werte zwischen 0,08 und 0,22.</li><li>Für Text auf Bildern sind meist 0,55 bis 0,78 nötig.</li><li>Transparenz nie als Ersatz für ausreichenden Kontrast verwenden.</li></ul>
+  linear-gradient(135deg, rgba(0,87,164,.94), rgba(7,55,100,.76)),
+  url('/assets/img/blocks/mathematik.webp') center / cover;</code></pre>
 </section>
-<section id="b2-zustaende" class="help-section" data-search="zustandsfarben hover focus aktiv deaktiviert fehler erfolg hinweis button">
-<span class="help-step">Band B.2 · Kapitel 6</span><h2>Zustandsfarben für Buttons und Hinweise</h2>
-<p>Interaktive Elemente benötigen erkennbare Zustände. Hover und Fokus dürfen sich verändern, ohne die Grundfarbe vollständig zu verlieren.</p>
-<div class="help-state-grid"><div><button class="state-default">Standard</button><code>#0057A4</code></div><div><button class="state-hover">Hover</button><code>#073764</code></div><div><button class="state-focus">Fokus</button><code>gelber Fokusrahmen</code></div><div><button class="state-disabled" disabled>Deaktiviert</button><code>reduzierte Deckkraft</code></div></div>
-<table class="help-table"><thead><tr><th>Zustand</th><th>Farbempfehlung</th><th>Zusatzsignal</th></tr></thead><tbody><tr><td>Erfolg</td><td>Grün</td><td>Häkchen und verständlicher Text</td></tr><tr><td>Hinweis</td><td>Blau</td><td>Informationssymbol</td></tr><tr><td>Warnung</td><td>Gelb/Orange</td><td>klarer Warntext</td></tr><tr><td>Fehler</td><td>Rot</td><td>Fehlerbeschreibung und Lösung</td></tr></tbody></table>
+<section id="transparenzen" class="help-section" data-search="transparenz alpha rgba overlay lesbarkeit deckkraft opacity">
+<span class="help-step">Band B.2 · Kapitel 5</span><h2>Transparenzen sicher einsetzen</h2>
+<p>Transparenz eignet sich besonders für Overlays, Schatten und dezente Rahmen. Die Eigenschaft <code>opacity</code> wirkt dagegen auf das gesamte Element einschließlich Text und sollte für Kachelhintergründe vermieden werden.</p>
+<div class="help-alpha-demo"><div class="alpha-image"><span class="alpha-overlay alpha-20">20 %</span><span class="alpha-overlay alpha-50">50 %</span><span class="alpha-overlay alpha-80">80 %</span></div></div>
+<table class="help-table"><thead><tr><th>Ziel</th><th>Empfehlung</th><th>Beispiel</th></tr></thead><tbody><tr><td>dezenter Rahmen</td><td>Alpha 0,15–0,30</td><td><code>rgba(0,87,164,.22)</code></td></tr><tr><td>Text auf Bild</td><td>Overlay 0,55–0,85</td><td><code>rgba(7,55,100,.72)</code></td></tr><tr><td>Schatten</td><td>Alpha 0,08–0,20</td><td><code>rgba(7,55,100,.14)</code></td></tr></tbody></table>
 </section>
-<section id="b2-paletten" class="help-section" data-search="praxis palette nachhilfe prüfung ferienkurs kontakt eltern online unterricht farbcodes">
-<span class="help-step">Band B.2 · Kapitel 7</span><h2>Direkt nutzbare Praxispaletten</h2>
-<div class="help-preset-grid"><article style="--c1:#073764;--c2:#0057A4;--c3:#EAF4FC;--c4:#FFDA58"><div><i></i><i></i><i></i><i></i></div><h3>Nachhilfe allgemein</h3><p>Vertrauenswürdig, sachlich und freundlich.</p><code>#073764 · #0057A4 · #EAF4FC · #FFDA58</code></article><article style="--c1:#174D2D;--c2:#2A8C56;--c3:#EFFAF3;--c4:#FFFFFF"><div><i></i><i></i><i></i><i></i></div><h3>Lernerfolg</h3><p>Positiv und entlastend.</p><code>#174D2D · #2A8C56 · #EFFAF3 · #FFFFFF</code></article><article style="--c1:#5B4300;--c2:#B86B00;--c3:#FFF8DC;--c4:#FFDA58"><div><i></i><i></i><i></i><i></i></div><h3>Ferienkurs</h3><p>Warm, aktivierend und dennoch lesbar.</p><code>#5B4300 · #B86B00 · #FFF8DC · #FFDA58</code></article><article style="--c1:#26384A;--c2:#607387;--c3:#F6F9FB;--c4:#0057A4"><div><i></i><i></i><i></i><i></i></div><h3>Kontakt und Service</h3><p>Neutral mit klarem Handlungsakzent.</p><code>#26384A · #607387 · #F6F9FB · #0057A4</code></article><article style="--c1:#4A2D65;--c2:#76509A;--c3:#F6F0FA;--c4:#FFDA58"><div><i></i><i></i><i></i><i></i></div><h3>Besonderes Angebot</h3><p>Eigenständig, aber nicht verspielt.</p><code>#4A2D65 · #76509A · #F6F0FA · #FFDA58</code></article><article style="--c1:#7A2C2C;--c2:#D3544F;--c3:#FFF3F2;--c4:#FFFFFF"><div><i></i><i></i><i></i><i></i></div><h3>Frist oder Hinweis</h3><p>Nur für tatsächlich dringliche Inhalte.</p><code>#7A2C2C · #D3544F · #FFF3F2 · #FFFFFF</code></article></div>
+<section id="zustaende" class="help-section" data-search="hover focus active disabled zustandsfarben button interaktion">
+<span class="help-step">Band B.2 · Kapitel 6</span><h2>Zustandsfarben für Buttons und Kacheln</h2>
+<p>Interaktive Elemente benötigen unterscheidbare Zustände. Ein Hover-Effekt allein reicht nicht, weil Tastaturbenutzer den Fokuszustand benötigen.</p>
+<div class="help-state-row"><button class="state-default">Standard</button><button class="state-hover">Hover</button><button class="state-focus">Fokus</button><button class="state-active">Aktiv</button><button class="state-disabled" disabled>Deaktiviert</button></div>
+<pre class="help-code"><code>.block-button { background:#0057a4; color:#fff; }
+.block-button:hover { background:#073764; }
+.block-button:focus-visible { outline:3px solid #ffda58; outline-offset:3px; }
+.block-button:active { transform:translateY(1px); }
+.block-button:disabled { background:#aab4bd; color:#fff; }</code></pre>
 </section>
-<section id="b2-pruefung" class="help-section" data-search="farbprüfung checklist kontrast farben testen mobil farbblind barrierefrei">
-<span class="help-step">Band B.2 · Kapitel 8</span><h2>Abschließende Farbprüfung</h2>
-<ol class="help-checklist"><li>Text ist auf jeder Stelle des Hintergrunds gut lesbar.</li><li>Der Button ist deutlich erkennbar, ohne den Titel zu übertreffen.</li><li>Die Palette enthält höchstens zwei kräftige Farben.</li><li>Gleiche Funktionen verwenden im gesamten Projekt dieselben Zustandsfarben.</li><li>Hover und Fokus sind auch ohne reine Farbänderung erkennbar.</li><li>Rot und Grün sind nicht die einzigen Bedeutungsträger.</li><li>Die Kachel funktioniert in Desktop-, Tablet- und Mobilvorschau.</li><li>Experten-CSS überschreibt keine unbeabsichtigten Editorfarben.</li></ol>
-<div class="help-callout help-callout--info"><strong>Abschluss von Band B.2:</strong> Speichern Sie erfolgreiche Paletten als feste Gestaltungsregeln und verwenden Sie sie wiederholt. Dadurch bleibt die Webseite konsistent.</div>
+<section id="statusfarben" class="help-section" data-search="statusfarben erfolg info warnung fehler meldung barrierefreiheit">
+<span class="help-step">Band B.2 · Kapitel 7</span><h2>Statusfarben nicht nur über Farbe vermitteln</h2>
+<p>Erfolg, Hinweis, Warnung und Fehler müssen zusätzlich durch Überschrift, Symbol oder Text erkennbar sein. Farbe allein ist keine ausreichende Information.</p>
+<div class="help-status-grid"><article class="status-success"><b>✓ Erfolg</b><p>Die Änderung wurde gespeichert.</p></article><article class="status-info"><b>i Hinweis</b><p>Prüfen Sie anschließend die Mobilansicht.</p></article><article class="status-warning"><b>! Warnung</b><p>Der Kontrast des Buttons ist möglicherweise zu niedrig.</p></article><article class="status-error"><b>× Fehler</b><p>Das Bildformat wird nicht unterstützt.</p></article></div>
+</section>
+<section id="b2-paletten" class="help-section" data-search="praxispalette nachhilfe mathematik physik chemie informatik ferienkurs kontakt gutschein">
+<span class="help-step">Band B.2 · Kapitel 8</span><h2>Direkt nutzbare Praxispaletten</h2>
+<div class="help-b2-palette-grid">
+<article style="--c1:#eef7ff;--c2:#073764;--c3:#0057a4;--c4:#ffda58"><div></div><h3>easyIT Klassisch</h3><code>#EEF7FF · #073764 · #0057A4 · #FFDA58</code><p>Hauptangebote, Beratung und allgemeine Nachhilfe.</p></article>
+<article style="--c1:#effaf3;--c2:#174d2d;--c3:#2a8c56;--c4:#dff3e7"><div></div><h3>Lernerfolg</h3><code>#EFFAF3 · #174D2D · #2A8C56 · #DFF3E7</code><p>Fortschritt, Feedback und ruhige Beratungsblöcke.</p></article>
+<article style="--c1:#fff8dc;--c2:#5b4300;--c3:#b86b00;--c4:#ffd36a"><div></div><h3>Ferienkurs</h3><code>#FFF8DC · #5B4300 · #B86B00 · #FFD36A</code><p>Aktionen, Termine und saisonale Angebote.</p></article>
+<article style="--c1:#f2effa;--c2:#3f2d68;--c3:#7151a8;--c4:#d8c9ef"><div></div><h3>Informatik</h3><code>#F2EFFA · #3F2D68 · #7151A8 · #D8C9EF</code><p>Programmierung, digitale Themen und Workshops.</p></article>
+<article style="--c1:#f3f7fa;--c2:#26384a;--c3:#4f6f86;--c4:#d7e2ea"><div></div><h3>Neutral</h3><code>#F3F7FA · #26384A · #4F6F86 · #D7E2EA</code><p>FAQ, Kontakt, organisatorische Informationen.</p></article>
+<article style="--c1:#073764;--c2:#ffffff;--c3:#ffda58;--c4:#2f6898"><div></div><h3>Hervorgehoben</h3><code>#073764 · #FFFFFF · #FFDA58 · #2F6898</code><p>Hero-Kachel oder besonders wichtiges Hauptangebot.</p></article>
+</div>
+</section>
+<section id="b2-pruefung" class="help-section" data-search="band b2 prüfung farbcheck kontrast palette mobile hover fokus">
+<span class="help-step">Band B.2 · Kapitel 9</span><h2>Abschlussprüfung der Farbgestaltung</h2>
+<ol class="help-checklist"><li>Hintergrund und Fließtext sind in allen Ansichten deutlich unterscheidbar.</li><li>Die Überschrift bleibt auch auf einem Farbverlauf klar lesbar.</li><li>Der Button besitzt einen eindeutigen Standard-, Hover- und Fokuszustand.</li><li>Kräftige Farben werden nur für wichtige Elemente eingesetzt.</li><li>Eine Kachelserie nutzt eine gemeinsame Grundpalette.</li><li>Statusmeldungen enthalten zusätzlich Text oder Symbol.</li><li>Transparente Overlays verdecken keine wesentlichen Bildinformationen.</li><li>Die Mobilansicht wurde auf einem schmalen Bildschirm geprüft.</li></ol>
+<div class="help-callout help-callout--info"><strong>Abschluss von Band B.2:</strong> Speichern Sie häufig verwendete Farbwerte als feste Projektpalette. Dadurch bleiben neue Kacheln konsistent und schneller bearbeitbar.</div>
 </section>
 
-<section id="b3-hierarchie" class="help-section" data-search="typografie hierarchie überschrift untertitel fließtext button rangfolge">
-<span class="help-step">Band B.3 · Kapitel 1</span><h2>Typografische Hierarchie</h2>
-<p>Eine Kachel muss bereits beim ersten Blick erkennen lassen, was Hauptaussage, Erklärung und Handlung ist. Die Hierarchie entsteht nicht nur durch Schriftgröße, sondern durch Größe, Gewicht, Farbe, Abstand und Position gemeinsam.</p>
-<div class="help-type-hierarchy"><article class="type-good"><small>Gut gegliedert</small><h3>Mathematik sicher verstehen</h3><p>Individuelle Unterstützung für Schule, Ausbildung und Studium.</p><a>Termin anfragen</a></article><article class="type-flat"><small>Ohne Hierarchie</small><h3>Mathematik sicher verstehen</h3><p>Individuelle Unterstützung für Schule, Ausbildung und Studium.</p><a>Termin anfragen</a></article></div>
-<table class="help-table"><thead><tr><th>Ebene</th><th>Aufgabe</th><th>Empfehlung</th></tr></thead><tbody><tr><td>Überschrift</td><td>Hauptaussage</td><td>größte Schrift, 600–800</td></tr><tr><td>Unterzeile</td><td>Einordnung</td><td>etwas kleiner, 500–600</td></tr><tr><td>Fließtext</td><td>Erklärung</td><td>ruhig, 400–500</td></tr><tr><td>Button</td><td>Handlung</td><td>kurz, 600–700</td></tr></tbody></table>
+
+<section id="b3-hierarchie" class="help-section" data-search="band b3 typografische hierarchie überschrift untertitel fließtext button rangfolge">
+<span class="help-step">Band B.3 · Kapitel 1</span><h2>Typografische Hierarchie aufbauen</h2>
+<p>Typografie steuert die Reihenfolge, in der Inhalte wahrgenommen werden. Eine Block-Kachel sollte eine klar erkennbare Hauptüberschrift, einen ruhigen Beschreibungstext und eine eindeutige Handlungsaufforderung besitzen.</p>
+<div class="help-type-hierarchy"><article><span>1</span><h3>Mathematik verständlich lernen</h3><p>Individuelle Unterstützung für Schule und Prüfung.</p><b>Termin anfragen</b></article><article class="is-flat"><span>?</span><h3>Mathematik verständlich lernen</h3><p>Individuelle Unterstützung für Schule und Prüfung.</p><b>Termin anfragen</b></article></div>
+<table class="help-table"><thead><tr><th>Rang</th><th>Element</th><th>Gestaltung</th></tr></thead><tbody><tr><td>1</td><td>Überschrift</td><td>größte Schrift, kräftiges Gewicht, kurze Aussage</td></tr><tr><td>2</td><td>Beschreibung</td><td>kleiner, ruhiger und mit guter Zeilenhöhe</td></tr><tr><td>3</td><td>Button</td><td>gut lesbar, aber nicht größer als die Überschrift</td></tr><tr><td>4</td><td>Zusatztext</td><td>kleiner und visuell zurückhaltend</td></tr></tbody></table>
 </section>
-<section id="b3-schriftwahl" class="help-section" data-search="schriftart sans serif serif monospace systemschrift google fonts lokal">
-<span class="help-step">Band B.3 · Kapitel 2</span><h2>Schriften sinnvoll auswählen</h2>
-<p>Für den Blockeditor sind gut lesbare serifenlose Schriften die sicherste Grundlage. Externe Webfonts sollten nur eingesetzt werden, wenn Datenschutz, Ladezeit und lokale Einbindung geklärt sind.</p>
-<div class="help-font-family-grid"><article class="font-sans"><h3>Sans Serif</h3><p>Klare Formen, sehr gut für Bildschirmtexte und Buttons.</p><code>Arial, Helvetica, system-ui</code></article><article class="font-serif"><h3>Serif</h3><p>Geeignet für besondere Überschriften, aber sparsam verwenden.</p><code>Georgia, Times New Roman</code></article><article class="font-mono"><h3>Monospace</h3><p>Nur für Code, technische Angaben oder kurze Spezialelemente.</p><code>Consolas, Courier New</code></article></div>
-<div class="help-callout help-callout--tip"><strong>Empfehlung:</strong> Verwenden Sie zunächst die vorhandene Systemschrift des Projekts. Dadurch bleiben Ladezeit, Datenschutz und Darstellung stabil.</div>
+<section id="b3-schriftwahl" class="help-section" data-search="schriftwahl systemschrift sans serif serif monospace datenschutz lokal google fonts">
+<span class="help-step">Band B.3 · Kapitel 2</span><h2>Geeignete Schriftarten auswählen</h2>
+<p>Für Block-Kacheln sind gut ausgebaute Systemschriften meist die robusteste Lösung. Sie laden schnell, funktionieren auf allen Geräten und benötigen keine externe Verbindung.</p>
+<div class="help-font-family-grid"><article class="font-system"><h3>System Sans</h3><p>Arial, Helvetica, Segoe UI</p><b>klar · neutral · schnell</b></article><article class="font-serif"><h3>Serifenschrift</h3><p>Georgia, Times New Roman</p><b>klassisch · redaktionell</b></article><article class="font-mono"><h3>Monospace</h3><p>Consolas, Courier New</p><b>Code · Technik · Werte</b></article></div>
+<div class="help-callout help-callout--tip"><strong>Empfehlung:</strong> Für easyIT-Nachhilfe eine klare Sans-Serif-Schrift für alle Bedienelemente verwenden. Eine Serifenschrift nur gezielt für Zitate oder redaktionelle Akzente einsetzen.</div>
 </section>
-<section id="b3-pairing" class="help-section" data-search="font pairing schriftkombination überschrift text serif sans kombination">
-<span class="help-step">Band B.3 · Kapitel 3</span><h2>Schriftkombinationen ohne Unruhe</h2>
-<p>Eine gute Kombination besteht meist aus höchstens zwei Schriftfamilien. Die Unterschiede müssen erkennbar sein, dürfen aber nicht gegeneinander arbeiten.</p>
-<div class="help-pairing-grid"><article><h3 class="pair-system">System + System</h3><p class="pair-system">Die sicherste Variante: gleiche Familie, unterschiedliche Größen und Gewichte.</p><b>Empfohlen für die gesamte Website</b></article><article><h3 class="pair-serif">Serif-Überschrift</h3><p class="pair-system">Serifenlose Beschreibung für bessere Bildschirmlesbarkeit.</p><b>Nur für besondere Hauptkacheln</b></article><article class="pairing-bad"><h3>Drei Schriften</h3><p>Zu viele Formen erzeugen Unruhe und schwächen die Wiedererkennbarkeit.</p><b>Vermeiden</b></article></div>
-<ul class="help-checklist"><li>Maximal zwei Schriftfamilien pro Seite.</li><li>Buttons und Navigation möglichst in derselben Schriftfamilie.</li><li>Unterschiede bevorzugt durch Größe und Gewicht erzeugen.</li><li>Keine dekorative Schrift für längere Texte verwenden.</li></ul>
+<section id="b3-kombinationen" class="help-section" data-search="schriftkombination font pairing überschrift text system font kombination">
+<span class="help-step">Band B.3 · Kapitel 3</span><h2>Schriftkombinationen sicher einsetzen</h2>
+<p>Eine gute Kombination unterscheidet Überschrift und Fließtext, ohne zwei konkurrierende Stile zu erzeugen. Für eine Kachel reichen gewöhnlich ein bis zwei Schriftfamilien.</p>
+<div class="help-font-pair-grid"><article><h3 style="font-family:Georgia,serif">Georgia + Arial</h3><p style="font-family:Arial,sans-serif">Klassische Überschrift mit neutralem Fließtext.</p></article><article><h3 style="font-family:'Segoe UI',Arial,sans-serif">Segoe UI + Arial</h3><p style="font-family:Arial,sans-serif">Ruhige und vollständig systembasierte Kombination.</p></article><article><h3 style="font-family:Arial,sans-serif;font-weight:800">Arial Bold + Arial</h3><p style="font-family:Arial,sans-serif">Eine Familie, aber klar durch Gewicht unterschieden.</p></article></div>
+<ul class="help-checklist"><li>Maximal zwei Schriftfamilien pro Kachelserie.</li><li>Überschrift und Text müssen auch ohne Farbe unterscheidbar sein.</li><li>Keine dekorative Schrift für längere Texte verwenden.</li><li>Externe Schriften nur lokal und datenschutzkonform einbinden.</li></ul>
 </section>
-<section id="b3-groessen" class="help-section" data-search="responsive schriftgröße clamp desktop tablet mobil titel text font size">
+<section id="b3-groessen" class="help-section" data-search="responsive schriftgrößen clamp desktop tablet mobil rem px">
 <span class="help-step">Band B.3 · Kapitel 4</span><h2>Responsive Schriftgrößen</h2>
-<p>Die Schrift darf auf kleinen Geräten nicht einfach proportional verkleinert werden. Fließtext bleibt nahezu gleich groß; vor allem Überschriften werden angepasst.</p>
-<table class="help-table"><thead><tr><th>Element</th><th>Desktop</th><th>Tablet</th><th>Smartphone</th></tr></thead><tbody><tr><td>Kacheltitel</td><td>30–40 px</td><td>26–34 px</td><td>22–30 px</td></tr><tr><td>Untertitel</td><td>20–24 px</td><td>18–22 px</td><td>18–20 px</td></tr><tr><td>Fließtext</td><td>16–18 px</td><td>16–18 px</td><td>16–17 px</td></tr><tr><td>Button</td><td>16–18 px</td><td>16–17 px</td><td>16 px</td></tr></tbody></table>
-<pre class="help-code"><code>/* Expertenmodus: fließend skalierende Überschrift */
-font-size: clamp(1.5rem, 2.4vw, 2.5rem);</code></pre>
-<div class="help-scale-demo"><span style="--fs:1.5rem">Mobil</span><span style="--fs:2rem">Tablet</span><span style="--fs:2.5rem">Desktop</span></div>
+<table class="help-table"><thead><tr><th>Element</th><th>Desktop</th><th>Tablet</th><th>Smartphone</th></tr></thead><tbody><tr><td>Kacheltitel</td><td>30–40 px</td><td>26–34 px</td><td>22–30 px</td></tr><tr><td>Fließtext</td><td>17–19 px</td><td>16–18 px</td><td>16–18 px</td></tr><tr><td>Button</td><td>16–18 px</td><td>16–18 px</td><td>16–18 px</td></tr><tr><td>Zusatztext</td><td>14–16 px</td><td>14–16 px</td><td>14–16 px</td></tr></tbody></table>
+<p>Mit <code>clamp()</code> kann eine Schriftgröße fließend zwischen einem Mindest- und Höchstwert wachsen:</p>
+<pre class="help-code"><code>.homepage-block__title {
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+}</code></pre>
+<div class="help-callout help-callout--warning"><strong>Nicht zu klein:</strong> Fließtext sollte auf Smartphones normalerweise nicht unter 16 px fallen.</div>
 </section>
-<section id="b3-zeilen" class="help-section" data-search="zeilenhöhe line height zeichenabstand letter spacing absatzbreite lesbarkeit">
-<span class="help-step">Band B.3 · Kapitel 5</span><h2>Zeilenhöhe, Zeichenabstand und Textbreite</h2>
-<div class="help-line-grid"><article class="line-tight"><h3>Zu eng</h3><p>Eine zu geringe Zeilenhöhe lässt mehrere Zeilen optisch zusammenlaufen und erschwert das Erfassen des Textes.</p></article><article class="line-good"><h3>Gut lesbar</h3><p>Eine ausgewogene Zeilenhöhe trennt die Zeilen klar, ohne den Absatz auseinanderzureißen.</p></article><article class="line-wide"><h3>Zu weit</h3><p>Eine zu große Zeilenhöhe zerstört den Zusammenhang zwischen den Zeilen und verlängert die Kachel unnötig.</p></article></div>
-<table class="help-table"><thead><tr><th>Eigenschaft</th><th>Richtwert</th><th>Hinweis</th></tr></thead><tbody><tr><td>Fließtext-Zeilenhöhe</td><td>1,45–1,7</td><td>bei 16–18 px</td></tr><tr><td>Überschrift-Zeilenhöhe</td><td>1,1–1,3</td><td>mehrzeilige Titel prüfen</td></tr><tr><td>Zeichenabstand Text</td><td>0 bis 0,02em</td><td>meist Standard beibehalten</td></tr><tr><td>Zeichenabstand Großschrift</td><td>0,03–0,08em</td><td>nur bei kurzen Labels</td></tr></tbody></table>
+<section id="b3-zeilenhoehe" class="help-section" data-search="zeilenhöhe line-height lesbarkeit eng optimal weit">
+<span class="help-step">Band B.3 · Kapitel 5</span><h2>Zeilenhöhe und Lesbarkeit</h2>
+<p>Die Zeilenhöhe bestimmt, wie leicht ein Text verfolgt werden kann. Für Fließtext ist ein Wert zwischen 1,45 und 1,7 meist gut geeignet.</p>
+<div class="help-lineheight-grid"><article class="lh-tight"><b>Zu eng · 1.1</b><p>Individuelle Nachhilfe hilft dabei, mathematische Zusammenhänge Schritt für Schritt sicher zu verstehen.</p></article><article class="lh-good"><b>Optimal · 1.55</b><p>Individuelle Nachhilfe hilft dabei, mathematische Zusammenhänge Schritt für Schritt sicher zu verstehen.</p></article><article class="lh-wide"><b>Zu weit · 2.0</b><p>Individuelle Nachhilfe hilft dabei, mathematische Zusammenhänge Schritt für Schritt sicher zu verstehen.</p></article></div>
 </section>
-<section id="b3-gewicht" class="help-section" data-search="font weight 300 400 500 600 700 800 fett kursiv hervorhebung">
-<span class="help-step">Band B.3 · Kapitel 6</span><h2>Schriftgewicht und Hervorhebung</h2>
-<div class="help-weight-list"><span style="--w:300">300 Light – nur für große, kontrastreiche Texte</span><span style="--w:400">400 Regular – normaler Fließtext</span><span style="--w:500">500 Medium – betonter Fließtext</span><span style="--w:600">600 Semibold – Untertitel und Buttons</span><span style="--w:700">700 Bold – Überschriften</span><span style="--w:800">800 Extra Bold – kurze Aktionsüberschriften</span></div>
-<div class="help-callout help-callout--warning"><strong>Nicht übertreiben:</strong> Wenn fast jeder Text fett gesetzt ist, gibt es keine erkennbare Hervorhebung mehr.</div>
+<section id="b3-zeichenabstand" class="help-section" data-search="zeichenabstand letter spacing wortabstand uppercase großbuchstaben">
+<span class="help-step">Band B.3 · Kapitel 6</span><h2>Zeichenabstand gezielt verwenden</h2>
+<p>Ein leichter Zeichenabstand kann kurze Labels und Überschriften ordnen. Bei Fließtext sollte er nahezu unverändert bleiben.</p>
+<div class="help-letterspacing-grid"><article class="ls-normal"><b>Normal</b><p>Prüfungsvorbereitung</p></article><article class="ls-open"><b>Leicht geöffnet</b><p>PRÜFUNGSVORBEREITUNG</p></article><article class="ls-too-wide"><b>Zu weit</b><p>PRÜFUNGSVORBEREITUNG</p></article></div>
+<table class="help-table"><thead><tr><th>Einsatz</th><th>Richtwert</th></tr></thead><tbody><tr><td>Fließtext</td><td>0 bis 0,02em</td></tr><tr><td>Überschrift</td><td>-0,02em bis 0,03em</td></tr><tr><td>Großbuchstaben-Label</td><td>0,05em bis 0,12em</td></tr></tbody></table>
 </section>
-<section id="b3-buttons" class="help-section" data-search="button text call to action kurz verständlich großbuchstaben link">
-<span class="help-step">Band B.3 · Kapitel 7</span><h2>Buttons und Kurztexte</h2>
-<p>Buttontexte müssen eine konkrete Handlung benennen. Ganze Sätze, unklare Formulierungen und dauerhafte Großschreibung sind zu vermeiden.</p>
-<div class="help-button-copy-grid"><article class="is-good"><h3>Geeignet</h3><button>Termin anfragen</button><button>Kurs ansehen</button><button>Rückruf vereinbaren</button></article><article class="is-bad"><h3>Ungünstig</h3><button>HIER KLICKEN</button><button>MEHR</button><button>Bitte klicken Sie hier, um fortzufahren</button></article></div>
-<ul class="help-checklist"><li>Zwei bis vier Wörter sind meist ausreichend.</li><li>Verben machen die Handlung verständlich.</li><li>Großbuchstaben nur für sehr kurze Labels.</li><li>Buttontext muss auch ohne umgebenden Absatz verständlich sein.</li></ul>
+<section id="b3-gewicht" class="help-section" data-search="schriftgewicht font weight 300 400 500 600 700 800 fett">
+<span class="help-step">Band B.3 · Kapitel 7</span><h2>Schriftgewichte richtig abstufen</h2>
+<div class="help-weight-list"><p style="font-weight:300">300 · Light – nur für große, ruhige Überschriften</p><p style="font-weight:400">400 · Normal – Fließtext</p><p style="font-weight:500">500 · Medium – leichte Hervorhebung</p><p style="font-weight:600">600 · Semibold – Buttons und Zwischenüberschriften</p><p style="font-weight:700">700 · Bold – Hauptüberschriften</p><p style="font-weight:800">800 · Extrabold – sparsame Aktionsakzente</p></div>
+<div class="help-callout help-callout--tip"><strong>Praxisregel:</strong> Fließtext 400, Button 600 und Titel 700 bilden bereits eine gut erkennbare Hierarchie.</div>
 </section>
-<section id="b3-vorlagen" class="help-section" data-search="typografie vorlage nachhilfe kurs kontakt aktion praxis css">
-<span class="help-step">Band B.3 · Kapitel 8</span><h2>Typografie-Vorlagen für typische Kacheln</h2>
-<div class="help-type-preset-grid"><article><h3>Nachhilfe-Angebot</h3><p><b>Titel:</b> 34 px / 700<br><b>Text:</b> 17 px / 400 / 1,6<br><b>Button:</b> 16 px / 700</p></article><article><h3>Ferienkurs</h3><p><b>Titel:</b> 38 px / 800<br><b>Text:</b> 18 px / 500 / 1,55<br><b>Button:</b> 17 px / 700</p></article><article><h3>Kontaktblock</h3><p><b>Titel:</b> 30 px / 700<br><b>Text:</b> 17 px / 400 / 1,65<br><b>Button:</b> 16 px / 600</p></article><article><h3>Kurzer Hinweis</h3><p><b>Label:</b> 14 px / 700 / 0,05em<br><b>Titel:</b> 28 px / 700<br><b>Text:</b> 16 px / 400</p></article></div>
+<section id="b3-buttons" class="help-section" data-search="button mikrotext call to action beschriftung termin anfragen mehr erfahren">
+<span class="help-step">Band B.3 · Kapitel 8</span><h2>Buttons und Mikrotexte</h2>
+<p>Buttontexte sollen eine konkrete Handlung benennen. Allgemeine Wörter wie „Mehr“ oder „Hier“ sind weniger verständlich als ein eindeutiger Handlungsauftrag.</p>
+<div class="help-button-copy-grid"><article class="is-good"><b>Gut</b><button>Termin anfragen</button><button>Kursdetails ansehen</button><button>Beratung vereinbaren</button></article><article class="is-bad"><b>Ungenau</b><button>Mehr</button><button>Klicken</button><button>Hier</button></article></div>
+<ul class="help-checklist"><li>Buttontext möglichst zwei bis vier Wörter.</li><li>Verben verwenden: anfragen, ansehen, vereinbaren, sichern.</li><li>Keine vollständigen Sätze in den Button schreiben.</li><li>Gleiche Handlung auf der gesamten Seite gleich benennen.</li></ul>
 </section>
-<section id="b3-pruefung" class="help-section" data-search="typografie prüfung checklist lesbarkeit mobil titel button schrift">
-<span class="help-step">Band B.3 · Kapitel 9</span><h2>Abschließende Typografieprüfung</h2>
-<ol class="help-checklist"><li>Die Hauptüberschrift ist sofort erkennbar.</li><li>Fließtext ist mindestens 16 px groß.</li><li>Zeilenhöhe und Absatzabstände erleichtern das Lesen.</li><li>Es werden höchstens zwei Schriftfamilien verwendet.</li><li>Fettschrift wird gezielt und nicht flächendeckend eingesetzt.</li><li>Buttontexte benennen eine konkrete Handlung.</li><li>Mehrzeilige Titel funktionieren auch auf Smartphones.</li><li>Experten-CSS erzeugt keine abgeschnittenen oder überlaufenden Texte.</li></ol>
-<div class="help-callout help-callout--info"><strong>Abschluss von Band B.3:</strong> Prüfen Sie die Kachel zuletzt auf einem realen Smartphone. Die Vorschau ist hilfreich, ersetzt aber nicht vollständig die reale Darstellung.</div>
+<section id="b3-vorlagen" class="help-section" data-search="typografie vorlagen hero angebot kontakt hinweis css kopieren">
+<span class="help-step">Band B.3 · Kapitel 9</span><h2>Direkt nutzbare Typografie-Vorlagen</h2>
+<div class="help-type-template-grid"><article class="type-template-hero"><small>HAUPTANGEBOT</small><h3>Nachhilfe, die Zusammenhänge erklärt</h3><p>Individuell, verständlich und mit einem klaren Lernziel.</p></article><article class="type-template-course"><small>FERIENKURS</small><h3>Mathematik intensiv</h3><p>Gezielte Vorbereitung in einer kompakten Woche.</p></article><article class="type-template-contact"><small>BERATUNG</small><h3>Gemeinsam den passenden Weg finden</h3><p>Schreiben Sie uns kurz, wobei Unterstützung gebraucht wird.</p></article><article class="type-template-info"><small>HINWEIS</small><h3>Neue Termine verfügbar</h3><p>Aktuelle freie Zeiten finden Sie in der Terminübersicht.</p></article></div>
+<pre class="help-code"><code>.homepage-block__title {
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  line-height: 1.15;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+.homepage-block__text {
+  font-size: 1.05rem;
+  line-height: 1.6;
+}</code></pre>
 </section>
-
-<section id="b4-formate" class="help-section" data-search="band b4 bildformate webp jpeg jpg png svg fotografie grafik transparenz">
-<span class="help-step">Band B.4 · Kapitel 1</span><h2>Bildformate richtig auswählen</h2>
-<p>Das Dateiformat beeinflusst Bildqualität, Transparenz und Ladezeit. Für Block-Kacheln sollte das Format nach dem tatsächlichen Inhalt gewählt werden.</p>
-<div class="help-image-format-grid"><article><b>WebP</b><p>Empfohlen für Fotos und viele Grafiken. Gute Qualität bei meist kleiner Dateigröße.</p><small>Standard für neue Kachelbilder</small></article><article><b>JPEG</b><p>Gut für Fotos ohne Transparenz. Bei wiederholtem Speichern können sichtbare Artefakte entstehen.</p><small>Solide Alternative</small></article><article><b>PNG</b><p>Geeignet für Grafiken, Logos und Bilder mit Transparenz. Für große Fotos oft unnötig schwer.</p><small>Nur bei Transparenz oder klaren Kanten</small></article><article><b>SVG</b><p>Ideal für einfache Logos und Icons. Nur aus vertrauenswürdiger Quelle verwenden und serverseitig prüfen.</p><small>Nicht als normales Fotoformat</small></article></div>
-<div class="help-callout help-callout--warning"><strong>Sicherheit:</strong> SVG-Dateien können aktiven Inhalt enthalten. Akzeptieren Sie sie nur, wenn Upload und Bereinigung im Projekt ausdrücklich abgesichert sind.</div>
-</section>
-<section id="b4-groessen" class="help-section" data-search="bildgröße auflösung dateigröße komprimierung pixel hero kachel web performance">
-<span class="help-step">Band B.4 · Kapitel 2</span><h2>Bildgröße, Auflösung und Qualität</h2>
-<table class="help-table"><thead><tr><th>Einsatz</th><th>Empfohlene Ausgangsgröße</th><th>Zielgröße Datei</th></tr></thead><tbody><tr><td>Breiter Hauptblock</td><td>1600 × 900 px</td><td>meist unter 350 KB</td></tr><tr><td>Normale Kachel</td><td>1000 × 750 px</td><td>meist unter 220 KB</td></tr><tr><td>Hochformat/Person</td><td>900 × 1200 px</td><td>meist unter 250 KB</td></tr><tr><td>Logo oder Icon</td><td>nach Bedarf</td><td>so klein wie möglich</td></tr></tbody></table>
-<ol class="help-steps"><li><strong>Passenden Ausschnitt wählen.</strong><span>Unwichtige Randbereiche vor dem Upload entfernen.</span></li><li><strong>Auf reale Anzeigegröße skalieren.</strong><span>Keine 5000-Pixel-Fotos für eine 500-Pixel-Kachel laden.</span></li><li><strong>Als WebP oder JPEG exportieren.</strong><span>Qualität so reduzieren, dass keine störenden Artefakte sichtbar sind.</span></li><li><strong>Desktop und Mobil prüfen.</strong><span>Gesicht, Produkt oder Motiv dürfen nicht ungünstig abgeschnitten werden.</span></li></ol>
-</section>
-<section id="b4-layout" class="help-section" data-search="bild links rechts oben nur bild nur text layout position block kachel">
-<span class="help-step">Band B.4 · Kapitel 3</span><h2>Bildposition im Kachellayout</h2>
-<div class="help-image-layout-grid"><article><div class="image-layout image-left"><i></i><b></b></div><h3>Bild links</h3><p>Geeignet, wenn das Motiv den Einstieg bildet und der Text danach gelesen werden soll.</p></article><article><div class="image-layout image-right"><b></b><i></i></div><h3>Bild rechts</h3><p>Geeignet für textorientierte Angebote mit unterstützendem Motiv.</p></article><article><div class="image-layout image-top"><i></i><b></b></div><h3>Bild oben</h3><p>Gut für kompakte Kartenserien und mobile Umbrüche.</p></article><article><div class="image-layout image-only"><i></i></div><h3>Nur Bild</h3><p>Nur verwenden, wenn Aussage, Linkziel und Alternativtext eindeutig sind.</p></article></div>
-<div class="help-callout help-callout--tip"><strong>Praxisregel:</strong> Zeigt eine Person in eine bestimmte Richtung, sollte ihr Blick möglichst in Richtung Text oder Button führen.</div>
-</section>
-<section id="b4-ausschnitt" class="help-section" data-search="object fit cover contain bildausschnitt skalierung abschneiden verzerren">
-<span class="help-step">Band B.4 · Kapitel 4</span><h2>Bildausschnitt mit „cover“ und „contain“</h2>
-<div class="help-fit-grid"><article><div class="fit-demo fit-cover"><i></i></div><h3>cover</h3><p>Der Bildbereich wird vollständig gefüllt. Teile des Bildes können abgeschnitten werden. Für Fotos meist die beste Wahl.</p></article><article><div class="fit-demo fit-contain"><i></i></div><h3>contain</h3><p>Das ganze Bild bleibt sichtbar. Freie Flächen können entstehen. Sinnvoll für Logos, Plakate und Produktgrafiken.</p></article><article><div class="fit-demo fit-stretch"><i></i></div><h3>Verzerrt</h3><p>Breite und Höhe werden unabhängig erzwungen. Diese Darstellung sollte vermieden werden.</p></article></div>
-<pre class="help-code"><code>/* Foto füllt den Bildbereich ohne Verzerrung */
-object-fit: cover;
-width: 100%;
-height: 100%;</code></pre>
-</section>
-<section id="b4-position" class="help-section" data-search="object position fokuspunkt bildposition gesicht mitte links rechts oben">
-<span class="help-step">Band B.4 · Kapitel 5</span><h2>Fokuspunkt und Bildposition</h2>
-<p>Bei <code>cover</code> bestimmt die Bildposition, welcher Bereich beim Zuschneiden erhalten bleibt. Der wichtigste Bildinhalt muss deshalb gezielt positioniert werden.</p>
-<div class="help-focus-grid"><article><div class="focus-demo focus-left"><span>Fokus links</span></div><code>object-position: 25% center;</code></article><article><div class="focus-demo focus-center"><span>Fokus Mitte</span></div><code>object-position: center;</code></article><article><div class="focus-demo focus-right"><span>Fokus rechts</span></div><code>object-position: 75% center;</code></article></div>
-<ul class="help-checklist"><li>Gesichter vollständig und mit ausreichendem Abstand zeigen.</li><li>Horizontlinien nicht zufällig durch Kopf oder Text laufen lassen.</li><li>Bei Mobilansicht den engeren Ausschnitt gesondert kontrollieren.</li><li>Leere Bildfläche kann bewusst für Text oder Button genutzt werden.</li></ul>
-</section>
-<section id="b4-responsive" class="help-section" data-search="responsive bilder desktop tablet smartphone mobil aspect ratio höhe umbruch">
-<span class="help-step">Band B.4 · Kapitel 6</span><h2>Responsive Bildgestaltung</h2>
-<table class="help-table"><thead><tr><th>Ansicht</th><th>Typische Anordnung</th><th>Prüfung</th></tr></thead><tbody><tr><td>Desktop</td><td>Bild und Text nebeneinander</td><td>Verhältnis und Motivschwerpunkt</td></tr><tr><td>Tablet</td><td>schmalere Spalten oder Umbruch</td><td>Titel und Button dürfen nicht gequetscht wirken</td></tr><tr><td>Smartphone</td><td>Bild meist oberhalb des Textes</td><td>Bildhöhe, Ausschnitt und Ladezeit</td></tr></tbody></table>
-<div class="help-device-image-grid"><article><b>Desktop</b><div class="device-image desktop-image"><i></i><span></span></div></article><article><b>Tablet</b><div class="device-image tablet-image"><i></i><span></span></div></article><article><b>Mobil</b><div class="device-image mobile-image"><i></i><span></span></div></article></div>
-<div class="help-callout help-callout--info"><strong>Wichtig:</strong> Eine feste Bildhöhe kann auf Desktop sinnvoll sein, muss auf kleinen Geräten aber angepasst oder durch ein Seitenverhältnis ersetzt werden.</div>
-</section>
-<section id="b4-overlays" class="help-section" data-search="overlay text auf bild gradient kontrast hintergrundbild lesbarkeit dunkel">
-<span class="help-step">Band B.4 · Kapitel 7</span><h2>Text auf Bildern und Overlays</h2>
-<p>Text darf nur dann direkt auf einem Bild liegen, wenn seine Lesbarkeit an jeder Stelle gesichert ist. Ein Verlauf oder eine halbtransparente Fläche ist zuverlässiger als ein reiner Textschatten.</p>
-<div class="help-photo-overlay-grid"><article class="photo-overlay overlay-bad"><h3>Ohne Overlay</h3><p>Der Text verschwindet in hellen und unruhigen Bildbereichen.</p></article><article class="photo-overlay overlay-gradient"><h3>Mit Verlauf</h3><p>Der dunkle Verlauf schafft eine stabile Textfläche.</p></article></div>
-<pre class="help-code"><code>background-image:
-  linear-gradient(90deg, rgba(7,55,100,.88), rgba(7,55,100,.2)),
-  url('/assets/img/beispiel.webp');</code></pre>
-</section>
-<section id="b4-alttexte" class="help-section" data-search="alt text alternativtext barrierefreiheit screenreader dekorativ bildbeschreibung seo">
-<span class="help-step">Band B.4 · Kapitel 8</span><h2>Alt-Texte und Barrierefreiheit</h2>
-<table class="help-table"><thead><tr><th>Bildart</th><th>Alt-Text</th><th>Beispiel</th></tr></thead><tbody><tr><td>Inhaltliches Foto</td><td>knapp beschreiben, was relevant ist</td><td>„Schüler löst gemeinsam mit einem Tutor eine Geometrieaufgabe“</td></tr><tr><td>Logo</td><td>Name oder Funktion</td><td>„easyIT Nachhilfe Leipzig“</td></tr><tr><td>Dekoratives Bild</td><td>leerer Alt-Text</td><td><code>alt=""</code></td></tr><tr><td>Bild mit Text</td><td>Information auch als echten Text anbieten</td><td>Aktionsdatum nicht nur im Bild zeigen</td></tr></tbody></table>
-<div class="help-callout help-callout--warning"><strong>Kein Keyword-Stapeln:</strong> Der Alternativtext beschreibt den Bildinhalt und seine Funktion. Er ist keine Liste von Suchbegriffen.</div>
-</section>
-<section id="b4-praxis" class="help-section" data-search="bild praxis nachhilfe ferienkurs team kontakt checkliste prüfen band b4">
-<span class="help-step">Band B.4 · Kapitel 9</span><h2>Praxisrezepte und Abschlussprüfung</h2>
-<div class="help-image-recipe-grid"><article><h3>Nachhilfe-Angebot</h3><p><b>Layout:</b> Bild rechts<br><b>Fit:</b> cover<br><b>Fokus:</b> Gesicht bei 65 %<br><b>Mobil:</b> Bild oben</p></article><article><h3>Ferienkurs</h3><p><b>Layout:</b> Bild oben<br><b>Fit:</b> cover<br><b>Format:</b> 4:3<br><b>Overlay:</b> keines, Text darunter</p></article><article><h3>Teamvorstellung</h3><p><b>Layout:</b> Bild links<br><b>Fit:</b> cover<br><b>Format:</b> Hochformat<br><b>Alt-Text:</b> Name und Rolle</p></article><article><h3>Gutschein</h3><p><b>Layout:</b> contain<br><b>Hintergrund:</b> neutral<br><b>Motiv:</b> vollständig sichtbar<br><b>Text:</b> als HTML, nicht im Bild</p></article></div>
-<ol class="help-checklist"><li>Format und Dateigröße passen zum Einsatzzweck.</li><li>Das Bild ist weder verzerrt noch unnötig unscharf.</li><li>Der wichtigste Motivbereich bleibt auf allen Geräten sichtbar.</li><li>Text auf dem Bild besitzt einen stabilen Kontrast.</li><li>Alt-Text beschreibt Inhalt oder Funktion korrekt.</li><li>Die mobile Bildhöhe verdeckt nicht den eigentlichen Inhalt.</li><li>Die reale Startseite wurde nach dem Speichern geprüft.</li></ol>
-<div class="help-callout help-callout--info"><strong>Abschluss Band B.4:</strong> Prüfen Sie mindestens eine breite und eine schmale Browseransicht sowie ein reales Smartphone.</div>
+<section id="b3-pruefung" class="help-section" data-search="band b3 typografie prüfung checklist mobil lesbarkeit font">
+<span class="help-step">Band B.3 · Kapitel 10</span><h2>Abschlussprüfung der Typografie</h2>
+<ol class="help-checklist"><li>Die Überschrift ist auf den ersten Blick als wichtigstes Textelement erkennbar.</li><li>Fließtext ist auf Smartphones mindestens 16 px groß.</li><li>Zeilenhöhe und Textbreite ermöglichen ruhiges Lesen.</li><li>Es werden höchstens zwei Schriftfamilien verwendet.</li><li>Schriftgewichte unterscheiden Titel, Text und Button eindeutig.</li><li>Großbuchstaben werden nur für kurze Labels genutzt.</li><li>Buttons besitzen konkrete, verständliche Handlungsbegriffe.</li><li>Desktop-, Tablet- und Mobilansicht wurden geprüft.</li></ol>
+<div class="help-callout help-callout--info"><strong>Abschluss von Band B.3:</strong> Eine gute Typografie wirkt unauffällig. Besucher lesen zuerst die Aussage und bemerken nicht die technische Gestaltung dahinter.</div>
 </section>
 
-
-<section id="b5-grundlagen" class="help-section" data-search="band b5 layout grundlagen flexbox grid karten container reihe spalte">
-<span class="help-step">Band B.5 · Kapitel 1</span><h2>Layoutgrundlagen für Block-Kacheln</h2>
-<p>Ein professionelles Kachellayout trennt die Gestaltung in zwei Ebenen: Das <strong>äußere Raster</strong> ordnet mehrere Kacheln auf der Seite an. Das <strong>innere Layout</strong> ordnet Bild, Überschrift, Text und Button innerhalb einer einzelnen Kachel.</p>
-<div class="help-layout-levels"><article><h3>Äußeres Raster</h3><div class="layout-level-demo outer-grid"><i></i><i></i><i></i></div><p>Bestimmt Spaltenzahl, Abstand und Umbruch der Kachelserie.</p></article><article><h3>Innere Kachel</h3><div class="layout-level-demo inner-card"><i></i><b></b><span></span></div><p>Bestimmt Bildposition, Textfluss und Ausrichtung des Buttons.</p></article></div>
-<div class="help-callout help-callout--tip"><strong>Grundregel:</strong> Verwenden Sie Flexbox für eindimensionale Anordnungen und CSS Grid für zweidimensionale Raster.</div>
+<section id="b4-formate" class="help-section" data-search="band b4 bildformate webp jpeg jpg png svg bildqualität dateigröße">
+<span class="help-step">Band B.4 · Kapitel 1</span><h2>Geeignete Bildformate auswählen</h2>
+<p>Das Bildformat entscheidet über Qualität, Transparenz und Ladezeit. Für fotografische Kachelbilder ist WebP meist die beste Wahl. JPEG bleibt eine kompatible Alternative. PNG eignet sich für transparente Grafiken, SVG für Logos und einfache Vektorgrafiken.</p>
+<table class="help-table"><thead><tr><th>Format</th><th>Geeignet für</th><th>Hinweis</th></tr></thead><tbody><tr><td>WebP</td><td>Fotos, Banner, Kacheln</td><td>gute Qualität bei kleiner Datei</td></tr><tr><td>JPEG</td><td>Fotos</td><td>keine Transparenz</td></tr><tr><td>PNG</td><td>Freisteller, Screenshots</td><td>häufig größere Dateien</td></tr><tr><td>SVG</td><td>Logos, Icons</td><td>nur aus vertrauenswürdiger Quelle</td></tr></tbody></table>
+<div class="help-callout help-callout--tip"><strong>Empfehlung:</strong> Fotos als WebP exportieren, Logos als SVG oder transparentes PNG verwenden.</div>
 </section>
-<section id="b5-flexbox" class="help-section" data-search="flexbox display flex direction gap justify content align items wrap">
-<span class="help-step">Band B.5 · Kapitel 2</span><h2>Flexbox für Bild-Text-Kacheln</h2>
-<p>Flexbox eignet sich besonders, wenn Elemente in einer Reihe oder Spalte angeordnet werden. Für eine Kachel mit Bild links und Text rechts ist es meist die einfachste Lösung.</p>
-<div class="help-flex-demo-grid"><article><h3>Reihe</h3><div class="flex-demo flex-row-demo"><i></i><b></b></div><code>display:flex; flex-direction:row;</code></article><article><h3>Spalte</h3><div class="flex-demo flex-column-demo"><i></i><b></b></div><code>display:flex; flex-direction:column;</code></article><article><h3>Umbruch</h3><div class="flex-demo flex-wrap-demo"><i></i><i></i><i></i><i></i></div><code>display:flex; flex-wrap:wrap;</code></article></div>
-<table class="help-table"><thead><tr><th>Eigenschaft</th><th>Aufgabe</th><th>Typischer Wert</th></tr></thead><tbody><tr><td><code>gap</code></td><td>Abstand zwischen Elementen</td><td><code>1.5rem</code></td></tr><tr><td><code>justify-content</code></td><td>Ausrichtung entlang der Hauptachse</td><td><code>space-between</code></td></tr><tr><td><code>align-items</code></td><td>Ausrichtung entlang der Querachse</td><td><code>stretch</code> oder <code>center</code></td></tr><tr><td><code>flex-wrap</code></td><td>Erlaubt den Zeilenumbruch</td><td><code>wrap</code></td></tr></tbody></table>
-<pre class="help-code"><code>.block-card {
+<section id="b4-groessen" class="help-section" data-search="bildgröße pixel dateigröße hero kachel smartphone komprimierung">
+<span class="help-step">Band B.4 · Kapitel 2</span><h2>Bildgrößen und Dateigewicht planen</h2>
+<table class="help-table"><thead><tr><th>Einsatz</th><th>Empfohlene Abmessung</th><th>Zielgröße</th></tr></thead><tbody><tr><td>breite Hero-Kachel</td><td>1600 × 900 px</td><td>etwa 150–350 KB</td></tr><tr><td>normale Inhaltskachel</td><td>1200 × 800 px</td><td>etwa 100–250 KB</td></tr><tr><td>kleine Kartenansicht</td><td>800 × 600 px</td><td>etwa 70–180 KB</td></tr><tr><td>Icon oder Logo</td><td>SVG oder 256–512 px</td><td>möglichst unter 100 KB</td></tr></tbody></table>
+<p>Ein Bild sollte nicht wesentlich größer ausgeliefert werden, als es im Layout angezeigt wird. Überdimensionierte Dateien verlängern die Ladezeit, ohne sichtbar mehr Qualität zu liefern.</p>
+</section>
+<section id="b4-position" class="help-section" data-search="bild links rechts oben nur bild nur text position layout">
+<span class="help-step">Band B.4 · Kapitel 3</span><h2>Bildposition passend zum Inhalt wählen</h2>
+<div class="help-image-layout-grid"><article><div class="mini-image"></div><div><h3>Bild links</h3><p>Geeignet für sachliche Angebots- und Informationskacheln.</p></div></article><article class="is-right"><div class="mini-image"></div><div><h3>Bild rechts</h3><p>Der Text beginnt sofort und führt anschließend zum Bild.</p></div></article><article class="is-top"><div class="mini-image"></div><div><h3>Bild oben</h3><p>Gut für Kartenserien, News und Kursangebote.</p></div></article></div>
+<p>Bei mehreren Kacheln derselben Reihe sollte die Bildposition einheitlich bleiben. Wechselnde Positionen sind nur sinnvoll, wenn dadurch eine bewusst gestaltete Abfolge entsteht.</p>
+</section>
+<section id="b4-ausschnitt" class="help-section" data-search="object fit cover contain object position bildausschnitt fokuspunkt">
+<span class="help-step">Band B.4 · Kapitel 4</span><h2>Bildausschnitt mit cover und contain steuern</h2>
+<div class="help-fit-grid"><article><div class="fit-demo fit-cover"><span>cover</span></div><p>Füllt die Fläche vollständig. Randbereiche dürfen abgeschnitten werden.</p></article><article><div class="fit-demo fit-contain"><span>contain</span></div><p>Zeigt das vollständige Bild. Freie Flächen können sichtbar bleiben.</p></article></div>
+<pre class="help-code"><code>.homepage-block__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 35%;
+}</code></pre>
+<p>Mit <code>object-position</code> lässt sich der Fokuspunkt verschieben. Bei Porträts sollte das Gesicht in allen Ansichten sichtbar bleiben.</p>
+</section>
+<section id="b4-responsive" class="help-section" data-search="responsive bilder desktop tablet mobil aspect ratio höhe">
+<span class="help-step">Band B.4 · Kapitel 5</span><h2>Responsive Bilder gestalten</h2>
+<table class="help-table"><thead><tr><th>Ansicht</th><th>Empfehlung</th></tr></thead><tbody><tr><td>Desktop</td><td>Bild und Text nebeneinander; feste Mindesthöhe vermeiden.</td></tr><tr><td>Tablet</td><td>Verhältnis prüfen; bei wenig Platz Bildanteil reduzieren.</td></tr><tr><td>Smartphone</td><td>Bild meist oberhalb des Textes; Höhe begrenzen und Fokuspunkt kontrollieren.</td></tr></tbody></table>
+<pre class="help-code"><code>@media (max-width: 700px) {
+  .homepage-block { grid-template-columns: 1fr; }
+  .homepage-block__image { aspect-ratio: 16 / 9; }
+}</code></pre>
+</section>
+<section id="b4-overlays" class="help-section" data-search="overlay text auf bild gradient kontrast lesbarkeit">
+<span class="help-step">Band B.4 · Kapitel 6</span><h2>Text auf Bildern mit Overlays absichern</h2>
+<div class="help-overlay-demo"><div><small>PRÜFUNGSVORBEREITUNG</small><h3>Konzentriert zum Ziel</h3><p>Ein dunkler Verlauf schafft eine ruhige Textfläche.</p></div></div>
+<pre class="help-code"><code>.homepage-block--image-text::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(7,55,100,.92), rgba(7,55,100,.15));
+}</code></pre>
+<div class="help-callout help-callout--warning"><strong>Wichtig:</strong> Ein Overlay ersetzt keine Kontrastprüfung. Text muss auch über hellen Bildbereichen lesbar bleiben.</div>
+</section>
+<section id="b4-alttexte" class="help-section" data-search="alt text barrierefreiheit bildbeschreibung dekorativ leer">
+<span class="help-step">Band B.4 · Kapitel 7</span><h2>Alt-Texte verständlich formulieren</h2>
+<p>Alt-Texte beschreiben die Information des Bildes, nicht jede sichtbare Einzelheit. Ein rein dekoratives Bild erhält einen leeren Alt-Text, damit Screenreader es überspringen.</p>
+<div class="help-compare-grid"><div class="help-compare help-compare--bad"><span>Ungünstig</span><div><p><code>alt="Bild123"</code></p><p>Ohne Information für den Nutzer.</p></div></div><div class="help-compare help-compare--good"><span>Gut</span><div><p><code>alt="Schüler löst mit seinem Lehrer eine Geometrieaufgabe"</code></p><p>Beschreibt Zweck und Inhalt knapp.</p></div></div></div>
+</section>
+<section id="b4-praxis" class="help-section" data-search="bild praxis rezept nachhilfe ferienkurs team gutschein">
+<span class="help-step">Band B.4 · Kapitel 8</span><h2>Praxisrezepte für typische Blockarten</h2>
+<div class="help-recipe-grid"><article><h3>Nachhilfe-Angebot</h3><p>Bild links, <code>cover</code>, Fokus auf Lernmaterial und Person, ruhiger Hintergrund.</p></article><article><h3>Ferienkurs</h3><p>Breites Bild oben, kurze Überschrift, farbiger Termin-Sticker.</p></article><article><h3>Teamvorstellung</h3><p>Porträt im Verhältnis 4:5, Fokuspunkt auf Augenhöhe, neutraler Hintergrund.</p></article><article><h3>Gutschein</h3><p>Grafisches Motiv mit <code>contain</code>, damit Ränder und Schrift vollständig sichtbar bleiben.</p></article></div>
+</section>
+<section id="b4-fehler" class="help-section" data-search="bild fehler unscharf verzerrt abgeschnitten lädt nicht langsam">
+<span class="help-step">Band B.4 · Kapitel 9</span><h2>Häufige Bildprobleme beheben</h2>
+<table class="help-table"><thead><tr><th>Problem</th><th>Ursache</th><th>Lösung</th></tr></thead><tbody><tr><td>Bild ist verzerrt</td><td>Breite und Höhe werden unabhängig erzwungen</td><td><code>object-fit</code> und korrektes Seitenverhältnis verwenden</td></tr><tr><td>Gesicht abgeschnitten</td><td>Fokuspunkt liegt falsch</td><td><code>object-position</code> anpassen</td></tr><tr><td>Bild wirkt unscharf</td><td>Quelldatei ist zu klein</td><td>größere Ausgangsdatei exportieren</td></tr><tr><td>Ladezeit ist hoch</td><td>Datei zu groß oder ungeeignetes Format</td><td>WebP und Komprimierung verwenden</td></tr><tr><td>Bild fehlt</td><td>Pfad oder Dateiname fehlerhaft</td><td>Upload, Groß-/Kleinschreibung und URL kontrollieren</td></tr></tbody></table>
+</section>
+<section id="b4-pruefung" class="help-section" data-search="band b4 bildprüfung checklist responsive alt text performance">
+<span class="help-step">Band B.4 · Kapitel 10</span><h2>Abschlussprüfung der Bildgestaltung</h2>
+<ol class="help-checklist"><li>Das Bildformat passt zu Foto, Logo oder Grafik.</li><li>Dateigröße und Pixelmaße sind angemessen.</li><li>Der wichtigste Bildbereich bleibt auf Desktop, Tablet und Smartphone sichtbar.</li><li><code>cover</code> oder <code>contain</code> wurde bewusst gewählt.</li><li>Text auf Bildern besitzt ausreichenden Kontrast.</li><li>Informative Bilder haben einen verständlichen Alt-Text.</li><li>Dekorative Bilder werden von Screenreadern übersprungen.</li><li>Das Bild ist nicht verzerrt und verursacht kein horizontales Scrollen.</li></ol>
+<div class="help-callout help-callout--info"><strong>Abschluss von Band B.4:</strong> Gute Bilder unterstützen die Aussage der Kachel. Sie ersetzen weder eine klare Überschrift noch eine verständliche Handlungsaufforderung.</div>
+</section>
+
+<section id="b5-grundlagen" class="help-section" data-search="band b5 layout grundlagen flexbox grid karten äußeres raster inneres layout">
+<span class="help-step">Band B.5 · Kapitel 1</span><h2>Äußeres Raster und inneres Kachellayout trennen</h2>
+<p>Für stabile Seiten werden zwei Ebenen getrennt geplant: Das <strong>äußere Raster</strong> ordnet mehrere Kacheln auf der Seite. Das <strong>innere Layout</strong> ordnet Bild, Text und Button innerhalb einer einzelnen Kachel.</p>
+<div class="help-layout-levels"><article><b>Äußeres Raster</b><div class="layout-mini-grid"><i></i><i></i><i></i></div><p>Bestimmt Spaltenzahl, Zwischenräume und Umbruch.</p></article><article><b>Inneres Layout</b><div class="layout-mini-card"><i></i><span></span></div><p>Bestimmt Bildposition, Textbreite und Buttonausrichtung.</p></article></div>
+<div class="help-callout help-callout--tip"><strong>Praxisregel:</strong> Verwenden Sie Grid für die Kachelserie und Flexbox oder Grid innerhalb der einzelnen Kachel.</div>
+</section>
+<section id="b5-flexbox" class="help-section" data-search="flexbox display flex row column bild text nebeneinander">
+<span class="help-step">Band B.5 · Kapitel 2</span><h2>Flexbox für Bild-Text-Anordnungen</h2>
+<p>Flexbox eignet sich besonders für eindimensionale Anordnungen: Bild und Text nebeneinander oder untereinander.</p>
+<div class="help-flex-demo"><article class="flex-row-demo"><i></i><div><b>Bild links</b><p>Textbereich wächst flexibel.</p></div></article><article class="flex-column-demo"><i></i><div><b>Bild oben</b><p>Für schmale und mobile Ansichten.</p></div></article></div>
+<pre class="help-code"><code>.homepage-block {
   display: flex;
   gap: 1.5rem;
   align-items: stretch;
 }
-.block-card__image { flex: 0 0 42%; }
-.block-card__content { flex: 1 1 auto; }</code></pre>
+.homepage-block__image { flex: 0 0 40%; }
+.homepage-block__content { flex: 1 1 auto; }</code></pre>
 </section>
-<section id="b5-grid" class="help-section" data-search="css grid template columns auto fit minmax gap raster kacheln">
-<span class="help-step">Band B.5 · Kapitel 3</span><h2>CSS Grid für Kachelserien</h2>
-<p>CSS Grid ordnet mehrere Kacheln zuverlässig in Spalten und Zeilen. Besonders praktisch ist ein automatisches Raster mit <code>auto-fit</code> und <code>minmax()</code>.</p>
-<div class="help-grid-demo"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-<pre class="help-code"><code>.block-grid {
+<section id="b5-flex-details" class="help-section" data-search="gap justify-content align-items flex-wrap flex-grow flex-basis">
+<span class="help-step">Band B.5 · Kapitel 3</span><h2>Wichtige Flexbox-Eigenschaften</h2>
+<table class="help-table"><thead><tr><th>Eigenschaft</th><th>Wirkung</th><th>Typischer Einsatz</th></tr></thead><tbody><tr><td><code>gap</code></td><td>Abstand zwischen Flex-Elementen</td><td>Bild-Text-Abstand</td></tr><tr><td><code>justify-content</code></td><td>Verteilung entlang der Hauptachse</td><td>Button unten oder Elemente zentrieren</td></tr><tr><td><code>align-items</code></td><td>Ausrichtung quer zur Hauptachse</td><td>gleiche Höhe oder vertikale Zentrierung</td></tr><tr><td><code>flex-wrap</code></td><td>Umbruch in neue Zeile</td><td>mehrere kleine Karten</td></tr><tr><td><code>flex-basis</code></td><td>bevorzugte Ausgangsbreite</td><td>Bildanteil 35–45 %</td></tr></tbody></table>
+<div class="help-callout help-callout--warning"><strong>Nicht erzwingen:</strong> Vermeiden Sie starre Pixelbreiten für Bild und Text. Flexible Prozent- oder <code>flex-basis</code>-Werte reagieren besser auf Tablets.</div>
+</section>
+<section id="b5-grid" class="help-section" data-search="css grid auto-fit minmax spalten raster kacheln">
+<span class="help-step">Band B.5 · Kapitel 4</span><h2>CSS Grid für responsive Kachelserien</h2>
+<p>CSS Grid ordnet mehrere Kacheln in Zeilen und Spalten. Mit <code>auto-fit</code> und <code>minmax()</code> passt sich die Spaltenzahl automatisch an den verfügbaren Platz an.</p>
+<div class="help-grid-live"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+<pre class="help-code"><code>.homepage-block-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
 }</code></pre>
-<ul class="help-checklist"><li>Die Mindestbreite verhindert zu schmale Kacheln.</li><li><code>1fr</code> verteilt freien Platz gleichmäßig.</li><li><code>auto-fit</code> reduziert die Spaltenzahl automatisch.</li><li>Der Abstand bleibt auf allen Bildschirmgrößen konsistent.</li></ul>
+<p>Der Mindestwert von 280 px verhindert zu schmale Karten. Der Wert <code>1fr</code> verteilt den übrigen Raum gleichmäßig.</p>
 </section>
-<section id="b5-karten" class="help-section" data-search="kartenlayout card header body footer button bild text struktur">
-<span class="help-step">Band B.5 · Kapitel 4</span><h2>Professionelle Kartenlayouts</h2>
-<p>Eine robuste Kachel besteht aus klar getrennten Bereichen. Dadurch bleiben Bild, Inhalt und Handlungsfläche auch bei unterschiedlich langen Texten beherrschbar.</p>
-<div class="help-card-anatomy"><div class="card-anatomy-image">Bildbereich</div><div class="card-anatomy-body"><b>Überschrift</b><span>Fließtext und Zusatzinformationen</span></div><div class="card-anatomy-footer">Buttonbereich</div></div>
+<section id="b5-kartenaufbau" class="help-section" data-search="karte card header bild content footer button struktur">
+<span class="help-step">Band B.5 · Kapitel 5</span><h2>Professioneller Kartenaufbau</h2>
+<p>Eine robuste Karte besitzt klar getrennte Bereiche für Bild, Inhalt und Aktion.</p>
+<div class="help-card-anatomy"><div class="card-anatomy-image">Bild</div><div class="card-anatomy-content"><small>KATEGORIE</small><h3>Kartentitel</h3><p>Kurzer Erklärungstext mit einer klaren Aussage.</p></div><div class="card-anatomy-footer">Handlungsbutton</div></div>
 <pre class="help-code"><code>.card {
-  display: grid;
-  grid-template-rows: auto 1fr auto;
+  display: flex;
+  flex-direction: column;
 }
-.card__footer {
-  margin-top: auto;
+.card__content { flex: 1 1 auto; }
+.card__footer { margin-top: auto; }</code></pre>
+</section>
+<section id="b5-gleiche-hoehen" class="help-section" data-search="gleiche höhen karten buttons unten stretch min-height">
+<span class="help-step">Band B.5 · Kapitel 6</span><h2>Gleiche Kartenhöhen und ausgerichtete Buttons</h2>
+<p>In einer Kachelreihe sollen Buttons auch bei unterschiedlich langen Texten auf derselben Grundlinie stehen. Das gelingt ohne feste Höhe, indem der Inhaltsbereich wächst und der Footer nach unten gedrückt wird.</p>
+<div class="help-equal-card-grid"><article><h3>Kurzer Titel</h3><p>Kurzer Text.</p><b>Mehr erfahren</b></article><article><h3>Etwas längerer Titel für ein Angebot</h3><p>Mehr Text zeigt, dass der Button trotzdem unten auf gleicher Höhe bleibt.</p><b>Details ansehen</b></article><article><h3>Dritte Karte</h3><p>Mittellanger Inhalt mit derselben Kartenstruktur.</p><b>Termin anfragen</b></article></div>
+<div class="help-callout help-callout--tip"><strong>Besser als feste Höhe:</strong> Nutzen Sie <code>display:flex</code>, <code>flex-direction:column</code> und <code>margin-top:auto</code> am Footer.</div>
+</section>
+<section id="b5-responsive" class="help-section" data-search="responsive breakpoint desktop tablet smartphone grid spalten">
+<span class="help-step">Band B.5 · Kapitel 7</span><h2>Responsive Raster planen</h2>
+<table class="help-table"><thead><tr><th>Ansicht</th><th>Typische Spaltenzahl</th><th>Hinweis</th></tr></thead><tbody><tr><td>Desktop ab ca. 1100 px</td><td>3</td><td>nur bei ausreichend breiten Karten</td></tr><tr><td>Tablet 700–1099 px</td><td>2</td><td>Bildanteile und Textumbrüche prüfen</td></tr><tr><td>Smartphone unter 700 px</td><td>1</td><td>Karten vollständig untereinander</td></tr></tbody></table>
+<pre class="help-code"><code>@media (max-width: 700px) {
+  .homepage-block-grid { grid-template-columns: 1fr; }
+  .homepage-block { flex-direction: column; }
 }</code></pre>
-<div class="help-callout help-callout--info"><strong>Vorteil:</strong> Der Button bleibt am unteren Rand, auch wenn die Texte der Kacheln unterschiedlich lang sind.</div>
 </section>
-<section id="b5-hoehen" class="help-section" data-search="gleiche höhen karten stretch button unten min height textlänge">
-<span class="help-step">Band B.5 · Kapitel 5</span><h2>Gleiche Höhen und ruhige Kachelreihen</h2>
-<div class="help-equal-height-grid"><article><h3>Uneinheitlich</h3><div class="unequal-cards"><i></i><i></i><i></i></div><p>Unterschiedliche Höhen erzeugen eine unruhige Unterkante.</p></article><article><h3>Einheitlich</h3><div class="equal-cards"><i></i><i></i><i></i></div><p>Grid und <code>height:100%</code> halten die Reihe zusammen.</p></article></div>
-<ul class="help-checklist"><li>Keine feste Gesamthöhe erzwingen, wenn Inhalte stark variieren.</li><li>Mit Mindesthöhe nur eine optische Untergrenze setzen.</li><li>Textlängen redaktionell begrenzen.</li><li>Buttons über ein flexibles Mittelteil nach unten schieben.</li></ul>
-</section>
-<section id="b5-breakpoints" class="help-section" data-search="responsive raster breakpoint desktop tablet mobil media query spalten">
-<span class="help-step">Band B.5 · Kapitel 6</span><h2>Responsive Raster und Breakpoints</h2>
-<table class="help-table"><thead><tr><th>Ansicht</th><th>Empfehlung</th><th>Typische Spalten</th></tr></thead><tbody><tr><td>Großer Desktop</td><td>breiter Container, großzügiger Abstand</td><td>3–4</td></tr><tr><td>Notebook/Tablet quer</td><td>mittlerer Abstand</td><td>2–3</td></tr><tr><td>Tablet hoch</td><td>breite Kacheln</td><td>2</td></tr><tr><td>Smartphone</td><td>volle Breite, Bild oben</td><td>1</td></tr></tbody></table>
-<pre class="help-code"><code>@media (max-width: 760px) {
-  .block-card {
-    flex-direction: column;
-  }
-  .block-card__image {
-    flex-basis: auto;
-  }
-}</code></pre>
-<div class="help-callout help-callout--warning"><strong>Keine Gerätejagd:</strong> Breakpoints sollten dort gesetzt werden, wo das Layout sichtbar zu eng wird – nicht nach einzelnen Gerätemodellen.</div>
-</section>
-<section id="b5-overlays" class="help-section" data-search="overlay position absolute relative z index badge sticker ebenen">
-<span class="help-step">Band B.5 · Kapitel 7</span><h2>Overlays, Sticker und Ebenen</h2>
-<p>Sticker, Badges und Textflächen können über einem Bild liegen. Dafür braucht die Kachel einen positionierten Bezugspunkt und klar definierte Ebenen.</p>
-<div class="help-layer-demo"><div class="layer-image"></div><div class="layer-overlay"></div><span class="layer-badge">NEU</span><b>Prüfungsvorbereitung</b></div>
-<pre class="help-code"><code>.card { position: relative; overflow: hidden; }
+<section id="b5-overlays" class="help-section" data-search="overlay sticker badge position absolute z-index ebenen">
+<span class="help-step">Band B.5 · Kapitel 8</span><h2>Overlays, Sticker und Ebenen</h2>
+<p>Sticker und Text-Overlays liegen über Bild oder Kachel. Der umschließende Block benötigt dafür <code>position: relative</code>; das Overlay wird absolut positioniert.</p>
+<div class="help-layer-demo"><span class="layer-badge">NEU</span><div><small>FERIENKURS</small><h3>Intensivwoche Mathematik</h3><p>Overlay und Text bleiben klar getrennt.</p></div></div>
+<pre class="help-code"><code>.card { position: relative; }
 .card__badge {
   position: absolute;
   top: 1rem;
   right: 1rem;
   z-index: 2;
 }</code></pre>
-<ul class="help-checklist"><li>Der Sticker verdeckt kein Gesicht und keinen wichtigen Bildinhalt.</li><li><code>z-index</code> nur innerhalb klarer Komponenten verwenden.</li><li>Interaktive Elemente dürfen nicht von einem Overlay blockiert werden.</li><li>Textkontrast trotz Bild und Overlay prüfen.</li></ul>
+<div class="help-callout help-callout--warning"><strong>Lesbarkeit:</strong> Overlays dürfen weder wichtige Bildbereiche noch Überschrift oder Button verdecken.</div>
 </section>
-<section id="b5-praxis" class="help-section" data-search="praxis flexbox grid nachhilfe kurse team faq kontakt layouts">
-<span class="help-step">Band B.5 · Kapitel 8</span><h2>Praxisrezepte für typische Seitenbereiche</h2>
-<div class="help-layout-recipe-grid"><article><h3>Fächerübersicht</h3><p><b>Außen:</b> Grid mit <code>minmax(240px,1fr)</code><br><b>Innen:</b> Bild oben<br><b>Button:</b> unten ausgerichtet</p></article><article><h3>Nachhilfe-Angebot</h3><p><b>Außen:</b> ein breiter Block<br><b>Innen:</b> Flexbox 42/58<br><b>Mobil:</b> Bild oberhalb</p></article><article><h3>Teamkarten</h3><p><b>Außen:</b> 3-Spalten-Grid<br><b>Bild:</b> einheitliches Hochformat<br><b>Höhe:</b> gestreckt</p></article><article><h3>FAQ-Teaser</h3><p><b>Außen:</b> 2-Spalten-Grid<br><b>Innen:</b> nur Text<br><b>Aktion:</b> Link am unteren Rand</p></article></div>
+<section id="b5-praxis" class="help-section" data-search="praxis rezept fächer angebote team faq flex grid">
+<span class="help-step">Band B.5 · Kapitel 9</span><h2>Praxisrezepte für typische Kartenlayouts</h2>
+<div class="help-recipe-grid"><article><h3>Fächerübersicht</h3><p>Grid mit <code>minmax(240px,1fr)</code>, vier gleichartige Fachkarten, Icon oben.</p></article><article><h3>Angebotskarten</h3><p>Drei Karten mit Bild, Inhalt und Footer; Buttons mit <code>margin-top:auto</code>.</p></article><article><h3>Teamkarten</h3><p>Porträt oben, Name und Fachgebiet, Kontaktaktion im Footer.</p></article><article><h3>FAQ-Kacheln</h3><p>Einspaltiges Layout; Frage als Kopf, Antwortbereich flexibel darunter.</p></article></div>
 </section>
-<section id="b5-pruefung" class="help-section" data-search="layout prüfung checkliste band b5 flex grid responsive">
-<span class="help-step">Band B.5 · Kapitel 9</span><h2>Abschlussprüfung für Kartenlayouts</h2>
-<ol class="help-checklist"><li>Die Kachelserie besitzt auf Desktop eine klare Spaltenordnung.</li><li>Keine Kachel wird schmaler als ihr Inhalt sinnvoll zulässt.</li><li>Bild, Text und Button besitzen eine erkennbare Hierarchie.</li><li>Buttons stehen in gleichartigen Kacheln auf einer ruhigen Linie.</li><li>Bei Tabletbreite entsteht kein überfülltes Zwischenlayout.</li><li>Auf Smartphones wird jede Kachel einspaltig und vollständig lesbar.</li><li>Overlays verdecken keine Bedien- oder Bildinhalte.</li><li>Es entsteht nirgends horizontales Scrollen.</li></ol>
-<div class="help-callout help-callout--info"><strong>Abschluss Band B.5:</strong> Prüfen Sie die Seite bei mehreren frei gewählten Browserbreiten und nicht nur mit drei festen Vorschauknöpfen.</div>
+<section id="b5-pruefung" class="help-section" data-search="band b5 layout prüfung checklist flexbox grid responsive">
+<span class="help-step">Band B.5 · Kapitel 10</span><h2>Abschlussprüfung für Kartenlayouts</h2>
+<ol class="help-checklist"><li>Äußeres Seitenraster und inneres Kachellayout sind getrennt definiert.</li><li>Karten werden nicht durch starre Breiten oder Höhen eingeschränkt.</li><li>Zwischenräume werden über <code>gap</code> statt über zufällige Einzelabstände gesteuert.</li><li>Buttons stehen in vergleichbaren Karten auf derselben Grundlinie.</li><li>Grid-Karten unterschreiten keine sinnvolle Mindestbreite.</li><li>Auf Smartphones wird zuverlässig auf eine Spalte umgebrochen.</li><li>Overlays besitzen eine klare Ebene und verdecken keine Inhalte.</li><li>Desktop-, Tablet- und Mobilansicht wurden ohne horizontales Scrollen geprüft.</li></ol>
+<div class="help-callout help-callout--info"><strong>Abschluss von Band B.5:</strong> Ein gutes Kartenlayout bleibt flexibel. Es ordnet Inhalte klar, ohne sie in starre Größen zu zwingen.</div>
 </section>
 
 </article></div>

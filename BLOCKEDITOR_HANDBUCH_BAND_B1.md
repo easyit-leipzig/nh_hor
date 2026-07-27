@@ -14,3 +14,7 @@ Band B.1 ist in `admin/homepage_blocks_help.php` integriert und baut unmittelbar
 8. Praxisprüfung für Kachelserien
 
 Die bestehende Volltextsuche und Kapitelnavigation erfassen auch sämtliche Inhalte von Band B.1.
+
+## Lieferstand
+
+Dieser Stand wurde als **Band B – Phase 1** neu auf Basis des vollständigen Band-A-Archivs aufgebaut. Die Erweiterung ist direkt in das bestehende Admin-Handbuch integriert.

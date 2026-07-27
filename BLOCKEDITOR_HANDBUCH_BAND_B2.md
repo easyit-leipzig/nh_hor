@@ -1,16 +1,33 @@
-# Blockeditor-Handbuch – Band B.2
+# Blockeditor-Handbuch – Band B, Phase 2
 
-Band B.2 ist vollständig in `admin/homepage_blocks_help.php` integriert und baut auf Band A sowie Band B.1 auf.
+## Thema
 
-## Enthaltene Kapitel
+Farbtheorie, Farbpaletten, Farbverläufe und Transparenzen für die Homepage-Block-Kacheln.
 
-1. Farbwirkung und sinnvoller Einsatz einzelner Farbfamilien
-2. Monochrome, analoge, komplementäre und triadische Farbharmonien
+## Tatsächlich integrierte Kapitel
+
+1. Farbwirkung
+2. Farbharmonien
 3. HEX, RGB, RGBA und HSL
 4. Lineare und radiale Farbverläufe
-5. Transparenzen und Bildüberlagerungen
-6. Zustandsfarben für Hover, Fokus, Erfolg, Hinweis, Warnung und Fehler
-7. Sechs direkt nutzbare Praxispaletten
-8. Abschließende Farb- und Kontrastprüfung
+5. Transparenzen und Overlays
+6. Zustandsfarben für Standard, Hover, Fokus, Aktiv und Deaktiviert
+7. Statusfarben für Erfolg, Hinweis, Warnung und Fehler
+8. Sechs direkt nutzbare Praxispaletten
+9. Abschlussprüfung der Farbgestaltung
 
-Die bestehende Kapitelnavigation und Volltextsuche wurden um alle Inhalte von Band B.2 erweitert.
+## Geänderte Dateien
+
+- `admin/homepage_blocks_help.php`
+- `assets/css/homepage-block-help.css`
+
+## Aufruf
+
+Im Adminbereich die Blockverwaltung öffnen und dort die detaillierte Bedienungsanleitung aufrufen.
+
+## Testhinweise
+
+- Navigationseinträge B.2.1 bis B.2.9 anklicken.
+- Suchbegriffe wie `HSL`, `Farbverlauf`, `Transparenz`, `Hover` und `Statusfarbe` prüfen.
+- Darstellung auf Desktop, Tablet und Smartphone testen.
+- Kontrast der Beispiele auf der realen Zielanzeige beurteilen.

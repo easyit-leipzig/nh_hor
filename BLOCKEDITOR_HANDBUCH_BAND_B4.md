@@ -1,28 +1,28 @@
-# Blockeditor-Handbuch – Band B.4
+# Blockeditor-Handbuch – Band B, Phase 4
 
-## Professionelle Bildgestaltung
+## Thema
+Bildgestaltung, Bildausschnitt, Overlays und responsive Bilder.
 
-Dieser Projektstand erweitert das integrierte Blockeditor-Handbuch real um Band B.4.
+## Integrierte Kapitel
+1. Bildformate
+2. Bildgrößen und Dateigewicht
+3. Bildpositionen
+4. Bildausschnitt mit `cover`, `contain` und `object-position`
+5. Responsive Bilder
+6. Text-Overlays
+7. Alt-Texte und Barrierefreiheit
+8. Praxisrezepte
+9. Fehlerhilfe
+10. Abschlussprüfung
 
-Enthalten sind:
-
-1. Bildformate WebP, JPEG, PNG und SVG
-2. Bildgröße, Auflösung, Komprimierung und Ladezeit
-3. Bildpositionen in Block-Kacheln
-4. Bildausschnitt mit `cover` und `contain`
-5. Fokuspunkt und `object-position`
-6. Responsive Bildgestaltung für Desktop, Tablet und Smartphone
-7. Text auf Bildern, Overlays und Farbverläufe
-8. Alt-Texte und barrierefreie Bildverwendung
-9. Praxisrezepte und Abschlussprüfung
-
-Geänderte Dateien:
-
+## Geänderte Dateien
 - `admin/homepage_blocks_help.php`
 - `assets/css/homepage-block-help.css`
 
-Neu angelegt:
-
-- `BLOCKEDITOR_HANDBUCH_BAND_B4.md`
-
-Die vorhandene Navigation und Volltextsuche wurden um alle Kapitel von Band B.4 erweitert.
+## Testhinweise
+- Adminbereich öffnen.
+- Homepage-Blöcke aufrufen.
+- Detaillierte Bedienungsanleitung öffnen.
+- In der Navigation die Kapitel B.4.1 bis B.4.10 testen.
+- Suchbegriffe wie `cover`, `Alt-Text`, `Overlay` und `WebP` prüfen.
+- Darstellung bei Desktop-, Tablet- und Smartphonebreite kontrollieren.

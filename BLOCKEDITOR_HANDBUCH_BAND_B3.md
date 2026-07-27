@@ -1,28 +1,32 @@
-# Blockeditor-Handbuch – Band B.3
+# Blockeditor-Handbuch – Band B, Phase 3
 
-## Professionelle Typografie
+## Professionelle Typografie und responsive Textgestaltung
 
-Dieser Projektstand erweitert das integrierte Blockeditor-Handbuch um die reale Phase Band B.3.
-
-Enthalten sind:
+Diese Projektphase erweitert die integrierte Hilfeseite des Homepage-Blockeditors um zehn Kapitel:
 
 1. Typografische Hierarchie
-2. Auswahl geeigneter Schriftarten
-3. Sichere Schriftkombinationen
+2. Schriftwahl
+3. Schriftkombinationen
 4. Responsive Schriftgrößen
-5. Zeilenhöhe, Zeichenabstand und Textbreite
-6. Schriftgewichte und Hervorhebungen
-7. Buttontexte und kurze Handlungsaufforderungen
-8. Typografie-Vorlagen für typische Blockarten
-9. Abschließende Typografieprüfung
+5. Zeilenhöhe
+6. Zeichenabstand
+7. Schriftgewichte
+8. Buttons und Mikrotexte
+9. Typografie-Vorlagen
+10. Abschlussprüfung
 
-Geänderte Dateien:
+## Geänderte Dateien
 
 - `admin/homepage_blocks_help.php`
 - `assets/css/homepage-block-help.css`
 
-Neu angelegt:
+## Bedienung
 
-- `BLOCKEDITOR_HANDBUCH_BAND_B3.md`
+Die Hilfeseite wird im Adminbereich aus der Blockverwaltung oder direkt über `admin/homepage_blocks_help.php` geöffnet. Alle neuen Kapitel sind über die linke Navigation und die Volltextsuche erreichbar.
 
-Die bestehende Navigation und Volltextsuche erfassen die neuen Kapitel automatisch.
+## Technische Leitlinien
+
+- Systemschriften werden als robuste Standardlösung empfohlen.
+- Fließtext bleibt auf Smartphones mindestens 16 px groß.
+- Responsive Größen können mit `clamp()` umgesetzt werden.
+- Die Beispiele berücksichtigen Zeilenhöhe, Zeichenabstand, Schriftgewicht und eindeutige Buttontexte.
