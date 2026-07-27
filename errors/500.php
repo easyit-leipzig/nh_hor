@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 http_response_code(500);
-require __DIR__ . '/../includes/functions.php';
+require_once __DIR__ . '/../includes/functions.php';
 $site = require __DIR__ . '/../config/site.php';
 $pageTitle = 'Technischer Fehler | easyIT Nachhilfe Leipzig';
 $pageDescription = 'Ein technischer Fehler ist aufgetreten.';

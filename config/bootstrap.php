@@ -25,8 +25,11 @@ function config_environment(): string
         return strtolower($configured);
     }
 
-    $host = strtolower((string)($_SERVER['HTTP_HOST'] ?? ''));
-    if ($host === 'localhost' || str_starts_with($host, 'localhost:') || $host === '127.0.0.1' || str_starts_with($host, '127.0.0.1:')) {
+    $host = strtolower((string)($_SERVER['HTTP_HOST'] ?? $_SERVER['SERVER_NAME'] ?? ''));
+    $host = (string)preg_replace('/:\d+$/', '', $host);
+    if (in_array($host, ['localhost', '127.0.0.1', '::1'], true)
+        || str_ends_with($host, '.local')
+        || str_ends_with($host, '.test')) {
         return 'development';
     }
 

@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-require __DIR__ . '/includes/functions.php';
+require_once __DIR__ . '/includes/functions.php';
 $site = require __DIR__ . '/config/site.php';
 $tools = require __DIR__ . '/config/tools.php';
 $pageTitle = 'Kostenlose Lernwerkzeuge | easyIT Nachhilfe Leipzig';

@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-require __DIR__ . '/includes/functions.php';
+require_once __DIR__ . '/includes/functions.php';
 $site = require __DIR__ . '/config/site.php';
 $pageTitle = 'Preise und Ablauf der Nachhilfe in Leipzig | easyIT';
 $pageDescription = 'Transparente Informationen zu Kennenlernen, Einzelunterricht, Prüfungsvorbereitung, Absagen und individueller Vereinbarung bei easyIT Leipzig.';

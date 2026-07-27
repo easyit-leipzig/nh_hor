@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-require __DIR__ . '/includes/functions.php';
+require_once __DIR__ . '/includes/functions.php';
 $site = require __DIR__ . '/config/site.php';
 $pageTitle = 'Methodik der Nachhilfe in Leipzig | Verstehen lernen | easyIT';
 $pageDescription = 'Die easyIT-Methodik verbindet Diagnose, bildhafte Erklärungen, gezielte Fragen, Übung, Recherchekompetenz und eigenständigen Transfer.';

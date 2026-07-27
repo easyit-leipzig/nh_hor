@@ -2,49 +2,38 @@
 declare(strict_types=1);
 
 /**
- * Zentrale, URL-abhängige Konfigurationsauswahl.
+ * Zentrale URL-abhängige Anwendungskonfiguration.
  *
- * Lokal:
- *   - localhost
- *   - 127.0.0.1
- *   - ::1
- *   - Hosts mit .local oder .test
- *
- * Alle anderen Hosts verwenden config.server.php.
+ * Diese Datei darf innerhalb einer Anfrage mehrfach mit require geladen werden.
+ * Sie deklariert deshalb keine Funktionen und hält den ermittelten Wert in
+ * einer globalen Laufzeitablage vor.
  */
 
-function app_detect_host(): string
-{
-    $rawHost = (string) ($_SERVER['HTTP_HOST'] ?? $_SERVER['SERVER_NAME'] ?? '');
-    $host = strtolower(trim($rawHost));
-
-    // IPv6 mit Port, z. B. [::1]:8080
-    if (str_starts_with($host, '[')) {
-        $closingBracket = strpos($host, ']');
-        if ($closingBracket !== false) {
-            return substr($host, 1, $closingBracket - 1);
-        }
-    }
-
-    // Port bei IPv4/Domain entfernen.
-    return (string) preg_replace('/:\d+$/', '', $host);
+if (isset($GLOBALS['EASYIT_APPLICATION_CONFIG']) && is_array($GLOBALS['EASYIT_APPLICATION_CONFIG'])) {
+    return $GLOBALS['EASYIT_APPLICATION_CONFIG'];
 }
 
-function app_is_local_host(string $host): bool
-{
-    if (PHP_SAPI === 'cli') {
-        return true;
-    }
+$rawHost = (string)($_SERVER['HTTP_HOST'] ?? $_SERVER['SERVER_NAME'] ?? '');
+$host = strtolower(trim($rawHost));
 
-    if (in_array($host, ['localhost', '127.0.0.1', '::1'], true)) {
-        return true;
+if (str_starts_with($host, '[')) {
+    $closingBracket = strpos($host, ']');
+    if ($closingBracket !== false) {
+        $host = substr($host, 1, $closingBracket - 1);
     }
-
-    return str_ends_with($host, '.local') || str_ends_with($host, '.test');
+} else {
+    $host = (string)preg_replace('/:\d+$/', '', $host);
 }
 
-$detectedHost = app_detect_host();
-$isLocal = app_is_local_host($detectedHost);
+$forcedEnvironment = strtolower(trim((string)(getenv('APP_ENV') ?: '')));
+$isLocal = in_array($forcedEnvironment, ['local', 'development', 'dev'], true)
+    || ($forcedEnvironment === '' && (
+        PHP_SAPI === 'cli'
+        || in_array($host, ['localhost', '127.0.0.1', '::1'], true)
+        || str_ends_with($host, '.local')
+        || str_ends_with($host, '.test')
+    ));
+
 $configFilename = $isLocal ? 'config.local.php' : 'config.server.php';
 $configPath = __DIR__ . DIRECTORY_SEPARATOR . $configFilename;
 
@@ -58,20 +47,17 @@ if (!is_array($config)) {
 }
 
 $config['environment'] = $isLocal ? 'local' : 'server';
-$config['detected_host'] = $detectedHost;
+$config['detected_host'] = $host;
 $config['loaded_config_file'] = $configFilename;
 
-// Domainabhängige Marke innerhalb derselben Serverkonfiguration.
 $brandKey = 'easyit';
-if (in_array($detectedHost, ['thiele-nachhilfe.de', 'www.thiele-nachhilfe.de'], true)) {
+if (in_array($host, ['thiele-nachhilfe.de', 'www.thiele-nachhilfe.de'], true)) {
     $brandKey = 'thiele';
-} elseif (in_array($detectedHost, ['easyit-nachhilfe.de', 'www.easyit-nachhilfe.de'], true)) {
-    $brandKey = 'easyit';
 }
-
 $config['brand_key'] = $brandKey;
 if (isset($config['brands'][$brandKey]) && is_array($config['brands'][$brandKey])) {
     $config['brand'] = $config['brands'][$brandKey];
 }
 
+$GLOBALS['EASYIT_APPLICATION_CONFIG'] = $config;
 return $config;
