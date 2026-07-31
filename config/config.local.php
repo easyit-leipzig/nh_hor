@@ -6,6 +6,7 @@ return [
     'app' => [
         'name' => 'Nachhilfe Multi-Domain',
         'base_url' => 'http://localhost/nh_hor',
+        'base_path' => '/nh_hor',
         'debug' => true,
         'timezone' => 'Europe/Berlin',
     ],

@@ -27,7 +27,7 @@ $pageRobots = 'noindex,follow';
 <section class="section">
 <span class="eyebrow">Seitensuche</span>
 <h1>Website durchsuchen</h1>
-<form class="card" role="search" action="/suche.php" method="get">
+<form class="card" role="search" action="<?= e(app_path('/suche.php')) ?>" method="get">
   <label for="searchPageInput"><strong>Suchbegriff</strong></label>
   <div class="form-row">
     <input id="searchPageInput" name="q" type="search" value="<?= e($query) ?>" minlength="2" maxlength="100" required autocomplete="off">

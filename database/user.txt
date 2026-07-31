@@ -1,0 +1,7 @@
+admin
+lehrer.thiele
+schueler.lena
+eltern.fischer
+viewer.gast
+
+Passwort: Test1234!

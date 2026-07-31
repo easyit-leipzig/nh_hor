@@ -17,18 +17,38 @@ function app_base_path(): string
         return $basePath;
     }
 
-    $configured = getenv('SITE_BASE_PATH');
-    if (is_string($configured) && trim($configured) !== '') {
-        $basePath = '/' . trim($configured, '/');
+    // 1. Explizite Umgebungsvariable hat höchste Priorität.
+    $environmentPath = getenv('SITE_BASE_PATH');
+    if (is_string($environmentPath) && trim($environmentPath) !== '') {
+        $basePath = '/' . trim($environmentPath, '/');
         return $basePath === '/' ? '' : $basePath;
     }
 
+    // 2. Verbindlicher Pfad aus der URL-abhängigen Hauptkonfiguration.
+    // Lokal steht dort /nh_hor, auf dem Produktivserver ein leerer Pfad.
+    try {
+        $applicationConfig = require __DIR__ . '/../config/config.php';
+        $configuredPath = (string)($applicationConfig['app']['base_path'] ?? '');
+        $configuredPath = trim($configuredPath);
+        if ($configuredPath !== '') {
+            $basePath = '/' . trim($configuredPath, '/');
+            return $basePath === '/' ? '' : $basePath;
+        }
+        if (($applicationConfig['environment'] ?? '') === 'server') {
+            $basePath = '';
+            return $basePath;
+        }
+    } catch (Throwable) {
+        // Die robuste Fallback-Erkennung unten bleibt verfügbar.
+    }
+
+    // 3. Fallback für ältere Installationen ohne base_path-Eintrag.
     $host = strtolower((string)($_SERVER['HTTP_HOST'] ?? ''));
-    $isLocal = $host === 'localhost' || str_starts_with($host, 'localhost:')
-        || $host === '127.0.0.1' || str_starts_with($host, '127.0.0.1:');
+    $hostWithoutPort = (string)preg_replace('/:\\d+$/', '', $host);
+    $isLocal = in_array($hostWithoutPort, ['localhost', '127.0.0.1', '::1'], true);
 
     if ($isLocal) {
-        $scriptName = str_replace('\\', '/', (string)($_SERVER['SCRIPT_NAME'] ?? ''));
+        $scriptName = str_replace('\\\\', '/', (string)($_SERVER['SCRIPT_NAME'] ?? ''));
         if (preg_match('~^(/[^/]+)(?:/|$)~', $scriptName, $match) === 1) {
             $basePath = $match[1];
             return $basePath;

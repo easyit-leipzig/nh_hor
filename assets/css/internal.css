@@ -1,0 +1,23 @@
+
+:root{--internal-blue:#0057a4;--internal-gold:#ffd500;--internal-bg:#f4f6f8;--internal-border:#d8dee6}
+*{box-sizing:border-box}
+body.internal-login-page,body.internal-portal{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--internal-bg);color:#17212b}
+.internal-login{max-width:440px;margin:5rem auto;background:#fff;padding:2rem;border-radius:14px;box-shadow:0 12px 35px rgba(0,0,0,.14)}
+.internal-brand{display:block;text-align:center}.internal-brand img{max-width:180px;height:auto}
+.internal-form label{display:block;font-weight:700;margin-top:1rem}
+.internal-form input{width:100%;padding:.85rem;margin-top:.35rem;border:1px solid var(--internal-border);border-radius:7px}
+.internal-form button{width:100%;margin-top:1.4rem;padding:.9rem;border:0;border-radius:7px;background:var(--internal-gold);font-weight:700;cursor:pointer}
+.internal-alert{padding:.85rem;background:#ffe8e8;border:1px solid #bb2525;border-radius:7px;margin:1rem 0}
+.internal-notice{padding:.85rem;background:#e6f6ea;border:1px solid #23833c;border-radius:7px;margin:1rem 0}
+.internal-topbar{display:flex;justify-content:space-between;align-items:center;padding:1rem 1.5rem;background:var(--internal-blue);color:#fff}
+.internal-topbar a{color:#fff}.internal-topbar__brand{font-size:1.25rem;font-weight:700;text-decoration:none}
+.internal-topbar div{display:flex;gap:1.2rem;align-items:center}
+.internal-shell{display:grid;grid-template-columns:240px minmax(0,1fr);min-height:calc(100vh - 60px)}
+.internal-nav{padding:1rem;background:#fff;border-right:1px solid var(--internal-border)}
+.internal-nav a{display:block;padding:.8rem;border-radius:7px;color:#17212b;text-decoration:none}
+.internal-nav a:hover,.internal-nav a:focus{background:#e9f2fb}
+.internal-main{padding:2rem}
+.internal-hero{background:#fff;padding:1.5rem;border-radius:12px;margin-bottom:1.5rem}
+.internal-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1rem}
+.internal-card{background:#fff;padding:1.25rem;border-radius:12px;border:1px solid var(--internal-border)}
+@media(max-width:760px){.internal-shell{grid-template-columns:1fr}.internal-nav{border-right:0;border-bottom:1px solid var(--internal-border)}.internal-topbar{align-items:flex-start;gap:1rem}.internal-topbar div{flex-direction:column;align-items:flex-end}.internal-main{padding:1rem}}

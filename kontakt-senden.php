@@ -5,6 +5,8 @@ require_once __DIR__ . '/includes/functions.php';
 require_once __DIR__ . '/includes/security.php';
 require_once __DIR__ . '/includes/SmtpMailer.php';
 require_once __DIR__ . '/includes/contact-log.php';
+require_once __DIR__ . '/includes/database.php';
+require_once __DIR__ . '/assets/php/classes/Contacts.php';
 
 $site = require __DIR__ . '/config/site.php';
 $formConfig = require __DIR__ . '/config/forms.php';
@@ -81,7 +83,45 @@ $body = implode("\n", [
 
 $mailSent = false;
 $mailError = null;
+$requestId = null;
 contact_log_cleanup((int)$formConfig['contact_log_retention_days']);
+
+/*
+ * Die Anfrage wird zuerst dauerhaft gespeichert. Der Mailversand ist nur
+ * die Benachrichtigung und darf nicht darüber entscheiden, ob die Anfrage
+ * erhalten bleibt.
+ */
+try {
+    $contacts = new Contacts(db());
+    $levelParts = array_values(array_filter([
+        $data['school_type'],
+        $data['location'] !== '' ? 'Ort/Stadtteil: ' . $data['location'] : '',
+    ], static fn(string $value): bool => $value !== ''));
+
+    $requestId = $contacts->create([
+        'name' => $data['name'],
+        'email' => $data['email'],
+        'phone' => $data['phone'],
+        'subject' => $data['subject'],
+        'level' => implode(' | ', $levelParts),
+        'message' => $data['message'],
+        'source_page' => app_path('/kontakt.php'),
+        'ip_hash' => isset($_SERVER['REMOTE_ADDR']) && $_SERVER['REMOTE_ADDR'] !== ''
+            ? hash('sha256', (string)$_SERVER['REMOTE_ADDR'])
+            : null,
+        'user_agent' => isset($_SERVER['HTTP_USER_AGENT'])
+            ? mb_substr((string)$_SERVER['HTTP_USER_AGENT'], 0, 500)
+            : null,
+    ]);
+    contact_log_event('contact_request_saved', true, 'request_' . $requestId);
+} catch (Throwable $exception) {
+    contact_log_event('contact_request_save_failed', false, substr(preg_replace('/[^a-z0-9]+/i', '_', strtolower($exception->getMessage())) ?? 'database_error', 0, 80));
+    error_log('[easyIT contact database] ' . $exception->getMessage());
+    $_SESSION['contact_errors'] = ['Die Anfrage konnte nicht in der Datenbank gespeichert werden. Bitte versuche es später erneut.'];
+    $_SESSION['contact_old'] = $data;
+    header('Location: ' . app_path('/kontakt.php#kontaktformular'), true, 303);
+    exit;
+}
 
 if ((bool)$formConfig['enable_mail']) {
     try {
@@ -103,11 +143,26 @@ if ((bool)$formConfig['enable_mail']) {
     contact_log_event('contact_mail_disabled', false, 'mail_disabled');
 }
 
+if ($requestId !== null) {
+    try {
+        $contacts->markMailState(
+            $requestId,
+            false,
+            $mailSent,
+            $mailSent ? null : ($mailError ?? 'mail_disabled')
+        );
+    } catch (Throwable $exception) {
+        contact_log_event('contact_mail_state_update_failed', false, 'request_' . $requestId);
+        error_log('[easyIT contact database mail state] ' . $exception->getMessage());
+    }
+}
+
+/*
+ * Auch bei einem Mailfehler ist die Anfrage bereits in contact_requests
+ * gespeichert. Deshalb wird dem Besucher kein Datenverlust vorgetäuscht.
+ */
 if (!$mailSent) {
-    $_SESSION['contact_errors'] = ['Die Nachricht konnte technisch nicht versendet werden. Bitte versuche es später erneut oder nutze Telefon beziehungsweise E-Mail.'];
-    $_SESSION['contact_old'] = $data;
-    header('Location: ' . app_path('/kontakt.php#kontaktformular'), true, 303);
-    exit;
+    contact_log_event('contact_saved_without_notification', true, 'request_' . (string)$requestId);
 }
 
 unset($_SESSION['contact_old'], $_SESSION['contact_errors']);

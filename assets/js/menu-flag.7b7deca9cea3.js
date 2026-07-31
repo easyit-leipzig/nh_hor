@@ -27,7 +27,7 @@
   flag.setAttribute('aria-controls', 'floating-menu-panel');
   flag.setAttribute('aria-label', 'Header und Hauptmenü einblenden');
   flag.title = 'Header und Menü einblenden';
-  flag.innerHTML = '<span class="menu-flag__cloth" aria-hidden="true"><span class="menu-flag__label">MENÜ</span></span>';
+  flag.innerHTML = '<span class="menu-flag__pole" aria-hidden="true"></span><span class="menu-flag__cloth" aria-hidden="true"><span class="menu-flag__label">MENÜ</span></span>';
 
   const panel = document.createElement('section');
   panel.id = 'floating-menu-panel';

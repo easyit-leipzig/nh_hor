@@ -12,6 +12,7 @@
     <p>© <?= date('Y') ?> easyIT</p>
 </footer>
 <script src="<?= e(asset_url('assets/js/app.js')) ?>" defer></script>
+<script src="<?= e(asset_url('assets/js/menu-flag.js')) ?>" defer></script>
 <script src="<?= e(asset_url('assets/js/search-index.js')) ?>" defer></script>
 <script src="<?= e(asset_url('assets/js/search.js')) ?>" defer></script>
 <script src="<?= e(asset_url('assets/js/consent.js')) ?>" defer></script>

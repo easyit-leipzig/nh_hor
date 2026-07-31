@@ -1,0 +1,19 @@
+Überschriebene vorhandene Dateien:
+- includes/header.php
+- admin/includes/auth.php
+- admin/login.php
+- admin/logout.php
+
+Neue Dateien:
+- includes/internal-auth.php
+- admin.php
+- intern/login.php
+- intern/logout.php
+- intern/index.php
+- intern/zugriff-verweigert.php
+- intern/includes/portal-header.php
+- intern/includes/portal-footer.php
+- intern/[rolle]/index.php
+- assets/css/internal.css
+- database/migrations/2026-07-29_unified_internal_login.sql
+- diagnose_rollenlogin.php

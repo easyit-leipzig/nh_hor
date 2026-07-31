@@ -5,6 +5,7 @@ return [
     'app' => [
         'name' => 'Nachhilfe Multi-Domain',
         'base_url' => 'https://www.easyit-nachhilfe.de',
+        'base_path' => '',
         'debug' => false,
         'timezone' => 'Europe/Berlin',
     ],

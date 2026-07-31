@@ -1,0 +1,21 @@
+.easyit-brand__h2{
+    color:#fff;
+    font-size:clamp(1.05rem,1.55vw,1.4rem);
+    font-weight:500;
+    line-height:1.15;
+}
+.easyit-success-link,
+.easyit-success-link:link,
+.easyit-success-link:visited,
+.easyit-success-link:hover,
+.easyit-success-link:active{
+    color:#fff;
+    text-decoration:none;
+    font-weight:700;
+    margin-left:.25em;
+}
+.easyit-success-link:focus-visible{
+    outline:3px solid #ffd500;
+    outline-offset:3px;
+    border-radius:3px;
+}

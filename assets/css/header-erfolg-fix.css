@@ -1,0 +1,19 @@
+.easyit-header{background:#083f70}
+.easyit-header__inner{width:100%;min-height:138px;display:flex;align-items:center;justify-content:space-between;gap:clamp(1.25rem,3vw,3.5rem);padding:18px clamp(18px,4vw,66px);box-sizing:border-box}
+.easyit-brand{display:flex;min-width:0;flex:1 1 auto;align-items:center;gap:clamp(18px,2.5vw,34px);color:#fff}
+.easyit-brand__logo-link{display:block;flex:0 0 auto;color:inherit;text-decoration:none}
+.easyit-brand__logo{width:96px;height:auto;display:block;object-fit:contain}
+.easyit-brand__headings{display:flex;min-width:0;flex-direction:column;justify-content:center;gap:5px}
+.easyit-brand__h1{display:block;color:#fff;font-size:clamp(1.55rem,2.25vw,2.15rem);font-weight:800;line-height:1.08;white-space:nowrap}
+.easyit-brand__h2{display:block;color:#fff;font-size:clamp(1.05rem,1.55vw,1.4rem);font-weight:500;line-height:1.15;white-space:nowrap}
+.easyit-success-link,.easyit-success-link:link,.easyit-success-link:visited,.easyit-success-link:hover,.easyit-success-link:active{display:inline;color:#fff!important;text-decoration:none!important;font-weight:700}
+.easyit-success-link:focus-visible{outline:3px solid #ffd500;outline-offset:3px;border-radius:3px}
+.easyit-header__right{display:flex;flex:0 0 auto;align-items:center;justify-content:flex-end;gap:14px}
+.easyit-header__search{width:clamp(170px,16vw,235px);margin:0;order:1}
+.easyit-header__search input{width:100%;min-height:48px;box-sizing:border-box}
+.easyit-header__actions{display:flex;align-items:center;gap:10px;order:2}
+.easyit-header__actions .header-action{min-height:48px;display:inline-flex;align-items:center;gap:8px;padding:8px 13px;border:1px solid rgba(255,255,255,.42);border-radius:12px;color:#fff;text-decoration:none;white-space:nowrap}
+.easyit-header__actions .header-action:hover{background:rgba(255,255,255,.1)}
+.easyit-header .horizontal-nav{margin:0;border-top:1px solid rgba(255,255,255,.14);border-bottom:2px solid #ffd500;background:linear-gradient(180deg,#0872be 0%,#0065ad 100%)}
+@media(max-width:1050px){.easyit-header__inner{flex-wrap:wrap;min-height:auto;padding-block:16px}.easyit-brand{flex:1 1 520px}.easyit-header__right{flex:1 1 100%}}
+@media(max-width:720px){.easyit-brand__logo{width:72px}.easyit-brand__h1,.easyit-brand__h2{white-space:normal}.easyit-header__right{justify-content:flex-start;flex-wrap:wrap}.easyit-header__search{width:100%;order:1}.easyit-header__actions{order:2}.menu-toggle{margin-left:auto}}

@@ -24,6 +24,11 @@ require __DIR__ . '/includes/header.php';
       <a class="admin-btn" href="<?= admin_e(app_path('/admin/content.php?type=' . rawurlencode($type))) ?>">Verwalten</a>
     </article>
   <?php endforeach; ?>
+  <article class="admin-card">
+    <h2>ANGEBOTE &amp; PREISE</h2>
+    <p>Unterrichtsangebote, Preise, Leistungsmerkmale, Reihenfolge und Veröffentlichung verwalten.</p>
+    <a class="admin-btn" href="<?= admin_e(app_path('/admin/offers.php')) ?>">Verwalten</a>
+  </article>
   <?php if (admin_has_role('admin')): ?>
     <article class="admin-card">
       <h2>KOMMUNIKATION</h2>

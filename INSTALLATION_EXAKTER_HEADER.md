@@ -1,0 +1,1 @@
+ZIP nach C:\\xampp\\htdocs\\ entpacken, Dateien überschreiben, Apache neu starten und Strg+F5 drücken.

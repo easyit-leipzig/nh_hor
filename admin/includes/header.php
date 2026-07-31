@@ -22,6 +22,7 @@ $user = admin_user();
       <a href="<?= admin_e(app_path('/admin/index.php')) ?>">Dashboard</a>
       <a href="<?= admin_e(app_path('/admin/content.php?type=faq')) ?>">FAQ</a>
       <a href="<?= admin_e(app_path('/admin/content.php?type=review')) ?>">Bewertungen</a>
+      <a href="<?= admin_e(app_path('/admin/offers.php')) ?>">Angebote &amp; Preise</a>
       <a href="<?= admin_e(app_path('/admin/content.php?type=job')) ?>">Jobs</a>
       <a href="<?= admin_e(app_path('/admin/content.php?type=blog')) ?>">Blog</a>
       <?php if (admin_has_role('admin')): ?>

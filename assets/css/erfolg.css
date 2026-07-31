@@ -1,0 +1,46 @@
+.erfolg-page{padding-bottom:2rem}
+.erfolg-hero{
+  display:grid;
+  grid-template-columns:minmax(0,1.6fr) minmax(240px,.65fr);
+  gap:clamp(1.5rem,4vw,3.5rem);
+  align-items:center;
+  padding:clamp(1.6rem,4vw,3.4rem);
+  margin-bottom:2rem;
+  border-radius:24px;
+  background:linear-gradient(145deg,#fff,#f3f8ff);
+  box-shadow:0 18px 50px rgba(12,61,116,.10)
+}
+.erfolg-hero h1{margin:.25rem 0 .8rem;color:#0a3d74}
+.erfolg-hero .lead{font-size:clamp(1.15rem,2vw,1.5rem);line-height:1.45}
+.erfolg-quote{
+  display:flex;
+  min-height:230px;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:1.5rem;
+  border-radius:22px;
+  text-align:center;
+  color:#fff;
+  background:linear-gradient(145deg,#0067b8,#0a3d74)
+}
+.erfolg-quote strong{font-size:clamp(3.6rem,8vw,6.5rem);line-height:1}
+.erfolg-quote span{max-width:18rem;margin-top:.75rem;font-weight:700}
+.evidence-grid,.review-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.2rem}
+.evidence-grid article,.review-card,.proof-note{
+  padding:1.35rem;
+  border:1px solid rgba(0,87,164,.16);
+  border-radius:18px;
+  background:#fff;
+  box-shadow:0 10px 30px rgba(12,61,116,.07)
+}
+.evidence-grid strong{display:block;margin-bottom:.45rem;color:#0a3d74;font-size:1.1rem}
+.review-stars{color:#d49b00;letter-spacing:.12em;font-size:1.15rem}
+.review-card blockquote{margin:1rem 0;font-size:1.05rem;line-height:1.65}
+.review-card footer{display:flex;flex-wrap:wrap;gap:.35rem .7rem;color:#5f7184}
+.review-card footer strong{width:100%;color:#17324d}
+.proof-note{margin-top:1.5rem}
+@media(max-width:820px){
+  .erfolg-hero,.evidence-grid,.review-grid{grid-template-columns:1fr}
+  .erfolg-quote{min-height:180px}
+}
